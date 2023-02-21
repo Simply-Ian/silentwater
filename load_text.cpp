@@ -15,7 +15,7 @@ string* load_text(char* path, char* encoding){
         file_size = st.st_size;
     else
         throw runtime_error("Problems with getting access to the file");
-    char* source = new char[file_size];
+    char* source = new char[file_size + 10];
     int i = 0;
     do{
         file.get(buffer);
@@ -23,7 +23,7 @@ string* load_text(char* path, char* encoding){
         i++;
     }
     while (!file.eof());
-    file.close();
+    //file.close();
 
     // Re-encoding
     string* for_return = new string;
