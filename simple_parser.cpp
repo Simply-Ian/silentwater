@@ -36,8 +36,8 @@ struct Walker: pugi::xml_tree_walker{
         vector<style_t> cur_style = {};
         bool is_in_body = false;
 
-        Walker(vector<Fragment> *f, vector<style_t> a){
-            frags = f; cur_style = a;
+        Walker(vector<Fragment> *f){
+            frags = f;
         }
 
         virtual bool for_each(pugi::xml_node& node){
@@ -94,7 +94,7 @@ int main(){
     delete re_opened;
 
     vector<Fragment> fragments;
-    Walker w{&fragments, {}};
+    Walker w{&fragments};
     doc.traverse(w);
     for(Fragment i: fragments){
         cout << (string)i << "\n";

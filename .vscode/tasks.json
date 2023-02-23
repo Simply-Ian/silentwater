@@ -23,17 +23,20 @@
 		},
 		{
 			"type": "cppbuild",
-			"label": "Сборка file_load_test",
+			"label": "Сборка проекта",
 			"command": "/usr/bin/g++",
 			"args": [
 				"-fdiagnostics-color=always",
-				"file_load_test.cpp",
+				"-g",
+				"Controller.cpp",
+				"Model.cpp",
 				"load_text.cpp",
+				"pugixml.cpp",
 				"-o",
-				"file_load_test"
+				"run"
 			],
 			"options": {
-				"cwd": "${fileDirname}"
+				"cwd": "/home/ivan/CppProjects/Fictionizer"
 			},
 			"problemMatcher": [
 				"$gcc"
@@ -62,7 +65,7 @@
 			],
 			"group": {
 				"kind": "build",
-				"isDefault": true
+				"isDefault": false
 			},
 			"detail": "компилятор: /usr/bin/g++"
 		}
