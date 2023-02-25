@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1850"
+   height="1015"
+   viewBox="0 0 489.47916 268.55208"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09, custom)"
+   sodipodi:docname="Макет.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#9b9b9b"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="true"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="false"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showgrid="true"
+     showguides="true"
+     showborder="true"
+     inkscape:zoom="1.0318224"
+     inkscape:cx="1005.9871"
+     inkscape:cy="403.17017"
+     inkscape:window-width="1848"
+     inkscape:window-height="1016"
+     inkscape:window-x="72"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <sodipodi:guide
+       position="5.9332592,248.70593"
+       orientation="0,-1"
+       id="guide9"
+       inkscape:locked="false" />
+    <inkscape:grid
+       type="xygrid"
+       id="grid61"
+       dotted="false"
+       units="px" />
+    <sodipodi:guide
+       position="87.340384,195.09701"
+       orientation="1,0"
+       id="guide63"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="484.31552,223.71269"
+       orientation="1,0"
+       id="guide65"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="92.604165,194.82682"
+       orientation="-1,0"
+       id="guide67"
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,134,229)" />
+    <sodipodi:guide
+       position="244.73958,210.9907"
+       orientation="-1,0"
+       id="guide3032"
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,134,229)" />
+    <sodipodi:guide
+       position="62.373626,5.2916666"
+       orientation="0,1"
+       id="guide3036"
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,134,229)" />
+    <sodipodi:guide
+       position="169.54343,174.65798"
+       orientation="1,0"
+       id="guide868"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="8.7183934,223.93442"
+       orientation="0,-1"
+       id="guide870"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="323.34982,168.03413"
+       orientation="1,0"
+       id="guide872"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="125.52044,28.316611"
+       orientation="0,-1"
+       id="guide874"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#fefefe;fill-opacity:1;stroke:none;stroke-width:0.286642;stroke-opacity:1"
+       id="rect121"
+       width="92.514328"
+       height="248.70833"
+       x="-1.3877788e-17"
+       y="19.84907" />
+    <g
+       id="g5042"
+       transform="matrix(1,0,0,1.0024176,0,-0.0479803)">
+      <rect
+         style="fill:#d2d2d2;fill-opacity:1;stroke:none;stroke-width:0.269503;stroke-opacity:1"
+         id="rect3092"
+         width="5.2657499"
+         height="248.65746"
+         x="87.320427"
+         y="19.846403" />
+    </g>
+    <rect
+       style="fill:#818181;fill-opacity:1;stroke:none;stroke-width:1.48547;stroke-opacity:1"
+       id="rect4467"
+       width="5.2953181"
+       height="77.334694"
+       x="87.322281"
+       y="19.868221" />
+    <g
+       id="g5207">
+      <text
+         xml:space="preserve"
+         style="font-size:7.05556px;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;fill:#818181;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="6.2722645"
+         y="26.439152"
+         id="text5098"><tspan
+           sodipodi:role="line"
+           id="tspan5096"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';stroke-width:0.264583"
+           x="6.2722645"
+           y="26.439152">Введение</tspan></text>
+      <path
+         sodipodi:type="star"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         id="path5202"
+         inkscape:flatsided="false"
+         sodipodi:sides="3"
+         sodipodi:cx="1.2120067"
+         sodipodi:cy="22.68943"
+         sodipodi:r1="2.1634507"
+         sodipodi:r2="1.0817254"
+         sodipodi:arg1="1.5674803"
+         sodipodi:arg2="2.6146779"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="m 1.2191807,24.852869 -0.94217702,-1.619473 -0.942177,-1.619472 1.87359302,-0.0062 1.8735929,-0.0062 -0.9314159,1.625686 z"
+         inkscape:transform-center-x="-0.38186799"
+         inkscape:transform-center-y="-0.036222691"
+         transform="matrix(0.6255761,0.39261957,-0.38175731,0.60826884,12.041871,10.180842)" />
+    </g>
+    <g
+       id="g5207-2"
+       transform="translate(0.40299938,5.0680566)">
+      <text
+         xml:space="preserve"
+         style="font-size:7.05556px;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;fill:#818181;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="6.2722645"
+         y="26.439152"
+         id="text5098-7"><tspan
+           sodipodi:role="line"
+           id="tspan5096-2"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';stroke-width:0.264583"
+           x="6.2722645"
+           y="26.439152">Часть 1</tspan></text>
+      <path
+         sodipodi:type="star"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         id="path5202-2"
+         inkscape:flatsided="false"
+         sodipodi:sides="3"
+         sodipodi:cx="1.2120067"
+         sodipodi:cy="22.68943"
+         sodipodi:r1="2.1634507"
+         sodipodi:r2="1.0817254"
+         sodipodi:arg1="1.5674803"
+         sodipodi:arg2="2.6146779"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="m 1.2191807,24.852869 -0.94217702,-1.619473 -0.942177,-1.619472 1.87359302,-0.0062 1.8735929,-0.0062 -0.9314159,1.625686 z"
+         inkscape:transform-center-x="-0.0069475521"
+         inkscape:transform-center-y="0.38208488"
+         transform="matrix(0.73852037,0.00912423,-0.00887179,0.71808838,3.4444219,8.1538983)" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+       x="9.09972"
+       y="35.727749"
+       id="text5383"><tspan
+         sodipodi:role="line"
+         id="tspan5381"
+         style="font-size:5.64444px;stroke-width:0.264583"
+         x="9.09972"
+         y="35.727749">1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+       x="9.0809155"
+       y="41.116524"
+       id="text5383-5"><tspan
+         sodipodi:role="line"
+         id="tspan5381-9"
+         style="font-size:5.64444px;stroke-width:0.264583"
+         x="9.0809155"
+         y="41.116524">2</tspan></text>
+    <rect
+       style="fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+       id="rect5470"
+       width="489.48056"
+       height="19.863209"
+       x="-0.0028469379"
+       y="-0.033674933" />
+    <rect
+       style="fill:#e0e0e0;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       id="rect8070"
+       width="17.163654"
+       height="17.163654"
+       x="1.1701828"
+       y="1.3364837" />
+    <rect
+       style="fill:#ffffff;stroke:#000000;stroke-width:0.237327;fill-opacity:1"
+       id="rect2014"
+       width="179.54108"
+       height="228.70059"
+       x="154.72926"
+       y="29.751997" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.257333"
+       id="rect1681"
+       width="92.346832"
+       height="248.451"
+       x="397.00366"
+       y="19.614344" />
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#818181;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="399.85217"
+       y="26.53771"
+       id="text1945"><tspan
+         sodipodi:role="line"
+         id="tspan1943"
+         style="stroke-width:0.264583;stroke:none;fill:#818181;fill-opacity:1"
+         x="399.85217"
+         y="26.53771">Закладки</tspan></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.347997;stroke-opacity:1"
+       id="rect2912"
+       width="86.680161"
+       height="102.67667"
+       x="399.97937"
+       y="34.765018" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.255675;stroke-opacity:1"
+       id="rect3122"
+       width="6.0591202"
+       height="102.35283"
+       x="480.30872"
+       y="34.961712" />
+    <g
+       id="g3451">
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.232497;stroke-opacity:1"
+         id="rect3134"
+         width="11.673753"
+         height="11.673753"
+         x="476.07797"
+         y="21.186384" />
+      <text
+         xml:space="preserve"
+         style="font-size:12.8827px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.4831;stroke-opacity:1"
+         x="260.7767"
+         y="52.439991"
+         id="text3188"
+         transform="scale(1.825891,0.54767782)"><tspan
+           sodipodi:role="line"
+           id="tspan3186"
+           style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.4831"
+           x="260.7767"
+           y="52.439991">-</tspan></text>
+    </g>
+    <g
+       id="g3451-6"
+       transform="translate(-13.954751,-0.18924431)">
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.232497;stroke-opacity:1"
+         id="rect3134-7"
+         width="11.673753"
+         height="11.673753"
+         x="476.07797"
+         y="21.186384" />
+      <text
+         xml:space="preserve"
+         style="font-size:11.2889px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="479.32849"
+         y="30.157717"
+         id="text3500"><tspan
+           sodipodi:role="line"
+           id="tspan3498"
+           style="font-size:11.2889px;stroke-width:0.264583"
+           x="479.32849"
+           y="30.157717">+</tspan></text>
+    </g>
+    <g
+       id="g3575">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+         id="rect3554"
+         width="80.215179"
+         height="17.149923"
+         x="399.93188"
+         y="34.386902" />
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+         x="401.53397"
+         y="40.927563"
+         id="text3558"><tspan
+           sodipodi:role="line"
+           id="tspan3556"
+           style="font-size:6.35px;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           x="401.53397"
+           y="40.927563">Заголовок</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+         x="401.43335"
+         y="48.080414"
+         id="text3562"><tspan
+           sodipodi:role="line"
+           id="tspan3560"
+           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono Italic';stroke:none;stroke-width:0.264583"
+           x="401.43335"
+           y="48.080414">Начало текста...</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono Italic';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="458.24374"
+         y="41.003601"
+         id="text3566"><tspan
+           sodipodi:role="line"
+           id="tspan3564"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';stroke-width:0.264583"
+           x="458.24374"
+           y="41.003601">с. 152</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+       x="400.42023"
+       y="148.86775"
+       id="text3579"><tspan
+         sodipodi:role="line"
+         id="tspan3577"
+         style="stroke-width:0.264583"
+         x="400.42023"
+         y="148.86775">Перейти на страницу:</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.253602;stroke-opacity:1"
+       id="rect3581"
+       width="18.398468"
+       height="8.229641"
+       x="464.34378"
+       y="143.37473" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#929292;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+       x="400.5087"
+       y="160.43848"
+       id="text3579-5"><tspan
+         sodipodi:role="line"
+         id="tspan3577-6"
+         style="stroke-width:0.264583;fill:#929292;fill-opacity:1"
+         x="400.5087"
+         y="160.43848">Перейти на %:</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#474747;stroke-width:0.253602;stroke-opacity:1"
+       id="rect3581-2"
+       width="18.398468"
+       height="8.229641"
+       x="464.43225"
+       y="154.94545" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+       x="476.81448"
+       y="148.82887"
+       id="text3676"><tspan
+         sodipodi:role="line"
+         id="tspan3674"
+         style="stroke-width:0.264583;stroke:none;fill:#000000;fill-opacity:1"
+         x="476.81448"
+         y="148.82887">2</tspan></text>
+    <rect
+       style="fill:#fcfcfc;fill-opacity:1;stroke:#000000;stroke-width:0.39687499;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3678"
+       width="83.362396"
+       height="9.274374"
+       x="400.53534"
+       y="164.29962" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.1111px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#fcfcfc;fill-opacity:1;stroke:#000000;stroke-width:0.396875;stroke-dasharray:none;stroke-opacity:1"
+       x="436.43835"
+       y="172.45615"
+       id="text4462"><tspan
+         sodipodi:role="line"
+         id="tspan4460"
+         style="font-size:14.1111px;stroke-width:0.396875"
+         x="436.43835"
+         y="172.45615">=&gt;</tspan></text>
+  </g>
+</svg>

@@ -5,7 +5,7 @@
 #include <map>
 using namespace std;
 
-enum class Styles {BOLD, ITALIC, LINK, HEADER};
+enum Styles {BOLD, ITALIC, LINK, HEADER};
 using style_t = pair<Styles, int>; // Элемент списка стилей
 
 struct Fragment{
