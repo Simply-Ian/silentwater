@@ -58,7 +58,7 @@ vector<Styles> Walker::format_styles(){
     vector<Styles> style;
     for (auto i = cur_style.begin(); i != cur_style.end(); i++)
         style.push_back(i->first);
-            return style;
+        return style;
 }
 
 void Model::load_fb2(char* FILE_NAME){
@@ -96,4 +96,5 @@ void Model::split_into_words(){
         }
     }
     this->fragments = words;
+    this->fragments.erase(this->fragments.begin()); // Обрезаем пустую строку перед первым абзацем
 }
