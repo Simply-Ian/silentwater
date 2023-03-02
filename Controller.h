@@ -15,11 +15,15 @@ class Controller{
     int lineInt = 3;
 
     void build_up_pages();
+    void set_page_num(int new_num);
+    // Для коллбэков GUI-кнопок
+    void turn_page_back();
+    void turn_page_fw();
     void create_word_matrix();
     void draw_page();
 
     public:
-        Controller(){};
+        Controller();
         void load_book(char* path);
         void loop();
 };

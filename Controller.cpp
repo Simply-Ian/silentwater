@@ -3,17 +3,21 @@
 #include <utility>
 #include <iostream>
 
-void Controller::load_book(char* path){
+Controller::Controller(){
+    pageNumberText.setFont(bookFont);
+    pageNumberText.setFillColor(textColor);
+    pageNumberText.setCharacterSize(bookFontSize + 2);
+    pageNumberText.setPosition(sf::Vector2f{view.PAGE_WIDTH - view.RF_WIDTH - 30, view.PAGE_HEIGHT - view.F_HEIGHT + 50});
+    view.leftButton->onPress(&Controller::turn_page_back, this);
+    view.rightButton->onPress(&Controller::turn_page_fw, this);
     bookFont.loadFromFile("Fonts/Georgia.ttf");
+}
+
+void Controller::load_book(char* path){
     model.load_fb2(path);
     model.split_into_words();
     create_word_matrix();
     build_up_pages();
-
-    pageNumberText.setFont(bookFont);
-    pageNumberText.setFillColor(textColor);
-    pageNumberText.setCharacterSize(bookFontSize + 2);
-    pageNumberText.setPosition(sf::Vector2f{view.PAGE_WIDTH - view.RF_WIDTH - 30, view.PAGE_HEIGHT - view.F_HEIGHT + 30});
 }
 
 void Controller::create_word_matrix(){
@@ -46,7 +50,7 @@ void Controller::build_up_pages(){
     sf::Vector2f carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
     for (sf::Text word: word_matrix){
         if (carriage_pos.x + word.getGlobalBounds().width - 1 > line_len_px){
-            if (carriage_pos.y + word.getGlobalBounds().height > view.PAGE_HEIGHT - view.F_HEIGHT){ // Страница заполнена
+            if (carriage_pos.y + word.getGlobalBounds().height >= view.PAGE_HEIGHT - view.F_HEIGHT){ // Страница заполнена
                 pages.push_back(page);
                 page = {};
                 carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
@@ -57,10 +61,26 @@ void Controller::build_up_pages(){
         }
 
         if (word.getString().toAnsiString() == string("&&&")){
-            carriage_pos = {view.LF_WIDTH, carriage_pos.y + 1.5f*(bookFontSize + lineInt)};
+            float new_y = carriage_pos.y + 1.5f*(bookFontSize + lineInt);
+            if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT){
+                carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
+                pages.push_back(page);
+                page = {};
+            }
+            else{
+                carriage_pos = {view.LF_WIDTH, new_y};
+            }
         }
         else if (word.getString().toAnsiString() == string("\n")){
-            carriage_pos = {view.LF_WIDTH, carriage_pos.y + (bookFontSize + lineInt) * 2};
+            float new_y = carriage_pos.y + (bookFontSize + lineInt) * 2;
+            if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT){
+                carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
+                pages.push_back(page);
+                page = {};
+            }
+            else{
+                carriage_pos = {view.LF_WIDTH, new_y};
+            }
         }
         else {
             word.setPosition(carriage_pos);
@@ -69,6 +89,7 @@ void Controller::build_up_pages(){
         }
         // cout << word.getString().toAnsiString();
     }
+    if (page.size() > 0) pages.push_back(page);
 }
 
 void Controller::draw_page(){
@@ -98,7 +119,10 @@ void Controller::loop(){
             else if (event.type == sf::Event::Resized){
                 view.onWinResize(event.size);
             }
-            // cout << event.type << "\n";
+            else if (event.type == sf::Event::KeyPressed){
+                if(event.key.code == sf::Keyboard::Left) set_page_num(cur_page_num - 1);
+                else if(event.key.code == sf::Keyboard::Right) set_page_num(cur_page_num + 1);
+            }
             updateFlag = true;
         }
         if (updateFlag){
@@ -107,6 +131,18 @@ void Controller::loop(){
         }
         sf::sleep(sleep_dur);
     }
+}
+
+void Controller::set_page_num(int new_num){
+    if (new_num >= 0 && new_num < this->pages.size()) this->cur_page_num = new_num;
+}
+
+void Controller::turn_page_back(){
+    if (cur_page_num - 1 >= 0) this->cur_page_num -= 1;
+}
+
+void Controller::turn_page_fw(){
+    if (cur_page_num + 1 < this->pages.size()) this->cur_page_num += 1;
 }
 
 int main(){

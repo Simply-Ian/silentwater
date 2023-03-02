@@ -17,6 +17,8 @@ struct View{
 
     sf::RenderWindow win;
     tgui::GuiSFML gui;
+    tgui::BitmapButton::Ptr leftButton;
+    tgui::BitmapButton::Ptr rightButton;
     sf::RenderTexture page;
     sf::Sprite pageSprite;
 
