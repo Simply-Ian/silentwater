@@ -1,6 +1,6 @@
 #include "Model.h"
 #include "View.h"
-using page_t = vector<sf::Text>;
+using page_t = vector<SWText>;
 
 class Controller{
     Model model;

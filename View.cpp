@@ -47,3 +47,30 @@ void View::update(){
     win.draw(pageSprite);
     win.display();
 }
+
+bool SWText::checkMouseOn(sf::Vector2i pos){
+    sf::FloatRect self_pos = getGlobalBounds();
+    int click_x = parent->SCALE * (pos.x - parent->pageSprite.getPosition().x);
+    int click_y = parent->SCALE * (pos.y - parent->pageSprite.getPosition().y);
+    return (click_x >= self_pos.left && click_x <= self_pos.left + self_pos.width)
+            && (click_y >= self_pos.top && click_y <= self_pos.top + self_pos.height);
+}
+SWText::SWText(View* parent): sf::Text::Text(){
+    this->parent = parent;
+}
+
+void SWText::open_URL(){
+    for (auto i: this->attrs){
+        cout << i.first << " " << i.second << "\n";
+    }
+    string href_name = parent->doc_links_name + ":href";
+    string command = "xdg-open " + this->attrs[href_name];
+    if (this->attrs.count(href_name) != 0){
+        if (this->attrs[href_name].substr(0, 4) == "http")
+            system(command.c_str());
+    }
+}
+
+void SWText::changeCursor(){
+    parent->gui.setOverrideMouseCursor(tgui::Cursor::Type::Hand);
+}

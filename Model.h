@@ -9,9 +9,10 @@ enum Styles {BOLD, ITALIC, LINK, HEADER};
 using style_t = pair<Styles, int>; // Элемент списка стилей
 
 struct Fragment{
-    Fragment(string t, vector<Styles> s){text = t; styles = s;}
+    Fragment(string t, vector<Styles> s, map<string, string> a){text = t; styles = s; attrs = a;}
     string text;
     vector<Styles> styles;
+    map<string, string> attrs;
     int len();
 
     operator string() const;
@@ -19,6 +20,7 @@ struct Fragment{
 
 struct Walker: pugi::xml_tree_walker{
     public:
+        map<string, string> cur_attrs;
         vector<Fragment> *frags;
         vector<style_t> cur_style;
         bool is_in_body = false;
@@ -41,13 +43,14 @@ struct Walker: pugi::xml_tree_walker{
 class Model{
     public:
         vector<Fragment> fragments;
-        Walker w{&fragments};
 
         // Загружает fb2-файл, определяет кодировку, перезагружает файл в Юникод и запускает разбор xml
         void load_fb2(char* FILE_NAME);
         void simple_out();
         void split_into_words();
+        string doc_links_name;
     
     private:
+        Walker w{&fragments};
         pugi::xml_document doc;
 };

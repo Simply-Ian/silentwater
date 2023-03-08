@@ -38,14 +38,18 @@ bool Walker::for_each(pugi::xml_node& node){
         if (names_to_styles.count(node_name) > 0)
             cur_style.push_back(style_t(names_to_styles[node_name], depth()));
         
+        for (pugi::xml_attribute attr: node.attributes()){
+            cur_attrs[attr.name()] = attr.value();
+        }
+
         if (node.type() == pugi::xml_node_type::node_pcdata){
-            frags->push_back(Fragment(node.value(), format_styles()));
+            frags->push_back(Fragment(node.value(), format_styles(), cur_attrs));
         }
         else if (strcmp(node.name(), "empty-line") == 0){
-            frags->push_back(Fragment("\n", format_styles()));
+            frags->push_back(Fragment("\n", format_styles(), {}));
         }
         else if (strcmp(node.name(), "p") == 0){
-            frags->push_back(Fragment("&&&", format_styles()));
+            frags->push_back(Fragment("&&&", format_styles(), {}));
         }
     }
     else{
@@ -69,6 +73,14 @@ void Model::load_fb2(char* FILE_NAME){
     doc.reset();
     result = doc.load_string(re_opened->c_str());
     delete re_opened;
+
+    auto FB = doc.first_element_by_path("/FictionBook");
+    for (pugi::xml_attribute attr: FB.attributes()){
+        if (strcmp(attr.value(), "http://www.w3.org/1999/xlink") == 0){
+            string name = attr.name();
+            doc_links_name = name.substr(6, string::npos);
+        }
+    }
     doc.traverse(w);
 }
 
@@ -86,12 +98,12 @@ void Model::split_into_words(){
             string word;
             while(getline(s, word, ' ')){
                 word += " ";
-                Fragment word_frag{word, i.styles};
+                Fragment word_frag(word, i.styles, i.attrs);
                 words.push_back(word_frag);
             }
         }
         else{
-            Fragment word_frag{"&&&", {}};
+            Fragment word_frag("&&&", {}, {});
             words.push_back(word_frag);
         }
     }
