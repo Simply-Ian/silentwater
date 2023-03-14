@@ -1,0 +1,626 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Silent Water Reader: Класс Controller</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Silent Water Reader
+   &#160;<span id="projectnumber">0.1-dev</span>
+   </div>
+   <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#pri-methods">Закрытые члены</a> &#124;
+<a href="#pri-attribs">Закрытые данные</a> &#124;
+<a href="class_controller-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle">
+<div class="title">Класс Controller</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Класс, управляющий выполнением приложения.  
+ <a href="class_controller.html#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_controller_8h_source.html">Controller.h</a>&gt;</code></p>
+<div class="dynheader">
+Граф связей класса Controller:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_controller__coll__graph.png" border="0" usemap="#_controller_coll__map" alt="Collaboration graph"/></div>
+<center><span class="legend">[<a href="graph_legend.html">см. легенду</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a95c56822d667e94b031451729ce069a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a95c56822d667e94b031451729ce069a9">Controller</a> ()</td></tr>
+<tr class="separator:a95c56822d667e94b031451729ce069a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40503cdc921ff9741a46d1770b9064df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a40503cdc921ff9741a46d1770b9064df">load_book</a> (char *path)</td></tr>
+<tr class="memdesc:a40503cdc921ff9741a46d1770b9064df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Позволяет загрузить fb2-документ по переданному пути.  <a href="class_controller.html#a40503cdc921ff9741a46d1770b9064df">Подробнее...</a><br /></td></tr>
+<tr class="separator:a40503cdc921ff9741a46d1770b9064df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e9df4b25d627926eeea4b223ed61b77"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a4e9df4b25d627926eeea4b223ed61b77">loop</a> ()</td></tr>
+<tr class="memdesc:a4e9df4b25d627926eeea4b223ed61b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция запускает главный GUI-цикл приложения  <a href="class_controller.html#a4e9df4b25d627926eeea4b223ed61b77">Подробнее...</a><br /></td></tr>
+<tr class="separator:a4e9df4b25d627926eeea4b223ed61b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Закрытые члены</h2></td></tr>
+<tr class="memitem:ad25257e04871a5b39fa649398fe73da3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#ad25257e04871a5b39fa649398fe73da3">create_word_matrix</a> ()</td></tr>
+<tr class="memdesc:ad25257e04871a5b39fa649398fe73da3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создает массив <a class="el" href="class_s_w_text.html" title="Класс для отрисовки фрагмента текста на странице книги">SWText</a> с проставленными стилями и навешенными коллбэками на основе model.fragments.  <a href="class_controller.html#ad25257e04871a5b39fa649398fe73da3">Подробнее...</a><br /></td></tr>
+<tr class="separator:ad25257e04871a5b39fa649398fe73da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a590cf75f8bba321f5ed83e6c15a5b98c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a590cf75f8bba321f5ed83e6c15a5b98c">build_up_pages</a> ()</td></tr>
+<tr class="memdesc:a590cf75f8bba321f5ed83e6c15a5b98c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция для верстки страниц книги  <a href="class_controller.html#a590cf75f8bba321f5ed83e6c15a5b98c">Подробнее...</a><br /></td></tr>
+<tr class="separator:a590cf75f8bba321f5ed83e6c15a5b98c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2b2ebf6ac85cf7e44d484b70788c315"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#aa2b2ebf6ac85cf7e44d484b70788c315">set_page_num</a> (int new_num)</td></tr>
+<tr class="memdesc:aa2b2ebf6ac85cf7e44d484b70788c315"><td class="mdescLeft">&#160;</td><td class="mdescRight">Предназначена для перехода на произвольную страницу документа  <a href="class_controller.html#aa2b2ebf6ac85cf7e44d484b70788c315">Подробнее...</a><br /></td></tr>
+<tr class="separator:aa2b2ebf6ac85cf7e44d484b70788c315"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a965525299ba8820b953579402fbb7ec5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a965525299ba8820b953579402fbb7ec5">turn_page_back</a> ()</td></tr>
+<tr class="memdesc:a965525299ba8820b953579402fbb7ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция для перехода на предыдущую страницу книги.  <a href="class_controller.html#a965525299ba8820b953579402fbb7ec5">Подробнее...</a><br /></td></tr>
+<tr class="separator:a965525299ba8820b953579402fbb7ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0aab5ee1b3c8ea266c6cf104e91b3bd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a0aab5ee1b3c8ea266c6cf104e91b3bd2">turn_page_fw</a> ()</td></tr>
+<tr class="memdesc:a0aab5ee1b3c8ea266c6cf104e91b3bd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция для перехода на следущую страницу книги.  <a href="class_controller.html#a0aab5ee1b3c8ea266c6cf104e91b3bd2">Подробнее...</a><br /></td></tr>
+<tr class="separator:a0aab5ee1b3c8ea266c6cf104e91b3bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bdea1caffd93ead69ed05dc34f92cd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a4bdea1caffd93ead69ed05dc34f92cd7">draw_page</a> ()</td></tr>
+<tr class="memdesc:a4bdea1caffd93ead69ed05dc34f92cd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция для рендера текущей страницы на текстуру <a class="el" href="struct_view.html#a68af5763991f41f61e936dadb99a9791" title="Текстура страницы. На ней отрисовывается текст текущей страницы.">View.page</a>.  <a href="class_controller.html#a4bdea1caffd93ead69ed05dc34f92cd7">Подробнее...</a><br /></td></tr>
+<tr class="separator:a4bdea1caffd93ead69ed05dc34f92cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Закрытые данные</h2></td></tr>
+<tr class="memitem:a85523dcb33e36c83c7b412a688fc431f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a85523dcb33e36c83c7b412a688fc431f">model</a></td></tr>
+<tr class="separator:a85523dcb33e36c83c7b412a688fc431f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af14d6d41e296aaf8fa2850bbd1ebab87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_view.html">View</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#af14d6d41e296aaf8fa2850bbd1ebab87">view</a></td></tr>
+<tr class="separator:af14d6d41e296aaf8fa2850bbd1ebab87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a536714f7c34b376c714da9b650be7c2d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__alias.html#ga7153150b299cf930f17d200a89628d88">page_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a536714f7c34b376c714da9b650be7c2d">word_matrix</a></td></tr>
+<tr class="separator:a536714f7c34b376c714da9b650be7c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9df161fe73994ea95fb3564b83e86995"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="group__alias.html#ga7153150b299cf930f17d200a89628d88">page_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a9df161fe73994ea95fb3564b83e86995">pages</a></td></tr>
+<tr class="separator:a9df161fe73994ea95fb3564b83e86995"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ca0fc0d4cd8f2ebd44d8a004f6e3086"><td class="memItemLeft" align="right" valign="top">sf::Font&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a1ca0fc0d4cd8f2ebd44d8a004f6e3086">bookFont</a></td></tr>
+<tr class="separator:a1ca0fc0d4cd8f2ebd44d8a004f6e3086"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74dd9d92d0dac04836c3e135d7bbd51e"><td class="memItemLeft" align="right" valign="top">sf::Text&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a74dd9d92d0dac04836c3e135d7bbd51e">pageNumberText</a></td></tr>
+<tr class="separator:a74dd9d92d0dac04836c3e135d7bbd51e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af86c1a35f02d5e79cd933901cf506175"><td class="memItemLeft" align="right" valign="top">sf::Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#af86c1a35f02d5e79cd933901cf506175">textColor</a> {67, 67, 67}</td></tr>
+<tr class="separator:af86c1a35f02d5e79cd933901cf506175"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a181b7228f34da0ed914a3d10e8d90be5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a181b7228f34da0ed914a3d10e8d90be5">cur_page_num</a> = 0</td></tr>
+<tr class="separator:a181b7228f34da0ed914a3d10e8d90be5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45a433225179ec3c82d63f81796d4503"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a45a433225179ec3c82d63f81796d4503">bookFontSize</a> = 20 * view.SCALE</td></tr>
+<tr class="separator:a45a433225179ec3c82d63f81796d4503"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62aacc61ea3984bca312209c6535bea7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a62aacc61ea3984bca312209c6535bea7">lineInt</a> = 3</td></tr>
+<tr class="separator:a62aacc61ea3984bca312209c6535bea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Класс, управляющий выполнением приложения. </p>
+<p>С вызова его методов <a class="el" href="class_controller.html#a40503cdc921ff9741a46d1770b9064df" title="Позволяет загрузить fb2-документ по переданному пути.">load_book()</a> и <a class="el" href="class_controller.html#a4e9df4b25d627926eeea4b223ed61b77" title="Функция запускает главный GUI-цикл приложения">loop()</a> начинается работа Silent Water. Хранит <a class="el" href="class_model.html">Model</a> и <a class="el" href="struct_view.html" title="Класс, отвечающий за GUI и взаимодействие с пользователем.">View</a> как закрытые поля. Также содержит матрицу слов, вектор сверстанных страниц и данные о внешнем виде текста </p>
+</div><h2 class="groupheader">Конструктор(ы)</h2>
+<a id="a95c56822d667e94b031451729ce069a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95c56822d667e94b031451729ce069a9">&#9670;&nbsp;</a></span>Controller()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::Controller </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Методы</h2>
+<a id="a590cf75f8bba321f5ed83e6c15a5b98c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a590cf75f8bba321f5ed83e6c15a5b98c">&#9670;&nbsp;</a></span>build_up_pages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::build_up_pages </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Функция для верстки страниц книги </p>
+<p>Осуществляет верстку страниц, назначая позиции элементам <a class="el" href="class_s_w_text.html" title="Класс для отрисовки фрагмента текста на странице книги">SWText</a>. Копирует элементы из word_matrix, назначает позиции, упаковывает в <a class="el" href="group__alias.html#ga7153150b299cf930f17d200a89628d88" title="Псевдоним для представления сверстанной страницы текста как вектора с объектами класса SWText.">page_t</a> и добавляет сверстанную страницу в pages </p>
+
+</div>
+</div>
+<a id="ad25257e04871a5b39fa649398fe73da3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad25257e04871a5b39fa649398fe73da3">&#9670;&nbsp;</a></span>create_word_matrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::create_word_matrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Создает массив <a class="el" href="class_s_w_text.html" title="Класс для отрисовки фрагмента текста на странице книги">SWText</a> с проставленными стилями и навешенными коллбэками на основе model.fragments. </p>
+
+</div>
+</div>
+<a id="a4bdea1caffd93ead69ed05dc34f92cd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bdea1caffd93ead69ed05dc34f92cd7">&#9670;&nbsp;</a></span>draw_page()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::draw_page </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Функция для рендера текущей страницы на текстуру <a class="el" href="struct_view.html#a68af5763991f41f61e936dadb99a9791" title="Текстура страницы. На ней отрисовывается текст текущей страницы.">View.page</a>. </p>
+<dl class="section note"><dt>Заметки</dt><dd>Собственно отрисовкой на экран занимается метод <a class="el" href="struct_view.html#a1c98202846728b495760fad0907b8b0f">View.update()</a> </dd></dl>
+
+</div>
+</div>
+<a id="a40503cdc921ff9741a46d1770b9064df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40503cdc921ff9741a46d1770b9064df">&#9670;&nbsp;</a></span>load_book()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::load_book </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Позволяет загрузить fb2-документ по переданному пути. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Путь до fb2-документа </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Предупреждения</dt><dd>Не проверяет валидность пути, если файл не существует, приложение аварийно завершит работу. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Необходимо сделать:</a></b></dt><dd>Добавить обработку ошибок </dd></dl>
+
+</div>
+</div>
+<a id="a4e9df4b25d627926eeea4b223ed61b77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e9df4b25d627926eeea4b223ed61b77">&#9670;&nbsp;</a></span>loop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::loop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Функция запускает главный GUI-цикл приложения </p>
+
+</div>
+</div>
+<a id="aa2b2ebf6ac85cf7e44d484b70788c315"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2b2ebf6ac85cf7e44d484b70788c315">&#9670;&nbsp;</a></span>set_page_num()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::set_page_num </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>new_num</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Предназначена для перехода на произвольную страницу документа </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">new_num</td><td>Номер страницы, на которую нужно перейти </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Необходимо сделать:</a></b></dt><dd>После перехода к хранению легковесных структур в pages эта функция должна стирать предыдущую отрисованную страницу и запускать рендеринг текущей страницы</dd></dl>
+
+</div>
+</div>
+<a id="a965525299ba8820b953579402fbb7ec5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a965525299ba8820b953579402fbb7ec5">&#9670;&nbsp;</a></span>turn_page_back()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::turn_page_back </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Функция для перехода на предыдущую страницу книги. </p>
+<p>Используется как коллбэк для view.leftButton </p>
+
+</div>
+</div>
+<a id="a0aab5ee1b3c8ea266c6cf104e91b3bd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0aab5ee1b3c8ea266c6cf104e91b3bd2">&#9670;&nbsp;</a></span>turn_page_fw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::turn_page_fw </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Функция для перехода на следущую страницу книги. </p>
+<p>Используется как коллбэк для view.leftButton </p>
+
+</div>
+</div>
+<h2 class="groupheader">Данные класса</h2>
+<a id="a1ca0fc0d4cd8f2ebd44d8a004f6e3086"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ca0fc0d4cd8f2ebd44d8a004f6e3086">&#9670;&nbsp;</a></span>bookFont</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::bookFont</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Шрифт, используемый при рендеринге текста книги </p>
+
+</div>
+</div>
+<a id="a45a433225179ec3c82d63f81796d4503"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45a433225179ec3c82d63f81796d4503">&#9670;&nbsp;</a></span>bookFontSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::bookFontSize = 20 * view.SCALE</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Размер шрифта в книге по умолчанию. Учитывает коэффициент разрешения view.SCALE </p>
+
+</div>
+</div>
+<a id="a181b7228f34da0ed914a3d10e8d90be5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a181b7228f34da0ed914a3d10e8d90be5">&#9670;&nbsp;</a></span>cur_page_num</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::cur_page_num = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Номер текущей страницы </p>
+
+</div>
+</div>
+<a id="a62aacc61ea3984bca312209c6535bea7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62aacc61ea3984bca312209c6535bea7">&#9670;&nbsp;</a></span>lineInt</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::lineInt = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Межстрочный интервал </p>
+
+</div>
+</div>
+<a id="a85523dcb33e36c83c7b412a688fc431f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85523dcb33e36c83c7b412a688fc431f">&#9670;&nbsp;</a></span>model</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_model.html">Model</a> Controller::model</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a74dd9d92d0dac04836c3e135d7bbd51e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74dd9d92d0dac04836c3e135d7bbd51e">&#9670;&nbsp;</a></span>pageNumberText</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::pageNumberText</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Текстовая метка, обозначающая номер текущей страницы. Хранится и рендерится отдельно от слов книги. </p>
+
+</div>
+</div>
+<a id="a9df161fe73994ea95fb3564b83e86995"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9df161fe73994ea95fb3564b83e86995">&#9670;&nbsp;</a></span>pages</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; <a class="el" href="group__alias.html#ga7153150b299cf930f17d200a89628d88">page_t</a> &gt; Controller::pages</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Вектор типа page_t, хранящий сверстанные страницы </p>
+
+</div>
+</div>
+<a id="af86c1a35f02d5e79cd933901cf506175"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af86c1a35f02d5e79cd933901cf506175">&#9670;&nbsp;</a></span>textColor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::textColor {67, 67, 67}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Цвет слов текста по умолчанию </p>
+
+</div>
+</div>
+<a id="af14d6d41e296aaf8fa2850bbd1ebab87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af14d6d41e296aaf8fa2850bbd1ebab87">&#9670;&nbsp;</a></span>view</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_view.html">View</a> Controller::view</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a536714f7c34b376c714da9b650be7c2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a536714f7c34b376c714da9b650be7c2d">&#9670;&nbsp;</a></span>word_matrix</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__alias.html#ga7153150b299cf930f17d200a89628d88">page_t</a> Controller::word_matrix</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Вектор, хранящий слова с проставленными стилями </p>
+
+</div>
+</div>
+<hr/>Объявления и описания членов классов находятся в файлах:<ul>
+<li><a class="el" href="_controller_8h_source.html">Controller.h</a></li>
+<li><a class="el" href="_controller_8cpp.html">Controller.cpp</a></li>
+<li>doxyfiles/<a class="el" href="_controller_8dox.html">Controller.dox</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

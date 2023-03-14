@@ -1,0 +1,112 @@
+/*!
+    \file View.h
+    \brief Заголовочный файл, определяющий классы View и SWText
+
+    \class SWText View.h
+    \brief Класс для отрисовки фрагмента текста на странице книги
+    \details Наследует от sf::Text все свойства и методы, предоставляя также свои: способен реагировать на события GUI, хранит атрибуты
+    исходного XML-тега. 
+
+    \var SWText::parent
+    Указатель на родительский объект View
+
+    \var SWText::onClick
+    Callback для события клика мышью. По умолчанию -- пустая lambda, м. б. переопределен из внешнего кода.
+
+    \var SWText::onHover
+    Callback для события "мышь наведена". По умолчанию -- пустая lambda, м. б. переопределен из внешнего кода.
+
+    \var SWText::attrs
+    Словарь с атрибутами исходного XML-тега
+
+    \var SWText::is_clickable
+    Является ли данное слово кликабельным
+
+    \fn SWText::checkMouseOn(sf::Vector2i pos)
+    \brief Функция, проверяющая, наведена ли мышь на это слово. Учитывает коэффициент #parent->SCALE и позицию #parent->pageSprite
+        \param pos Позиция мыши относительно левого верхнего угла окна
+        \returns true, если мышь находится внутри габаритного прямоугольника слова.
+    
+    \fn SWText::open_URL()
+    \brief Открывает в браузере ссылку из словаря attrs
+        Назначается внешним ссылкам, как callback для нажатия. Проверяет, есть ли в словаре attrs ключ <имя ссылок>:href, 
+        получает URL-строку и открывает ее в браузере
+
+    \fn SWText::changeCursor()
+    \brief Меняет курсор на "руку"
+        Назначается внешним ссылкам, как callback для наведения мыши.
+        \warning Для того, чтобы сменить курсор на обычный, вызывается метод внутри Controller::loop()
+    
+*/
+/*!
+    \struct View View.h
+    \brief Класс, отвечающий за GUI и взаимодействие с пользователем.
+    \note View не занимается рендерингом текста книги, однако хранит и использует текстуру, на которой рисуется текст
+    и спрайт страницы. 
+    \see Controller и SWText о рендеринге текста.
+
+    \var const int View::SIDEBAR_WIDTH
+    Ширина в px боковых панелей
+
+    \var int View::PAGE_WIDTH
+    Ширина книжной страницы
+
+    \var int View::PAGE_HEIGHT
+    Высота книжной страницы
+
+    \var int View::SCALE
+    Коэффициент, повышающий разрешение текста. По умолчанию равен 2.
+    \warning <b>Этот коэффициент необходимо учитывать ВСЕГДА, когда вы работаете с позициями слов на странице / 
+    отслеживаете местонахождение мыши на странице / и т. д.</b>
+
+    \var int View::TOP_BAR_HEIGHT
+    Высота верхней панели с кнопками
+
+    \var float View::LF_WIDTH
+    Ширина левого поля на странице
+
+    \var float View::RF_WIDTH
+    Ширина правого поля на странице
+
+    \var View::H_HEIGHT
+    Высота верхнего колонтитула на странице
+
+    \var View::float F_HEIGHT
+    Высота нижнего колонтитула на странице
+
+    \var string View::doc_links_name
+    Префикс для свойства <b>href</b> внутри данного FB2-документа. Передается во View после создания экземпляра класса, 
+    хранится здесь, чтобы объекты SWtext могли самостоятельно запускать переход по ссылке.
+    \see См. <a href="http://www.fictionbook.org/index.php/%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5_%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B0_FB2_%D0%BE%D1%82_Sclex">документацию формата FB2</a>
+
+    \var sf::RenderWindow View::win
+    \brief Главное окно GUI
+
+    \var tgui::GuiSFML View::gui
+    \brief Объект, отвечающий за работу с GUI
+    \see <a href="https://tgui.eu/documentation/0.9/annotated.html">Документацию по библиотеке TGUI</a>
+
+    \var tgui::BitmapButton::Ptr View::leftButton
+    \brief Умный указатель на экранную кнопку "Влево"
+
+    \var tgui::BitmapButton::Ptr View::rightButton
+    \brief Умный указатель на экранную кнопку "Вправо"
+
+    \var sf::RenderTexture View::page
+    \brief Текстура страницы. На ней отрисовывается текст текущей страницы.
+    \see <a href="https://www.sfml-dev.org/documentation/2.5.1/classsf_1_1Texture.php">SFML Texture</a>
+
+    \var sf::Sprite View::pageSprite
+    \brief Спрайт, использующий текстуру page
+    \see <a href="https://www.sfml-dev.org/documentation/2.5.1/classsf_1_1Sprite.php">SFML Sprite</a>
+
+    View();
+    \fn View::onWinResize(sf::Event::SizeEvent new_size)
+    \brief Callback для события "ресайз окна"
+    \warning Сейчас неактивен
+    \todo Переписать
+
+    \fn View::update()
+    Функция, очищающая содержимое окна и рендерящая pageSprite
+    \warning Вызывается из Controller::loop(). Не следует вызывать вручную
+*/

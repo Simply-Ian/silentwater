@@ -51,43 +51,23 @@
 		},
 		{
 			"type": "cppbuild",
-			"label": "Сборка simple_parser",
+			"label": "Сборка проекта для valgrind",
 			"command": "/usr/bin/g++",
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
-				"simple_parser.cpp",
-				"pugixml.cpp",
+				"-O0",
+				"Controller.cpp",
+				"Model.cpp",
+				"View.cpp",
 				"load_text.cpp",
-				"-o",
-				"simple_parser"
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": false
-			},
-			"detail": "компилятор: /usr/bin/g++"
-		},
-		{
-			"type": "cppbuild",
-			"label": "Сборка TGUI tutorial",
-			"command": "/usr/bin/g++",
-			"args": [
-				"-fdiagnostics-color=always",
-				"-g",
-				"tgui_tut.cpp",
-				"-o",
-				"tgui_tut",
+				"pugixml.cpp",
 				"-ltgui",
 				"-lsfml-graphics",
 				"-lsfml-system",
-				"-lsfml-window"
+				"-lsfml-window",
+				"-o",
+				"run"
 			],
 			"options": {
 				"cwd": "/home/ivan/CppProjects/Fictionizer"

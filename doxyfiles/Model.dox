@@ -1,0 +1,29 @@
+/*!
+    \file Model.h
+    \brief Определяет классы Fragment, Walker и Model
+
+    \enum Styles Стили начертания текста
+
+    \typedef style_t
+        \ingroup alias
+        \brief Псевдоним, обозначающий пару <Элемент Styles, глубина тэга>
+    
+    \struct Fragment Model.h
+    \var string Fragment::text
+    Хранит текст фрагмента
+
+    \var vector<Styles> Fragment::styles
+    Хранит стили, назначенные фрагменту
+
+    \var map<string, string> Fragment::attrs
+    Хранит атрибуты исходного XML-тега.
+    \note Перед версткой объекты Fragment, содержащие более одного слова, разбиваются на Fragment-ы, содержащие 1 слово.
+    Каждый из полученных объектов Fragment сохраняет в attrs значение исходного Fragment
+
+    \fn operator Fragment::string() const
+    \brief Строковое представление Fragment
+    \details Возвращает строку вида "<имя_стиля1, имя_стиля2, ...> Текст"
+
+
+
+*/

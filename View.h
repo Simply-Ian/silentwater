@@ -17,7 +17,7 @@ struct View{
     float RF_WIDTH = 15.0 * SCALE;
     float H_HEIGHT = 45.0 * SCALE;
     float F_HEIGHT = 85.0 * SCALE;
-
+    
     string doc_links_name;
 
     sf::RenderWindow win;
@@ -35,6 +35,7 @@ struct View{
 class SWText : public sf::Text{
     View* parent;
     public:
+        
         std::function<void(SWText*)> onClick = [](SWText* t){};
         std::function<void(SWText*)> onHover = [](SWText* t){};
         map<string, string> attrs;

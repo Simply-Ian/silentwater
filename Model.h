@@ -5,7 +5,11 @@
 #include <map>
 using namespace std;
 
-enum Styles {BOLD, ITALIC, LINK, HEADER};
+enum Styles {BOLD, /*!< Полужирное начертание*/
+            ITALIC, /*!< Курсивное начертание*/
+            LINK, /*!< Гиперссылка. Рисуется как подчеркнутый текст синего цвета*/
+            HEADER /*!< Заголовок. Рисуется как полужирный текст размером на 5 пт больше*/
+};
 using style_t = pair<Styles, int>; // Элемент списка стилей
 
 struct Fragment{
@@ -13,7 +17,6 @@ struct Fragment{
     string text;
     vector<Styles> styles;
     map<string, string> attrs;
-    int len();
 
     operator string() const;
 };

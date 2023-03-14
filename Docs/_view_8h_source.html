@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Silent Water Reader: Исходный файл View.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Silent Water Reader
+   &#160;<span id="projectnumber">0.1-dev</span>
+   </div>
+   <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">View.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_view_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;TGUI/Core.hpp&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;TGUI/Backends/SFML.hpp&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;TGUI/AllWidgets.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">using namespace </span>std;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="struct_view.html">   10</a></span>&#160;<span class="keyword">struct </span><a class="code" href="struct_view.html">View</a>{</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="struct_view.html#ad17558054fd553633403723943f62730">   11</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> SIDEBAR_WIDTH = 350;</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="struct_view.html#af90a751b248b7b1716d69a7cd9646d2e">   12</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="struct_view.html#af90a751b248b7b1716d69a7cd9646d2e">PAGE_WIDTH</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="struct_view.html#a8703725f0440d6d7ea3154e5d2c1f0fc">   13</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="struct_view.html#a8703725f0440d6d7ea3154e5d2c1f0fc">PAGE_HEIGHT</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="struct_view.html#aba4282ce61a926c00a1a462acb45a3ab">   14</a></span>&#160;    <span class="keywordtype">int</span> SCALE = 2;</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="struct_view.html#a0240cbd309ed91b6d8562a8f3b3ad67f">   15</a></span>&#160;    <span class="keywordtype">int</span> TOP_BAR_HEIGHT = 75;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="struct_view.html#ad6b54a57b9ff1c7c79882eef7799706b">   16</a></span>&#160;    <span class="keywordtype">float</span> LF_WIDTH = 55.0 * SCALE;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="struct_view.html#a6c974e1567de62eacb8718c01b6f96c4">   17</a></span>&#160;    <span class="keywordtype">float</span> RF_WIDTH = 15.0 * SCALE;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="struct_view.html#ab13dc7a36e66c3a5ae063c03805715b2">   18</a></span>&#160;    <span class="keywordtype">float</span> H_HEIGHT = 45.0 * SCALE;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="struct_view.html#ab4acf2f9808275142941b89c905d4807">   19</a></span>&#160;    <span class="keywordtype">float</span> F_HEIGHT = 85.0 * SCALE;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="struct_view.html#af64152073e23daa4f39f07e5b2be5c08">   21</a></span>&#160;    <span class="keywordtype">string</span> <a class="code" href="struct_view.html#af64152073e23daa4f39f07e5b2be5c08">doc_links_name</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="struct_view.html#a419b69fcca03a481f4f17f7087e38884">   23</a></span>&#160;    sf::RenderWindow <a class="code" href="struct_view.html#a419b69fcca03a481f4f17f7087e38884">win</a>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="struct_view.html#a1b8674d0dbf48ce79d2dd7f9892a7e29">   24</a></span>&#160;    tgui::GuiSFML <a class="code" href="struct_view.html#a1b8674d0dbf48ce79d2dd7f9892a7e29">gui</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="struct_view.html#a2ba7d0d040c4f0eed1e49d6cf5f0e73e">   25</a></span>&#160;    tgui::BitmapButton::Ptr <a class="code" href="struct_view.html#a2ba7d0d040c4f0eed1e49d6cf5f0e73e">leftButton</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="struct_view.html#a37ed015436bb8a3a6ae6dc7d9830d492">   26</a></span>&#160;    tgui::BitmapButton::Ptr <a class="code" href="struct_view.html#a37ed015436bb8a3a6ae6dc7d9830d492">rightButton</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="struct_view.html#a68af5763991f41f61e936dadb99a9791">   27</a></span>&#160;    sf::RenderTexture <a class="code" href="struct_view.html#a68af5763991f41f61e936dadb99a9791">page</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="struct_view.html#a6ba0be57333c9a0d0a5bde990c9b8861">   28</a></span>&#160;    sf::Sprite <a class="code" href="struct_view.html#a6ba0be57333c9a0d0a5bde990c9b8861">pageSprite</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="struct_view.html">View</a>();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> onWinResize(sf::Event::SizeEvent new_size);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> update();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_s_w_text.html">   35</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_s_w_text.html">SWText</a> : <span class="keyword">public</span> sf::Text{</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="class_s_w_text.html#ab58645019d77e953e5828e54dd606a36">   36</a></span>&#160;    <a class="code" href="struct_view.html">View</a>* <a class="code" href="class_s_w_text.html#ab58645019d77e953e5828e54dd606a36">parent</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_s_w_text.html#a09322ab0e63f4d87ef4632fd3423fed2">   39</a></span>&#160;        std::function&lt;void(<a class="code" href="class_s_w_text.html">SWText</a>*)&gt; onClick = [](<a class="code" href="class_s_w_text.html">SWText</a>* t){};</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="class_s_w_text.html#aded00e08d997845e3acf79133cc9eacd">   40</a></span>&#160;        std::function&lt;void(<a class="code" href="class_s_w_text.html">SWText</a>*)&gt; onHover = [](<a class="code" href="class_s_w_text.html">SWText</a>* t){};</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="class_s_w_text.html#a583dddea84e389fa5395022af9b3204f">   41</a></span>&#160;        map&lt;string, string&gt; <a class="code" href="class_s_w_text.html#a583dddea84e389fa5395022af9b3204f">attrs</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="class_s_w_text.html#a19e2c243fc1fece6602220a7a2893a73">   42</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_s_w_text.html#a19e2c243fc1fece6602220a7a2893a73">is_clickable</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <a class="code" href="class_s_w_text.html">SWText</a>(<a class="code" href="struct_view.html">View</a>* parent);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordtype">bool</span> checkMouseOn(sf::Vector2i pos);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordtype">void</span> open_URL();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordtype">void</span> changeCursor();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;};</div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="astruct_view_html_a37ed015436bb8a3a6ae6dc7d9830d492"><div class="ttname"><a href="struct_view.html#a37ed015436bb8a3a6ae6dc7d9830d492">View::rightButton</a></div><div class="ttdeci">tgui::BitmapButton::Ptr rightButton</div><div class="ttdoc">Умный указатель на экранную кнопку &quot;Вправо&quot;.</div><div class="ttdef"><b>Definition:</b> View.h:26</div></div>
+<div class="ttc" id="astruct_view_html"><div class="ttname"><a href="struct_view.html">View</a></div><div class="ttdoc">Класс, отвечающий за GUI и взаимодействие с пользователем.</div><div class="ttdef"><b>Definition:</b> View.h:10</div></div>
+<div class="ttc" id="astruct_view_html_a1b8674d0dbf48ce79d2dd7f9892a7e29"><div class="ttname"><a href="struct_view.html#a1b8674d0dbf48ce79d2dd7f9892a7e29">View::gui</a></div><div class="ttdeci">tgui::GuiSFML gui</div><div class="ttdoc">Объект, отвечающий за работу с GUI.</div><div class="ttdef"><b>Definition:</b> View.h:24</div></div>
+<div class="ttc" id="astruct_view_html_af64152073e23daa4f39f07e5b2be5c08"><div class="ttname"><a href="struct_view.html#af64152073e23daa4f39f07e5b2be5c08">View::doc_links_name</a></div><div class="ttdeci">string doc_links_name</div><div class="ttdef"><b>Definition:</b> View.h:21</div></div>
+<div class="ttc" id="aclass_s_w_text_html"><div class="ttname"><a href="class_s_w_text.html">SWText</a></div><div class="ttdoc">Класс для отрисовки фрагмента текста на странице книги</div><div class="ttdef"><b>Definition:</b> View.h:35</div></div>
+<div class="ttc" id="astruct_view_html_a68af5763991f41f61e936dadb99a9791"><div class="ttname"><a href="struct_view.html#a68af5763991f41f61e936dadb99a9791">View::page</a></div><div class="ttdeci">sf::RenderTexture page</div><div class="ttdoc">Текстура страницы. На ней отрисовывается текст текущей страницы.</div><div class="ttdef"><b>Definition:</b> View.h:27</div></div>
+<div class="ttc" id="astruct_view_html_a419b69fcca03a481f4f17f7087e38884"><div class="ttname"><a href="struct_view.html#a419b69fcca03a481f4f17f7087e38884">View::win</a></div><div class="ttdeci">sf::RenderWindow win</div><div class="ttdoc">Главное окно GUI.</div><div class="ttdef"><b>Definition:</b> View.h:23</div></div>
+<div class="ttc" id="aclass_s_w_text_html_a583dddea84e389fa5395022af9b3204f"><div class="ttname"><a href="class_s_w_text.html#a583dddea84e389fa5395022af9b3204f">SWText::attrs</a></div><div class="ttdeci">map&lt; string, string &gt; attrs</div><div class="ttdef"><b>Definition:</b> View.h:41</div></div>
+<div class="ttc" id="astruct_view_html_a2ba7d0d040c4f0eed1e49d6cf5f0e73e"><div class="ttname"><a href="struct_view.html#a2ba7d0d040c4f0eed1e49d6cf5f0e73e">View::leftButton</a></div><div class="ttdeci">tgui::BitmapButton::Ptr leftButton</div><div class="ttdoc">Умный указатель на экранную кнопку &quot;Влево&quot;.</div><div class="ttdef"><b>Definition:</b> View.h:25</div></div>
+<div class="ttc" id="aclass_s_w_text_html_ab58645019d77e953e5828e54dd606a36"><div class="ttname"><a href="class_s_w_text.html#ab58645019d77e953e5828e54dd606a36">SWText::parent</a></div><div class="ttdeci">View * parent</div><div class="ttdef"><b>Definition:</b> View.h:36</div></div>
+<div class="ttc" id="astruct_view_html_a8703725f0440d6d7ea3154e5d2c1f0fc"><div class="ttname"><a href="struct_view.html#a8703725f0440d6d7ea3154e5d2c1f0fc">View::PAGE_HEIGHT</a></div><div class="ttdeci">int PAGE_HEIGHT</div><div class="ttdef"><b>Definition:</b> View.h:13</div></div>
+<div class="ttc" id="astruct_view_html_af90a751b248b7b1716d69a7cd9646d2e"><div class="ttname"><a href="struct_view.html#af90a751b248b7b1716d69a7cd9646d2e">View::PAGE_WIDTH</a></div><div class="ttdeci">int PAGE_WIDTH</div><div class="ttdef"><b>Definition:</b> View.h:12</div></div>
+<div class="ttc" id="astruct_view_html_a6ba0be57333c9a0d0a5bde990c9b8861"><div class="ttname"><a href="struct_view.html#a6ba0be57333c9a0d0a5bde990c9b8861">View::pageSprite</a></div><div class="ttdeci">sf::Sprite pageSprite</div><div class="ttdoc">Спрайт, использующий текстуру page.</div><div class="ttdef"><b>Definition:</b> View.h:28</div></div>
+<div class="ttc" id="aclass_s_w_text_html_a19e2c243fc1fece6602220a7a2893a73"><div class="ttname"><a href="class_s_w_text.html#a19e2c243fc1fece6602220a7a2893a73">SWText::is_clickable</a></div><div class="ttdeci">bool is_clickable</div><div class="ttdef"><b>Definition:</b> View.h:42</div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

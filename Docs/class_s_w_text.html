@@ -1,0 +1,307 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Silent Water Reader: Класс SWText</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Silent Water Reader
+   &#160;<span id="projectnumber">0.1-dev</span>
+   </div>
+   <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#pub-attribs">Открытые атрибуты</a> &#124;
+<a href="#pri-attribs">Закрытые данные</a> &#124;
+<a href="class_s_w_text-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle">
+<div class="title">Класс SWText</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Класс для отрисовки фрагмента текста на странице книги  
+ <a href="class_s_w_text.html#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_view_8h_source.html">View.h</a>&gt;</code></p>
+<div class="dynheader">
+Граф наследования:SWText:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_s_w_text__inherit__graph.png" border="0" usemap="#_s_w_text_inherit__map" alt="Inheritance graph"/></div>
+<center><span class="legend">[<a href="graph_legend.html">см. легенду</a>]</span></center></div>
+<div class="dynheader">
+Граф связей класса SWText:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_s_w_text__coll__graph.png" border="0" usemap="#_s_w_text_coll__map" alt="Collaboration graph"/></div>
+<center><span class="legend">[<a href="graph_legend.html">см. легенду</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:ad01ec58a14367472a54df9683956c6c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_w_text.html#ad01ec58a14367472a54df9683956c6c6">SWText</a> (<a class="el" href="struct_view.html">View</a> *<a class="el" href="class_s_w_text.html#ab58645019d77e953e5828e54dd606a36">parent</a>)</td></tr>
+<tr class="separator:ad01ec58a14367472a54df9683956c6c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35008562cf91d7aaf074015657c8112b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_w_text.html#a35008562cf91d7aaf074015657c8112b">checkMouseOn</a> (sf::Vector2i pos)</td></tr>
+<tr class="memdesc:a35008562cf91d7aaf074015657c8112b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция, проверяющая, наведена ли мышь на это слово. Учитывает коэффициент <a class="el" href="class_s_w_text.html#ab58645019d77e953e5828e54dd606a36">parent</a>-&gt;SCALE и позицию <a class="el" href="class_s_w_text.html#ab58645019d77e953e5828e54dd606a36">parent</a>-&gt;pageSprite.  <a href="class_s_w_text.html#a35008562cf91d7aaf074015657c8112b">Подробнее...</a><br /></td></tr>
+<tr class="separator:a35008562cf91d7aaf074015657c8112b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1ade5b335a05cd8e504275bc5e678cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_w_text.html#aa1ade5b335a05cd8e504275bc5e678cb">open_URL</a> ()</td></tr>
+<tr class="memdesc:aa1ade5b335a05cd8e504275bc5e678cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Открывает в браузере ссылку из словаря attrs Назначается внешним ссылкам, как callback для нажатия. Проверяет, есть ли в словаре attrs ключ &lt;имя ссылок&gt;:href, получает URL-строку и открывает ее в браузере  <a href="class_s_w_text.html#aa1ade5b335a05cd8e504275bc5e678cb">Подробнее...</a><br /></td></tr>
+<tr class="separator:aa1ade5b335a05cd8e504275bc5e678cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9327cb6d4465ee9352132d431cb4f3f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_w_text.html#a9327cb6d4465ee9352132d431cb4f3f2">changeCursor</a> ()</td></tr>
+<tr class="memdesc:a9327cb6d4465ee9352132d431cb4f3f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Меняет курсор на "руку" Назначается внешним ссылкам, как callback для наведения мыши.  <a href="class_s_w_text.html#a9327cb6d4465ee9352132d431cb4f3f2">Подробнее...</a><br /></td></tr>
+<tr class="separator:a9327cb6d4465ee9352132d431cb4f3f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Открытые атрибуты</h2></td></tr>
+<tr class="memitem:a09322ab0e63f4d87ef4632fd3423fed2"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(<a class="el" href="class_s_w_text.html">SWText</a> *)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_w_text.html#a09322ab0e63f4d87ef4632fd3423fed2">onClick</a> = [](<a class="el" href="class_s_w_text.html">SWText</a>* t){}</td></tr>
+<tr class="separator:a09322ab0e63f4d87ef4632fd3423fed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aded00e08d997845e3acf79133cc9eacd"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(<a class="el" href="class_s_w_text.html">SWText</a> *)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_w_text.html#aded00e08d997845e3acf79133cc9eacd">onHover</a> = [](<a class="el" href="class_s_w_text.html">SWText</a>* t){}</td></tr>
+<tr class="separator:aded00e08d997845e3acf79133cc9eacd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a583dddea84e389fa5395022af9b3204f"><td class="memItemLeft" align="right" valign="top">map&lt; string, string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_w_text.html#a583dddea84e389fa5395022af9b3204f">attrs</a></td></tr>
+<tr class="separator:a583dddea84e389fa5395022af9b3204f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19e2c243fc1fece6602220a7a2893a73"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_w_text.html#a19e2c243fc1fece6602220a7a2893a73">is_clickable</a></td></tr>
+<tr class="separator:a19e2c243fc1fece6602220a7a2893a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Закрытые данные</h2></td></tr>
+<tr class="memitem:ab58645019d77e953e5828e54dd606a36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_w_text.html#ab58645019d77e953e5828e54dd606a36">parent</a></td></tr>
+<tr class="separator:ab58645019d77e953e5828e54dd606a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Класс для отрисовки фрагмента текста на странице книги </p>
+<p>Наследует от sf::Text все свойства и методы, предоставляя также свои: способен реагировать на события GUI, хранит атрибуты исходного XML-тега. </p>
+</div><h2 class="groupheader">Конструктор(ы)</h2>
+<a id="ad01ec58a14367472a54df9683956c6c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad01ec58a14367472a54df9683956c6c6">&#9670;&nbsp;</a></span>SWText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SWText::SWText </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_view.html">View</a> *&#160;</td>
+          <td class="paramname"><em>parent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Методы</h2>
+<a id="a9327cb6d4465ee9352132d431cb4f3f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9327cb6d4465ee9352132d431cb4f3f2">&#9670;&nbsp;</a></span>changeCursor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SWText::changeCursor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Меняет курсор на "руку" Назначается внешним ссылкам, как callback для наведения мыши. </p>
+<dl class="section warning"><dt>Предупреждения</dt><dd>Для того, чтобы сменить курсор на обычный, вызывается метод внутри <a class="el" href="class_controller.html#a4e9df4b25d627926eeea4b223ed61b77" title="Функция запускает главный GUI-цикл приложения">Controller::loop()</a> </dd></dl>
+
+</div>
+</div>
+<a id="a35008562cf91d7aaf074015657c8112b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35008562cf91d7aaf074015657c8112b">&#9670;&nbsp;</a></span>checkMouseOn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SWText::checkMouseOn </td>
+          <td>(</td>
+          <td class="paramtype">sf::Vector2i&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Функция, проверяющая, наведена ли мышь на это слово. Учитывает коэффициент <a class="el" href="class_s_w_text.html#ab58645019d77e953e5828e54dd606a36">parent</a>-&gt;SCALE и позицию <a class="el" href="class_s_w_text.html#ab58645019d77e953e5828e54dd606a36">parent</a>-&gt;pageSprite. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>Позиция мыши относительно левого верхнего угла окна </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>true, если мышь находится внутри габаритного прямоугольника слова. </dd></dl>
+
+</div>
+</div>
+<a id="aa1ade5b335a05cd8e504275bc5e678cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1ade5b335a05cd8e504275bc5e678cb">&#9670;&nbsp;</a></span>open_URL()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SWText::open_URL </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Открывает в браузере ссылку из словаря attrs Назначается внешним ссылкам, как callback для нажатия. Проверяет, есть ли в словаре attrs ключ &lt;имя ссылок&gt;:href, получает URL-строку и открывает ее в браузере </p>
+
+</div>
+</div>
+<h2 class="groupheader">Данные класса</h2>
+<a id="a583dddea84e389fa5395022af9b3204f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a583dddea84e389fa5395022af9b3204f">&#9670;&nbsp;</a></span>attrs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SWText::attrs</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Словарь с атрибутами исходного XML-тега </p>
+
+</div>
+</div>
+<a id="a19e2c243fc1fece6602220a7a2893a73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19e2c243fc1fece6602220a7a2893a73">&#9670;&nbsp;</a></span>is_clickable</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SWText::is_clickable</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Является ли данное слово кликабельным </p>
+
+</div>
+</div>
+<a id="a09322ab0e63f4d87ef4632fd3423fed2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09322ab0e63f4d87ef4632fd3423fed2">&#9670;&nbsp;</a></span>onClick</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SWText::onClick = [](<a class="el" href="class_s_w_text.html">SWText</a>* t){}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Callback для события клика мышью. По умолчанию &ndash; пустая lambda, м. б. переопределен из внешнего кода. </p>
+
+</div>
+</div>
+<a id="aded00e08d997845e3acf79133cc9eacd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aded00e08d997845e3acf79133cc9eacd">&#9670;&nbsp;</a></span>onHover</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SWText::onHover = [](<a class="el" href="class_s_w_text.html">SWText</a>* t){}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Callback для события "мышь наведена". По умолчанию &ndash; пустая lambda, м. б. переопределен из внешнего кода. </p>
+
+</div>
+</div>
+<a id="ab58645019d77e953e5828e54dd606a36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab58645019d77e953e5828e54dd606a36">&#9670;&nbsp;</a></span>parent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">SWText::parent</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Указатель на родительский объект <a class="el" href="struct_view.html" title="Класс, отвечающий за GUI и взаимодействие с пользователем.">View</a> </p>
+
+</div>
+</div>
+<hr/>Объявления и описания членов классов находятся в файлах:<ul>
+<li><a class="el" href="_view_8h_source.html">View.h</a></li>
+<li>doxyfiles/<a class="el" href="_view_8dox.html">View.dox</a></li>
+<li><a class="el" href="_view_8cpp.html">View.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

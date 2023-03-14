@@ -20,12 +20,8 @@ Fragment::operator string() const{
     else return "\n";
 }
 
-int Fragment::len(){
-    return text.size();
-}
-
 Walker::Walker(vector<Fragment> *f){
-    frags = f;
+    frags = f; // Сохраняет ссылку на вектор, куда будут добавляться фрагменты текста
 }
 
 bool Walker::for_each(pugi::xml_node& node){

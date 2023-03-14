@@ -1,0 +1,13 @@
+/*!
+    \mainpage Silent Water Reader
+        \details Silent Water -- находящийся сейчас в разработке ридер fb2 с открытым исходным кодом
+        
+        Использует следующие библиотеки и модули:
+        - pugixml для парсинга FB2
+        - libiconv для чтения файлов в отличных от UTF-8 кодировках
+        - SFML как GUI-Background + отрисовка текста
+        - TGUI для создания GUI
+        \author Simply Ian
+        \version 0.1-dev
+        \date 11.02.23 - 11.03.23 ... and still workin` on!
+*/

@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Silent Water Reader: Исходный файл Controller.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Silent Water Reader
+   &#160;<span id="projectnumber">0.1-dev</span>
+   </div>
+   <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Controller.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_controller_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_model_8h.html">Model.h</a>&quot;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_view_8h.html">View.h</a>&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno"><a class="line" href="group__alias.html#ga7153150b299cf930f17d200a89628d88">    4</a></span>&#160;<span class="keyword">using</span> <a class="code" href="group__alias.html#ga7153150b299cf930f17d200a89628d88">page_t</a> = vector&lt;SWText&gt;;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="class_controller.html">    6</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_controller.html">Controller</a>{</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="class_controller.html#a85523dcb33e36c83c7b412a688fc431f">    7</a></span>&#160;    <a class="code" href="class_model.html">Model</a> <a class="code" href="class_controller.html#a85523dcb33e36c83c7b412a688fc431f">model</a>;</div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="class_controller.html#af14d6d41e296aaf8fa2850bbd1ebab87">    8</a></span>&#160;    <a class="code" href="struct_view.html">View</a> <a class="code" href="class_controller.html#af14d6d41e296aaf8fa2850bbd1ebab87">view</a>;</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_controller.html#a536714f7c34b376c714da9b650be7c2d">    9</a></span>&#160;    <a class="code" href="group__alias.html#ga7153150b299cf930f17d200a89628d88">page_t</a> <a class="code" href="class_controller.html#a536714f7c34b376c714da9b650be7c2d">word_matrix</a>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="class_controller.html#a9df161fe73994ea95fb3564b83e86995">   10</a></span>&#160;    vector &lt;page_t&gt; <a class="code" href="class_controller.html#a9df161fe73994ea95fb3564b83e86995">pages</a>;</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="class_controller.html#a1ca0fc0d4cd8f2ebd44d8a004f6e3086">   11</a></span>&#160;    sf::Font <a class="code" href="class_controller.html#a1ca0fc0d4cd8f2ebd44d8a004f6e3086">bookFont</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_controller.html#a74dd9d92d0dac04836c3e135d7bbd51e">   12</a></span>&#160;    sf::Text <a class="code" href="class_controller.html#a74dd9d92d0dac04836c3e135d7bbd51e">pageNumberText</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_controller.html#af86c1a35f02d5e79cd933901cf506175">   13</a></span>&#160;    sf::Color <a class="code" href="class_controller.html#af86c1a35f02d5e79cd933901cf506175">textColor</a>{67, 67, 67};</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_controller.html#a181b7228f34da0ed914a3d10e8d90be5">   14</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_controller.html#a181b7228f34da0ed914a3d10e8d90be5">cur_page_num</a> = 0;</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_controller.html#a45a433225179ec3c82d63f81796d4503">   15</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_controller.html#a45a433225179ec3c82d63f81796d4503">bookFontSize</a> = 20 * <a class="code" href="class_controller.html#af14d6d41e296aaf8fa2850bbd1ebab87">view</a>.<a class="code" href="struct_view.html#aba4282ce61a926c00a1a462acb45a3ab">SCALE</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_controller.html#a62aacc61ea3984bca312209c6535bea7">   16</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_controller.html#a62aacc61ea3984bca312209c6535bea7">lineInt</a> = 3;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_controller.html#ad25257e04871a5b39fa649398fe73da3">create_word_matrix</a>();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_controller.html#a590cf75f8bba321f5ed83e6c15a5b98c">build_up_pages</a>();</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_controller.html#aa2b2ebf6ac85cf7e44d484b70788c315">set_page_num</a>(<span class="keywordtype">int</span> new_num);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_controller.html#a965525299ba8820b953579402fbb7ec5">turn_page_back</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_controller.html#a0aab5ee1b3c8ea266c6cf104e91b3bd2">turn_page_fw</a>();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_controller.html#a4bdea1caffd93ead69ed05dc34f92cd7">draw_page</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="class_controller.html#a95c56822d667e94b031451729ce069a9">Controller</a>();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_controller.html#a40503cdc921ff9741a46d1770b9064df">load_book</a>(<span class="keywordtype">char</span>* path);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_controller.html#a4e9df4b25d627926eeea4b223ed61b77">loop</a>();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;};</div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclass_controller_html_a95c56822d667e94b031451729ce069a9"><div class="ttname"><a href="class_controller.html#a95c56822d667e94b031451729ce069a9">Controller::Controller</a></div><div class="ttdeci">Controller()</div><div class="ttdef"><b>Definition:</b> Controller.cpp:6</div></div>
+<div class="ttc" id="aclass_controller_html_a590cf75f8bba321f5ed83e6c15a5b98c"><div class="ttname"><a href="class_controller.html#a590cf75f8bba321f5ed83e6c15a5b98c">Controller::build_up_pages</a></div><div class="ttdeci">void build_up_pages()</div><div class="ttdoc">Функция для верстки страниц книги</div><div class="ttdef"><b>Definition:</b> Controller.cpp:54</div></div>
+<div class="ttc" id="aclass_controller_html_a74dd9d92d0dac04836c3e135d7bbd51e"><div class="ttname"><a href="class_controller.html#a74dd9d92d0dac04836c3e135d7bbd51e">Controller::pageNumberText</a></div><div class="ttdeci">sf::Text pageNumberText</div><div class="ttdef"><b>Definition:</b> Controller.h:12</div></div>
+<div class="ttc" id="aclass_controller_html_a9df161fe73994ea95fb3564b83e86995"><div class="ttname"><a href="class_controller.html#a9df161fe73994ea95fb3564b83e86995">Controller::pages</a></div><div class="ttdeci">vector&lt; page_t &gt; pages</div><div class="ttdef"><b>Definition:</b> Controller.h:10</div></div>
+<div class="ttc" id="astruct_view_html"><div class="ttname"><a href="struct_view.html">View</a></div><div class="ttdoc">Класс, отвечающий за GUI и взаимодействие с пользователем.</div><div class="ttdef"><b>Definition:</b> View.h:10</div></div>
+<div class="ttc" id="aclass_controller_html_a4bdea1caffd93ead69ed05dc34f92cd7"><div class="ttname"><a href="class_controller.html#a4bdea1caffd93ead69ed05dc34f92cd7">Controller::draw_page</a></div><div class="ttdeci">void draw_page()</div><div class="ttdoc">Функция для рендера текущей страницы на текстуру View.page.</div><div class="ttdef"><b>Definition:</b> Controller.cpp:101</div></div>
+<div class="ttc" id="aclass_controller_html_a62aacc61ea3984bca312209c6535bea7"><div class="ttname"><a href="class_controller.html#a62aacc61ea3984bca312209c6535bea7">Controller::lineInt</a></div><div class="ttdeci">int lineInt</div><div class="ttdef"><b>Definition:</b> Controller.h:16</div></div>
+<div class="ttc" id="aclass_controller_html_aa2b2ebf6ac85cf7e44d484b70788c315"><div class="ttname"><a href="class_controller.html#aa2b2ebf6ac85cf7e44d484b70788c315">Controller::set_page_num</a></div><div class="ttdeci">void set_page_num(int new_num)</div><div class="ttdoc">Предназначена для перехода на произвольную страницу документа</div><div class="ttdef"><b>Definition:</b> Controller.cpp:164</div></div>
+<div class="ttc" id="aclass_controller_html_af14d6d41e296aaf8fa2850bbd1ebab87"><div class="ttname"><a href="class_controller.html#af14d6d41e296aaf8fa2850bbd1ebab87">Controller::view</a></div><div class="ttdeci">View view</div><div class="ttdef"><b>Definition:</b> Controller.h:8</div></div>
+<div class="ttc" id="aclass_controller_html_a4e9df4b25d627926eeea4b223ed61b77"><div class="ttname"><a href="class_controller.html#a4e9df4b25d627926eeea4b223ed61b77">Controller::loop</a></div><div class="ttdeci">void loop()</div><div class="ttdoc">Функция запускает главный GUI-цикл приложения</div><div class="ttdef"><b>Definition:</b> Controller.cpp:112</div></div>
+<div class="ttc" id="astruct_view_html_aba4282ce61a926c00a1a462acb45a3ab"><div class="ttname"><a href="struct_view.html#aba4282ce61a926c00a1a462acb45a3ab">View::SCALE</a></div><div class="ttdeci">int SCALE</div><div class="ttdef"><b>Definition:</b> View.h:14</div></div>
+<div class="ttc" id="aclass_controller_html_a85523dcb33e36c83c7b412a688fc431f"><div class="ttname"><a href="class_controller.html#a85523dcb33e36c83c7b412a688fc431f">Controller::model</a></div><div class="ttdeci">Model model</div><div class="ttdef"><b>Definition:</b> Controller.h:7</div></div>
+<div class="ttc" id="aclass_controller_html_a0aab5ee1b3c8ea266c6cf104e91b3bd2"><div class="ttname"><a href="class_controller.html#a0aab5ee1b3c8ea266c6cf104e91b3bd2">Controller::turn_page_fw</a></div><div class="ttdeci">void turn_page_fw()</div><div class="ttdoc">Функция для перехода на следущую страницу книги.</div><div class="ttdef"><b>Definition:</b> Controller.cpp:176</div></div>
+<div class="ttc" id="aclass_controller_html_a536714f7c34b376c714da9b650be7c2d"><div class="ttname"><a href="class_controller.html#a536714f7c34b376c714da9b650be7c2d">Controller::word_matrix</a></div><div class="ttdeci">page_t word_matrix</div><div class="ttdef"><b>Definition:</b> Controller.h:9</div></div>
+<div class="ttc" id="aclass_controller_html"><div class="ttname"><a href="class_controller.html">Controller</a></div><div class="ttdoc">Класс, управляющий выполнением приложения.</div><div class="ttdef"><b>Definition:</b> Controller.h:6</div></div>
+<div class="ttc" id="aclass_controller_html_a181b7228f34da0ed914a3d10e8d90be5"><div class="ttname"><a href="class_controller.html#a181b7228f34da0ed914a3d10e8d90be5">Controller::cur_page_num</a></div><div class="ttdeci">int cur_page_num</div><div class="ttdef"><b>Definition:</b> Controller.h:14</div></div>
+<div class="ttc" id="aclass_controller_html_ad25257e04871a5b39fa649398fe73da3"><div class="ttname"><a href="class_controller.html#ad25257e04871a5b39fa649398fe73da3">Controller::create_word_matrix</a></div><div class="ttdeci">void create_word_matrix()</div><div class="ttdoc">Создает массив SWText с проставленными стилями и навешенными коллбэками на основе model....</div><div class="ttdef"><b>Definition:</b> Controller.cpp:27</div></div>
+<div class="ttc" id="a_model_8h_html"><div class="ttname"><a href="_model_8h.html">Model.h</a></div><div class="ttdoc">Определяет классы Fragment, Walker и Model.</div></div>
+<div class="ttc" id="aclass_model_html"><div class="ttname"><a href="class_model.html">Model</a></div><div class="ttdef"><b>Definition:</b> Model.h:46</div></div>
+<div class="ttc" id="aclass_controller_html_a1ca0fc0d4cd8f2ebd44d8a004f6e3086"><div class="ttname"><a href="class_controller.html#a1ca0fc0d4cd8f2ebd44d8a004f6e3086">Controller::bookFont</a></div><div class="ttdeci">sf::Font bookFont</div><div class="ttdef"><b>Definition:</b> Controller.h:11</div></div>
+<div class="ttc" id="a_view_8h_html"><div class="ttname"><a href="_view_8h.html">View.h</a></div><div class="ttdoc">Заголовочный файл, определяющий классы View и SWText.</div></div>
+<div class="ttc" id="agroup__alias_html_ga7153150b299cf930f17d200a89628d88"><div class="ttname"><a href="group__alias.html#ga7153150b299cf930f17d200a89628d88">page_t</a></div><div class="ttdeci">vector&lt; SWText &gt; page_t</div><div class="ttdoc">Псевдоним для представления сверстанной страницы текста как вектора с объектами класса SWText.</div><div class="ttdef"><b>Definition:</b> Controller.h:4</div></div>
+<div class="ttc" id="aclass_controller_html_a45a433225179ec3c82d63f81796d4503"><div class="ttname"><a href="class_controller.html#a45a433225179ec3c82d63f81796d4503">Controller::bookFontSize</a></div><div class="ttdeci">int bookFontSize</div><div class="ttdef"><b>Definition:</b> Controller.h:15</div></div>
+<div class="ttc" id="aclass_controller_html_a40503cdc921ff9741a46d1770b9064df"><div class="ttname"><a href="class_controller.html#a40503cdc921ff9741a46d1770b9064df">Controller::load_book</a></div><div class="ttdeci">void load_book(char *path)</div><div class="ttdoc">Позволяет загрузить fb2-документ по переданному пути.</div><div class="ttdef"><b>Definition:</b> Controller.cpp:18</div></div>
+<div class="ttc" id="aclass_controller_html_af86c1a35f02d5e79cd933901cf506175"><div class="ttname"><a href="class_controller.html#af86c1a35f02d5e79cd933901cf506175">Controller::textColor</a></div><div class="ttdeci">sf::Color textColor</div><div class="ttdef"><b>Definition:</b> Controller.h:13</div></div>
+<div class="ttc" id="aclass_controller_html_a965525299ba8820b953579402fbb7ec5"><div class="ttname"><a href="class_controller.html#a965525299ba8820b953579402fbb7ec5">Controller::turn_page_back</a></div><div class="ttdeci">void turn_page_back()</div><div class="ttdoc">Функция для перехода на предыдущую страницу книги.</div><div class="ttdef"><b>Definition:</b> Controller.cpp:170</div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Silent Water Reader: Жизненный цикл приложения</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Silent Water Reader
+   &#160;<span id="projectnumber">0.1-dev</span>
+   </div>
+   <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="PageDoc"><div class="header">
+  <div class="headertitle">
+<div class="title">Жизненный цикл приложения </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><h1><a class="anchor" id="lifecycle_main"></a>
+Что происходит при запуске приложения?</h1>
+<ol type="1">
+<li><p class="startli">Стартует расположенная в <a class="el" href="_controller_8cpp.html">Controller.cpp</a> функция <a class="el" href="_controller_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main()</a> : </p><div class="fragment"><div class="line"><span class="keywordtype">int</span> <a class="code" href="_controller_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv){</div>
+<div class="line">    <a class="code" href="class_controller.html">Controller</a> cont;</div>
+<div class="line">    <span class="keywordtype">char</span> FILE_NAME[] = <span class="stringliteral">&quot;RedRing.fb2&quot;</span>;</div>
+<div class="line">    cont.<a class="code" href="class_controller.html#a40503cdc921ff9741a46d1770b9064df">load_book</a>(argc == 1? FILE_NAME : argv[1]);</div>
+<div class="line">    cont.<a class="code" href="class_controller.html#a4e9df4b25d627926eeea4b223ed61b77">loop</a>();</div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p> Она создает экземпляр класса <a class="el" href="class_controller.html" title="Класс, управляющий выполнением приложения.">Controller</a>. Конструктор <a class="el" href="class_controller.html#a95c56822d667e94b031451729ce069a9">Controller::Controller()</a> создает и настраивает метку номера страницы, навешивает callback-и экранным кнопкам "вправо" и "влево", загружает шрифт для рендеринга страницы. После этого <a class="el" href="_controller_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main()</a> запускает его метод load_book(): </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> <a class="code" href="class_controller.html#a40503cdc921ff9741a46d1770b9064df">Controller::load_book</a>(<span class="keywordtype">char</span>* path){</div>
+<div class="line">    <a class="code" href="class_controller.html#a85523dcb33e36c83c7b412a688fc431f">model</a>.<a class="code" href="class_model.html#a382562565c2b04943830033c7bc6867c">load_fb2</a>(path);</div>
+<div class="line">    <a class="code" href="class_controller.html#a85523dcb33e36c83c7b412a688fc431f">model</a>.<a class="code" href="class_model.html#a92b3030bb771c2c0121f3599c425ac92">split_into_words</a>();</div>
+<div class="line">    <a class="code" href="class_controller.html#ad25257e04871a5b39fa649398fe73da3">create_word_matrix</a>();</div>
+<div class="line">    <a class="code" href="class_controller.html#a590cf75f8bba321f5ed83e6c15a5b98c">build_up_pages</a>();</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="class_controller.html#af14d6d41e296aaf8fa2850bbd1ebab87">view</a>.<a class="code" href="struct_view.html#af64152073e23daa4f39f07e5b2be5c08">doc_links_name</a> = <a class="code" href="class_controller.html#a85523dcb33e36c83c7b412a688fc431f">model</a>.<a class="code" href="class_model.html#addc6c8120e66de1dc231a5eff2b188ab">doc_links_name</a>;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p> <a class="el" href="class_controller.html#a40503cdc921ff9741a46d1770b9064df" title="Позволяет загрузить fb2-документ по переданному пути.">Controller::load_book()</a> запускает метод <a class="el" href="class_model.html#a382562565c2b04943830033c7bc6867c">Model::load_fb2()</a>.</p><ol type="a">
+<li>Он открывает файл по переданному пути в кодировке по умолчанию, разбирает корневой тег &lt;?xml&gt; и получает информацию о кодировке текста. <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Необходимо сделать:</a></b></dt><dd>Для определения кодировки текста файл должен открываться "вручную", чтобы избежать полного парсинга. Нужно только считать значение одного атрибута тега, расположенного в первой строке. Это можно реализовать без средств pugixml.</dd></dl>
+</li>
+</ol>
+<p class="startli">Затем внутри model::load_fb2() вызывается функция <a class="el" href="load__text_8cpp.html#a2a7f5299a57b0c0947c3a483d525f60c">load_text()</a>. Она снова открывает файл и конвертирует его в UTF-8 с помощью libiconv. Далее происходит XML-парсинг, строится дерево тегов. Определяется префикс ссылок. И, наконец, запускается <a class="el" href="struct_walker.html">Walker</a>.</p><ol type="a">
+<li><a class="el" href="struct_walker.html">Walker</a> рекурсивно обходит все дерево тегов, игнорируя теги вне секции &lt;body&gt; . На каждом шаге он обновляет <a class="el" href="struct_walker.html#ad66b7503a89ae681ea4dd6c02789d14b">Walker::cur_style</a> и <a class="el" href="struct_walker.html#a7b946fed7aae7c3178f823342e5b7bc5">Walker::cur_attrs</a> . Если текущий тег задает стиль для вложенного в него текста или имеет атрибуты, значения стилей сохраняются в <a class="el" href="struct_walker.html#ad66b7503a89ae681ea4dd6c02789d14b">Walker::cur_style</a> с указанием глубины, на которой находится тег; названия и значения атрибутов сохраняются в <a class="el" href="struct_walker.html#a7b946fed7aae7c3178f823342e5b7bc5">Walker::cur_attrs</a>. На каждом шаге из <a class="el" href="struct_walker.html#ad66b7503a89ae681ea4dd6c02789d14b">Walker::cur_style</a> удаляются стили, установленные более глубокими тегами. <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Необходимо сделать:</a></b></dt><dd>Очистка cur_attrs</dd></dl>
+</li>
+</ol>
+</li>
+</ol>
+<p>Дальше срабатывает метод <a class="el" href="class_model.html#a92b3030bb771c2c0121f3599c425ac92">Model::split_into_words()</a>/ Объекты <a class="el" href="struct_fragment.html">Fragment</a>, содержащие более одного слова, для удобства верстки разбиваются на Fragment-ы, содержащие 1 слово. Каждый из полученных объектов <a class="el" href="struct_fragment.html">Fragment</a> сохраняет атрибуты и стили исходного <a class="el" href="struct_fragment.html">Fragment</a> (см. отдельную страницу).</p>
+<ol type="1">
+<li>Выполняется метод <a class="el" href="class_controller.html#ad25257e04871a5b39fa649398fe73da3" title="Создает массив SWText с проставленными стилями и навешенными коллбэками на основе model....">Controller::create_word_matrix()</a>. Для каждого <a class="el" href="struct_fragment.html">Fragment</a> создается объект <a class="el" href="class_s_w_text.html" title="Класс для отрисовки фрагмента текста на странице книги">SWText</a>, оформляется в соответствии с описанными в <a class="el" href="struct_fragment.html#ad7be84af0f1aa5155ce5b4b56f886813">Fragment::styles</a> стилями; ссылкам назначаются функции-callback для событий мыши. Настроенные объекты <a class="el" href="class_s_w_text.html" title="Класс для отрисовки фрагмента текста на странице книги">SWText</a> помещаются в <a class="el" href="class_controller.html#a536714f7c34b376c714da9b650be7c2d">Controller::word_matrix</a> .</li>
+<li>Метод <a class="el" href="class_controller.html#a590cf75f8bba321f5ed83e6c15a5b98c" title="Функция для верстки страниц книги">Controller::build_up_pages()</a> верстает страницы, используя информацию о размере Controller::view::pageSprite. Сверстанные страницы помещаются в <a class="el" href="class_controller.html#a9df161fe73994ea95fb3564b83e86995">Controller::pages</a> .</li>
+<li>Происходит донастройка <a class="el" href="class_controller.html#af14d6d41e296aaf8fa2850bbd1ebab87">Controller::view</a> (во view передается префикс ссылок внутри FB2-документа)</li>
+</ol>
+<p>Запускается <a class="el" href="class_controller.html#a4e9df4b25d627926eeea4b223ed61b77" title="Функция запускает главный GUI-цикл приложения">Controller::loop()</a>. Этот метод берет на себя управление программой. В ней находится главный GUI-цикл </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Необходимо сделать:</a></b></dt><dd>Написать подробнее о <a class="el" href="class_controller.html#a4e9df4b25d627926eeea4b223ed61b77" title="Функция запускает главный GUI-цикл приложения">Controller::loop()</a> </dd></dl>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+<div class="ttc" id="aclass_controller_html_a590cf75f8bba321f5ed83e6c15a5b98c"><div class="ttname"><a href="class_controller.html#a590cf75f8bba321f5ed83e6c15a5b98c">Controller::build_up_pages</a></div><div class="ttdeci">void build_up_pages()</div><div class="ttdoc">Функция для верстки страниц книги</div><div class="ttdef"><b>Definition:</b> Controller.cpp:54</div></div>
+<div class="ttc" id="aclass_controller_html_af14d6d41e296aaf8fa2850bbd1ebab87"><div class="ttname"><a href="class_controller.html#af14d6d41e296aaf8fa2850bbd1ebab87">Controller::view</a></div><div class="ttdeci">View view</div><div class="ttdef"><b>Definition:</b> Controller.h:8</div></div>
+<div class="ttc" id="astruct_view_html_af64152073e23daa4f39f07e5b2be5c08"><div class="ttname"><a href="struct_view.html#af64152073e23daa4f39f07e5b2be5c08">View::doc_links_name</a></div><div class="ttdeci">string doc_links_name</div><div class="ttdef"><b>Definition:</b> View.h:21</div></div>
+<div class="ttc" id="aclass_controller_html_a4e9df4b25d627926eeea4b223ed61b77"><div class="ttname"><a href="class_controller.html#a4e9df4b25d627926eeea4b223ed61b77">Controller::loop</a></div><div class="ttdeci">void loop()</div><div class="ttdoc">Функция запускает главный GUI-цикл приложения</div><div class="ttdef"><b>Definition:</b> Controller.cpp:112</div></div>
+<div class="ttc" id="aclass_controller_html_a85523dcb33e36c83c7b412a688fc431f"><div class="ttname"><a href="class_controller.html#a85523dcb33e36c83c7b412a688fc431f">Controller::model</a></div><div class="ttdeci">Model model</div><div class="ttdef"><b>Definition:</b> Controller.h:7</div></div>
+<div class="ttc" id="aclass_model_html_a382562565c2b04943830033c7bc6867c"><div class="ttname"><a href="class_model.html#a382562565c2b04943830033c7bc6867c">Model::load_fb2</a></div><div class="ttdeci">void load_fb2(char *FILE_NAME)</div><div class="ttdef"><b>Definition:</b> Model.cpp:64</div></div>
+<div class="ttc" id="aclass_controller_html"><div class="ttname"><a href="class_controller.html">Controller</a></div><div class="ttdoc">Класс, управляющий выполнением приложения.</div><div class="ttdef"><b>Definition:</b> Controller.h:6</div></div>
+<div class="ttc" id="aclass_model_html_addc6c8120e66de1dc231a5eff2b188ab"><div class="ttname"><a href="class_model.html#addc6c8120e66de1dc231a5eff2b188ab">Model::doc_links_name</a></div><div class="ttdeci">string doc_links_name</div><div class="ttdef"><b>Definition:</b> Model.h:54</div></div>
+<div class="ttc" id="aclass_controller_html_ad25257e04871a5b39fa649398fe73da3"><div class="ttname"><a href="class_controller.html#ad25257e04871a5b39fa649398fe73da3">Controller::create_word_matrix</a></div><div class="ttdeci">void create_word_matrix()</div><div class="ttdoc">Создает массив SWText с проставленными стилями и навешенными коллбэками на основе model....</div><div class="ttdef"><b>Definition:</b> Controller.cpp:27</div></div>
+<div class="ttc" id="aclass_model_html_a92b3030bb771c2c0121f3599c425ac92"><div class="ttname"><a href="class_model.html#a92b3030bb771c2c0121f3599c425ac92">Model::split_into_words</a></div><div class="ttdeci">void split_into_words()</div><div class="ttdef"><b>Definition:</b> Model.cpp:88</div></div>
+<div class="ttc" id="a_controller_8cpp_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="_controller_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition:</b> Controller.cpp:182</div></div>
+<div class="ttc" id="aclass_controller_html_a40503cdc921ff9741a46d1770b9064df"><div class="ttname"><a href="class_controller.html#a40503cdc921ff9741a46d1770b9064df">Controller::load_book</a></div><div class="ttdeci">void load_book(char *path)</div><div class="ttdoc">Позволяет загрузить fb2-документ по переданному пути.</div><div class="ttdef"><b>Definition:</b> Controller.cpp:18</div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

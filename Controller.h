@@ -1,5 +1,6 @@
 #include "Model.h"
 #include "View.h"
+
 using page_t = vector<SWText>;
 
 class Controller{
@@ -14,12 +15,11 @@ class Controller{
     int bookFontSize = 20 * view.SCALE;
     int lineInt = 3;
 
+    void create_word_matrix();
     void build_up_pages();
     void set_page_num(int new_num);
-    // Для коллбэков GUI-кнопок
     void turn_page_back();
     void turn_page_fw();
-    void create_word_matrix();
     void draw_page();
 
     public:

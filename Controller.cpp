@@ -51,7 +51,6 @@ void Controller::create_word_matrix(){
     }
 }
 
-// Верстка страниц
 void Controller::build_up_pages(){
     page_t page;
     int line_len_px = view.PAGE_WIDTH - view.LF_WIDTH - view.RF_WIDTH;
