@@ -18,48 +18,52 @@ Controller::Controller(){
 void Controller::load_book(char* path){
     model.load_fb2(path);
     model.split_into_words();
-    create_word_matrix();
-    build_up_pages();
+    build_up_pages_from_frags();
+    for (auto frag_it = model.fragments.begin(); frag_it != model.fragments.end(); frag_it++){
+        frag_it->erase();
+    }
+    vector<Fragment>().swap(model.fragments); // Очистка model.fragments с освобождением памяти
 
     view.doc_links_name = model.doc_links_name;
+    set_page_num(0);
 }
 
-void Controller::create_word_matrix(){
-    for (Fragment frag: model.fragments){
-        SWText word(&view);
-        word.setString(sf::String::fromUtf8(frag.text.begin(), frag.text.end()));
-        word.setFont(bookFont);
-        word.setFillColor(textColor);
-        word.setCharacterSize(bookFontSize);
-        word.attrs = frag.attrs;
-        for (Styles style: frag.styles){
-            if (style == Styles::BOLD) word.setStyle(word.getStyle() | sf::Text::Style::Bold);
-            if (style == Styles::HEADER) {
-                word.setStyle(word.getStyle() | sf::Text::Style::Bold);
-                word.setCharacterSize(bookFontSize + 5);
-            }
-            if (style == Styles::ITALIC) word.setStyle(word.getStyle() | sf::Text::Style::Bold);
-            if (style == Styles::LINK){
-                word.setStyle(word.getStyle() | sf::Text::Style::Underlined);
-                word.setFillColor(sf::Color::Blue);
-                word.onClick = &SWText::open_URL;
-                word.onHover = &SWText::changeCursor;
-                word.is_clickable = true;
-            }
+SWText Controller::create_text_from_instance(Fragment frag){
+    SWText word(&view);
+    word.setString(sf::String::fromUtf8(frag.text.begin(), frag.text.end()));
+    word.setFont(bookFont);
+    word.setFillColor(textColor);
+    word.setCharacterSize(bookFontSize);
+    word.attrs = frag.attrs;
+    for (Styles style: frag.styles){
+        if (style == Styles::BOLD) word.setStyle(word.getStyle() | sf::Text::Style::Bold);
+        if (style == Styles::HEADER) {
+            word.setStyle(word.getStyle() | sf::Text::Style::Bold);
+            word.setCharacterSize(bookFontSize + 5);
         }
-        word_matrix.push_back(word);
+        if (style == Styles::ITALIC) word.setStyle(word.getStyle() | sf::Text::Style::Bold);
+        if (style == Styles::LINK){
+            word.setStyle(word.getStyle() | sf::Text::Style::Underlined);
+            word.setFillColor(sf::Color::Blue);
+            word.onClick = &SWText::open_URL;
+            word.onHover = &SWText::changeCursor;
+            word.is_clickable = true;
+        }
     }
+    word.setPosition({static_cast<float>(frag.x), static_cast<float>(frag.y)});
+    return word;
 }
 
-void Controller::build_up_pages(){
-    page_t page;
+void Controller::build_up_pages_from_frags(){
+    vector<Fragment> page;
     int line_len_px = view.PAGE_WIDTH - view.LF_WIDTH - view.RF_WIDTH;
     sf::Vector2f carriage_pos = {view.LF_WIDTH, view.H_HEIGHT}; // Position relative to the lt corner of view.pageSprite
-    for (SWText word: word_matrix){
+    for (Fragment frag: model.fragments){
+        SWText word = create_text_from_instance(frag);
         if (carriage_pos.x + word.getGlobalBounds().width - 1 > line_len_px){
             if (carriage_pos.y + word.getGlobalBounds().height >= view.PAGE_HEIGHT - view.F_HEIGHT){ // Страница заполнена
-                pages.push_back(page);
-                page = {};
+                model.pages.push_back(page);
+                page.clear();
                 carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
             }
             else{
@@ -71,8 +75,8 @@ void Controller::build_up_pages(){
             float new_y = carriage_pos.y + 1.5f*(bookFontSize + lineInt);
             if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT){
                 carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
-                pages.push_back(page);
-                page = {};
+                model.pages.push_back(page);
+                page.clear();
             }
             else{
                 carriage_pos = {view.LF_WIDTH, new_y};
@@ -82,25 +86,26 @@ void Controller::build_up_pages(){
             float new_y = carriage_pos.y + (bookFontSize + lineInt) * 2;
             if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT){
                 carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
-                pages.push_back(page);
-                page = {};
+                model.pages.push_back(page);
+                page.clear();
             }
             else{
                 carriage_pos = {view.LF_WIDTH, new_y};
             }
         }
         else {
-            word.setPosition(carriage_pos);
+            frag.x = carriage_pos.x;
+            frag.y = carriage_pos.y;
             carriage_pos.x += word.getGlobalBounds().width;
-            page.push_back(word);
+            page.push_back(frag);
         }
     }
-    if (page.size() > 0) pages.push_back(page);
+    if (page.size() > 0) model.pages.push_back(page); // Adding the last page of the book.
 }
 
 void Controller::draw_page(){
     view.page.clear(sf::Color::White);
-    for (SWText word: pages[cur_page_num]){
+    for (SWText word: this->cur_page){
         view.page.draw(word);
     }
     pageNumberText.setString(sf::String(to_string(cur_page_num + 1)));
@@ -131,7 +136,7 @@ void Controller::loop(){
                 else if(event.key.code == sf::Keyboard::Right) set_page_num(cur_page_num + 1);
             }
             else if (event.type == sf::Event::MouseButtonPressed){
-                for (SWText word: pages[cur_page_num]){
+                for (SWText word: cur_page){
                     if (word.checkMouseOn({event.mouseButton.x, 
                                         event.mouseButton.y}))
                         word.onClick(&word);
@@ -140,7 +145,7 @@ void Controller::loop(){
             else if (event.type == sf::Event::MouseMoved){
                 if(!eventHandledByTGUI){
                     bool wordHoveredFlag = false;
-                    for (SWText word: pages[cur_page_num]){
+                    for (SWText word: cur_page){
                         if (word.checkMouseOn({event.mouseMove.x, 
                                             event.mouseMove.y})){
                             word.onHover(&word);
@@ -162,21 +167,22 @@ void Controller::loop(){
 }
 
 void Controller::set_page_num(int new_num){
-    if (new_num >= 0 && new_num < this->pages.size()){
-        this->cur_page_num = new_num;
+    if (new_num >= 0 && new_num < this->model.pages.size()){
+        cur_page.clear();
+        cur_page_num = new_num;
+        for (Fragment frag: model.pages[cur_page_num]){
+            SWText cur_word = create_text_from_instance(frag);
+            cur_page.push_back(cur_word);
+        }
     }
 }
 
 void Controller::turn_page_back(){
-    if (cur_page_num - 1 >= 0) {
-        this->cur_page_num -= 1;
-    }
+    set_page_num(cur_page_num - 1);
 }
 
 void Controller::turn_page_fw(){
-    if (cur_page_num + 1 < this->pages.size()){
-        this->cur_page_num += 1;
-    }
+    set_page_num(cur_page_num + 1);
 }
 
 int main(int argc, char** argv){

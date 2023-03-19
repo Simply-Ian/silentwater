@@ -20,6 +20,13 @@ Fragment::operator string() const{
     else return "\n";
 }
 
+void Fragment::erase(){
+    text.clear();
+    text.shrink_to_fit();
+    styles.clear();
+    styles.shrink_to_fit();
+}
+
 Walker::Walker(vector<Fragment> *f){
     frags = f; // Сохраняет ссылку на вектор, куда будут добавляться фрагменты текста
 }
@@ -105,4 +112,11 @@ void Model::split_into_words(){
     }
     this->fragments = words;
     this->fragments.erase(this->fragments.begin()); // Обрезаем пустую строку перед первым абзацем
+}
+
+void Model::clear_fragments(){
+    for (auto frag_it = this->fragments.begin(); frag_it != this->fragments.end(); frag_it++){
+        frag_it->erase();
+    }
+    vector<Fragment>().swap(this->fragments);
 }

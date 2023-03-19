@@ -17,9 +17,14 @@ struct Fragment{
     string text;
     vector<Styles> styles;
     map<string, string> attrs;
+    int x = 0;
+    int y = 0;
 
     operator string() const;
+    void erase();
 };
+
+using matrix_t = vector<vector<Fragment>>;
 
 struct Walker: pugi::xml_tree_walker{
     public:
@@ -46,12 +51,14 @@ struct Walker: pugi::xml_tree_walker{
 class Model{
     public:
         vector<Fragment> fragments;
+        matrix_t pages;
 
         // Загружает fb2-файл, определяет кодировку, перезагружает файл в Юникод и запускает разбор xml
         void load_fb2(char* FILE_NAME);
         void simple_out();
         void split_into_words();
         string doc_links_name;
+        void clear_fragments();
     
     private:
         Walker w{&fragments};
