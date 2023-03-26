@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Silent Water Reader
-   &#160;<span id="projectnumber">0.1-dev</span>
+   &#160;<span id="projectnumber">0.2-dev</span>
    </div>
    <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
   </td>
@@ -74,6 +74,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Класс для парсинга XML средствами pugixml и первичной генерации объектов <a class="el" href="struct_fragment.html">Fragment</a>.  
+ <a href="struct_walker.html#details">Подробнее...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_model_8h_source.html">Model.h</a>&gt;</code></p>
 <div class="dynheader">
 Граф наследования:Walker:</div>
@@ -88,35 +91,47 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Открытые члены</h2></td></tr>
-<tr class="memitem:a2992184c733ca8f3d74229bbe7a86456"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_walker.html#a2992184c733ca8f3d74229bbe7a86456">Walker</a> (vector&lt; <a class="el" href="struct_fragment.html">Fragment</a> &gt; *f)</td></tr>
-<tr class="separator:a2992184c733ca8f3d74229bbe7a86456"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18279e1fbdcbaf2f06d82b163dd43f16"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_walker.html#a18279e1fbdcbaf2f06d82b163dd43f16">Walker</a> (list&lt; <a class="el" href="struct_fragment.html">Fragment</a> &gt; *f)</td></tr>
+<tr class="separator:a18279e1fbdcbaf2f06d82b163dd43f16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a331dd5a5c2ffcddc877a7a63520f299d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_walker.html#a331dd5a5c2ffcddc877a7a63520f299d">for_each</a> (pugi::xml_node &amp;node)</td></tr>
+<tr class="memdesc:a331dd5a5c2ffcddc877a7a63520f299d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция, которая применяется рекурсивно ко всем тегам документа  <a href="struct_walker.html#a331dd5a5c2ffcddc877a7a63520f299d">Подробнее...</a><br /></td></tr>
 <tr class="separator:a331dd5a5c2ffcddc877a7a63520f299d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Открытые атрибуты</h2></td></tr>
-<tr class="memitem:a7b946fed7aae7c3178f823342e5b7bc5"><td class="memItemLeft" align="right" valign="top">map&lt; string, string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_walker.html#a7b946fed7aae7c3178f823342e5b7bc5">cur_attrs</a></td></tr>
-<tr class="separator:a7b946fed7aae7c3178f823342e5b7bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8f63f167786a14e4e57df116a9a9be4"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_fragment.html">Fragment</a> &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_walker.html#ac8f63f167786a14e4e57df116a9a9be4">frags</a></td></tr>
-<tr class="separator:ac8f63f167786a14e4e57df116a9a9be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad66b7503a89ae681ea4dd6c02789d14b"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="group__alias.html#ga16631ac120bee6e7800a2b79f1c175a9">style_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_walker.html#ad66b7503a89ae681ea4dd6c02789d14b">cur_style</a></td></tr>
-<tr class="separator:ad66b7503a89ae681ea4dd6c02789d14b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc9ae9c897f6fa6b8a29ac2e518659e2"><td class="memItemLeft" align="right" valign="top">map&lt; string, <a class="el" href="_model_8h.html#a435736647b2257bae7319b65d11cfce3">attr_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_walker.html#afc9ae9c897f6fa6b8a29ac2e518659e2">cur_attrs</a></td></tr>
+<tr class="memdesc:afc9ae9c897f6fa6b8a29ac2e518659e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Хранит атрибуты текущего тега и всех его родителей.  <a href="struct_walker.html#afc9ae9c897f6fa6b8a29ac2e518659e2">Подробнее...</a><br /></td></tr>
+<tr class="separator:afc9ae9c897f6fa6b8a29ac2e518659e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69af29a9cabb993ef706579447c76052"><td class="memItemLeft" align="right" valign="top">list&lt; <a class="el" href="struct_fragment.html">Fragment</a> &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_walker.html#a69af29a9cabb993ef706579447c76052">frags</a></td></tr>
+<tr class="memdesc:a69af29a9cabb993ef706579447c76052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Указатель на <a class="el" href="class_model.html#ab364d7b6d4cb0d8a8f4118c6892b754d" title="Двусвязный список, хранящий фрагменты текста.">Model::fragments</a>.  <a href="struct_walker.html#a69af29a9cabb993ef706579447c76052">Подробнее...</a><br /></td></tr>
+<tr class="separator:a69af29a9cabb993ef706579447c76052"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4c64e5274f7300e5af6329e4cce4ecb"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="group__alias.html#ga16631ac120bee6e7800a2b79f1c175a9">style_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_walker.html#ac4c64e5274f7300e5af6329e4cce4ecb">cur_style</a></td></tr>
+<tr class="memdesc:ac4c64e5274f7300e5af6329e4cce4ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Хранит стили текущего тега и всех его родителей.  <a href="struct_walker.html#ac4c64e5274f7300e5af6329e4cce4ecb">Подробнее...</a><br /></td></tr>
+<tr class="separator:ac4c64e5274f7300e5af6329e4cce4ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad83297277abff119f2200b2c1c24055e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_walker.html#ad83297277abff119f2200b2c1c24055e">is_in_body</a> = false</td></tr>
+<tr class="memdesc:ad83297277abff119f2200b2c1c24055e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Флаг, позволяющий не интерпретировать метаданные документа как текст собственно книги  <a href="struct_walker.html#ad83297277abff119f2200b2c1c24055e">Подробнее...</a><br /></td></tr>
 <tr class="separator:ad83297277abff119f2200b2c1c24055e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7a5efc53c43059000ef39460303a12a"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_walker.html#ad7a5efc53c43059000ef39460303a12a">doc_links_name</a></td></tr>
+<tr class="memdesc:ad7a5efc53c43059000ef39460303a12a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Префикс имени ссылок, определенный создателем .fb2-документа  <a href="struct_walker.html#ad7a5efc53c43059000ef39460303a12a">Подробнее...</a><br /></td></tr>
+<tr class="separator:ad7a5efc53c43059000ef39460303a12a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Закрытые члены</h2></td></tr>
 <tr class="memitem:ac10d4345cf523835bbd25e987c3abe81"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="_model_8h.html#a7aa3419d0e6ee02d49e91aeca67fc9fd">Styles</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_walker.html#ac10d4345cf523835bbd25e987c3abe81">format_styles</a> ()</td></tr>
 <tr class="separator:ac10d4345cf523835bbd25e987c3abe81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05a3a27ac92d76625599d8370a072431"><td class="memItemLeft" align="right" valign="top">map&lt; string, string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_walker.html#a05a3a27ac92d76625599d8370a072431">format_attrs</a> ()</td></tr>
+<tr class="separator:a05a3a27ac92d76625599d8370a072431"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Закрытые данные</h2></td></tr>
 <tr class="memitem:a652a7d6659ffa53823f0f15c7e6a0016"><td class="memItemLeft" align="right" valign="top">map&lt; string, <a class="el" href="_model_8h.html#a7aa3419d0e6ee02d49e91aeca67fc9fd">Styles</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_walker.html#a652a7d6659ffa53823f0f15c7e6a0016">names_to_styles</a></td></tr>
 <tr class="separator:a652a7d6659ffa53823f0f15c7e6a0016"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Конструктор(ы)</h2>
-<a id="a2992184c733ca8f3d74229bbe7a86456"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2992184c733ca8f3d74229bbe7a86456">&#9670;&nbsp;</a></span>Walker()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Класс для парсинга XML средствами pugixml и первичной генерации объектов <a class="el" href="struct_fragment.html">Fragment</a>. </p>
+</div><h2 class="groupheader">Конструктор(ы)</h2>
+<a id="a18279e1fbdcbaf2f06d82b163dd43f16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18279e1fbdcbaf2f06d82b163dd43f16">&#9670;&nbsp;</a></span>Walker()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -124,7 +139,7 @@ $(function() {
         <tr>
           <td class="memname">Walker::Walker </td>
           <td>(</td>
-          <td class="paramtype">vector&lt; <a class="el" href="struct_fragment.html">Fragment</a> &gt; *&#160;</td>
+          <td class="paramtype">list&lt; <a class="el" href="struct_fragment.html">Fragment</a> &gt; *&#160;</td>
           <td class="paramname"><em>f</em></td><td>)</td>
           <td></td>
         </tr>
@@ -158,6 +173,34 @@ $(function() {
 </table>
 </div><div class="memdoc">
 
+<p>Функция, которая применяется рекурсивно ко всем тегам документа </p>
+<p>Для каждого тега, содержащего текст или задающего пустую линию, создает <a class="el" href="struct_fragment.html">Fragment</a>, назначает ему стили и атрибуты; после этого добавляет <a class="el" href="struct_fragment.html">Fragment</a> в <a class="el" href="class_model.html#ab364d7b6d4cb0d8a8f4118c6892b754d" title="Двусвязный список, хранящий фрагменты текста.">Model::fragments</a> </p><dl class="section see"><dt>См. также</dt><dd><a class="el" href="lifecycle.html">Жизненный цикл приложения</a> </dd></dl>
+
+</div>
+</div>
+<a id="a05a3a27ac92d76625599d8370a072431"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05a3a27ac92d76625599d8370a072431">&#9670;&nbsp;</a></span>format_attrs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">map&lt; string, string &gt; Walker::format_attrs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 <a id="ac10d4345cf523835bbd25e987c3abe81"></a>
@@ -186,45 +229,68 @@ $(function() {
 </div>
 </div>
 <h2 class="groupheader">Данные класса</h2>
-<a id="a7b946fed7aae7c3178f823342e5b7bc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b946fed7aae7c3178f823342e5b7bc5">&#9670;&nbsp;</a></span>cur_attrs</h2>
+<a id="afc9ae9c897f6fa6b8a29ac2e518659e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc9ae9c897f6fa6b8a29ac2e518659e2">&#9670;&nbsp;</a></span>cur_attrs</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">map&lt;string, string&gt; Walker::cur_attrs</td>
+          <td class="memname">map&lt; string, <a class="el" href="_model_8h.html#a435736647b2257bae7319b65d11cfce3">attr_t</a> &gt; Walker::cur_attrs</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Хранит атрибуты текущего тега и всех его родителей. </p>
+<dl class="section note"><dt>Заметки</dt><dd>В целях экономии оперативной памяти (а std::map весьма прожорлив) сохраняется только атрибут *:href . При необходимости будет добавлено сохранение и других атрибутов. </dd></dl>
+
 </div>
 </div>
-<a id="ad66b7503a89ae681ea4dd6c02789d14b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad66b7503a89ae681ea4dd6c02789d14b">&#9670;&nbsp;</a></span>cur_style</h2>
+<a id="ac4c64e5274f7300e5af6329e4cce4ecb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4c64e5274f7300e5af6329e4cce4ecb">&#9670;&nbsp;</a></span>cur_style</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt;<a class="el" href="group__alias.html#ga16631ac120bee6e7800a2b79f1c175a9">style_t</a>&gt; Walker::cur_style</td>
+          <td class="memname">vector&lt; <a class="el" href="group__alias.html#ga16631ac120bee6e7800a2b79f1c175a9">style_t</a> &gt; Walker::cur_style</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Хранит стили текущего тега и всех его родителей. </p>
+
 </div>
 </div>
-<a id="ac8f63f167786a14e4e57df116a9a9be4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8f63f167786a14e4e57df116a9a9be4">&#9670;&nbsp;</a></span>frags</h2>
+<a id="ad7a5efc53c43059000ef39460303a12a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7a5efc53c43059000ef39460303a12a">&#9670;&nbsp;</a></span>doc_links_name</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt;<a class="el" href="struct_fragment.html">Fragment</a>&gt;* Walker::frags</td>
+          <td class="memname">string Walker::doc_links_name</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Префикс имени ссылок, определенный создателем .fb2-документа </p>
+
+</div>
+</div>
+<a id="a69af29a9cabb993ef706579447c76052"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69af29a9cabb993ef706579447c76052">&#9670;&nbsp;</a></span>frags</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">list&lt; <a class="el" href="struct_fragment.html">Fragment</a> &gt; * Walker::frags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Указатель на <a class="el" href="class_model.html#ab364d7b6d4cb0d8a8f4118c6892b754d" title="Двусвязный список, хранящий фрагменты текста.">Model::fragments</a>. </p>
 
 </div>
 </div>
@@ -239,6 +305,8 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Флаг, позволяющий не интерпретировать метаданные документа как текст собственно книги </p>
 
 </div>
 </div>
@@ -272,13 +340,14 @@ $(function() {
 </div>
 <hr/>Объявления и описания членов структур находятся в файлах:<ul>
 <li><a class="el" href="_model_8h_source.html">Model.h</a></li>
+<li>doxyfiles/<a class="el" href="_model_8dox.html">Model.dox</a></li>
 <li><a class="el" href="_model_8cpp.html">Model.cpp</a></li>
 </ul>
 </div><!-- contents -->
-<div class="ttc" id="a_model_8h_html_a7aa3419d0e6ee02d49e91aeca67fc9fda2e57918a09d25b07a664e505d50a97f6"><div class="ttname"><a href="_model_8h.html#a7aa3419d0e6ee02d49e91aeca67fc9fda2e57918a09d25b07a664e505d50a97f6">HEADER</a></div><div class="ttdeci">@ HEADER</div><div class="ttdef"><b>Definition:</b> Model.h:11</div></div>
-<div class="ttc" id="a_model_8h_html_a7aa3419d0e6ee02d49e91aeca67fc9fda39fc1130a1e2c8f8c1ad3deee8c0c5dc"><div class="ttname"><a href="_model_8h.html#a7aa3419d0e6ee02d49e91aeca67fc9fda39fc1130a1e2c8f8c1ad3deee8c0c5dc">BOLD</a></div><div class="ttdeci">@ BOLD</div><div class="ttdef"><b>Definition:</b> Model.h:8</div></div>
-<div class="ttc" id="a_model_8h_html_a7aa3419d0e6ee02d49e91aeca67fc9fdac1005585401f6364dc82967ecf313617"><div class="ttname"><a href="_model_8h.html#a7aa3419d0e6ee02d49e91aeca67fc9fdac1005585401f6364dc82967ecf313617">ITALIC</a></div><div class="ttdeci">@ ITALIC</div><div class="ttdef"><b>Definition:</b> Model.h:9</div></div>
-<div class="ttc" id="a_model_8h_html_a7aa3419d0e6ee02d49e91aeca67fc9fdaf2fe1bf26da6f8a451f054e30b3ce0f3"><div class="ttname"><a href="_model_8h.html#a7aa3419d0e6ee02d49e91aeca67fc9fdaf2fe1bf26da6f8a451f054e30b3ce0f3">LINK</a></div><div class="ttdeci">@ LINK</div><div class="ttdef"><b>Definition:</b> Model.h:10</div></div>
+<div class="ttc" id="a_model_8h_html_a7aa3419d0e6ee02d49e91aeca67fc9fda2e57918a09d25b07a664e505d50a97f6"><div class="ttname"><a href="_model_8h.html#a7aa3419d0e6ee02d49e91aeca67fc9fda2e57918a09d25b07a664e505d50a97f6">HEADER</a></div><div class="ttdeci">@ HEADER</div><div class="ttdef"><b>Definition:</b> Model.h:12</div></div>
+<div class="ttc" id="a_model_8h_html_a7aa3419d0e6ee02d49e91aeca67fc9fda39fc1130a1e2c8f8c1ad3deee8c0c5dc"><div class="ttname"><a href="_model_8h.html#a7aa3419d0e6ee02d49e91aeca67fc9fda39fc1130a1e2c8f8c1ad3deee8c0c5dc">BOLD</a></div><div class="ttdeci">@ BOLD</div><div class="ttdef"><b>Definition:</b> Model.h:9</div></div>
+<div class="ttc" id="a_model_8h_html_a7aa3419d0e6ee02d49e91aeca67fc9fdac1005585401f6364dc82967ecf313617"><div class="ttname"><a href="_model_8h.html#a7aa3419d0e6ee02d49e91aeca67fc9fdac1005585401f6364dc82967ecf313617">ITALIC</a></div><div class="ttdeci">@ ITALIC</div><div class="ttdef"><b>Definition:</b> Model.h:10</div></div>
+<div class="ttc" id="a_model_8h_html_a7aa3419d0e6ee02d49e91aeca67fc9fdaf2fe1bf26da6f8a451f054e30b3ce0f3"><div class="ttname"><a href="_model_8h.html#a7aa3419d0e6ee02d49e91aeca67fc9fdaf2fe1bf26da6f8a451f054e30b3ce0f3">LINK</a></div><div class="ttdeci">@ LINK</div><div class="ttdef"><b>Definition:</b> Model.h:11</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Создано системой &#160;<a href="http://www.doxygen.org/index.html">

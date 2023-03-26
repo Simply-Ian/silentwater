@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Silent Water Reader
-   &#160;<span id="projectnumber">0.1-dev</span>
+   &#160;<span id="projectnumber">0.2-dev</span>
    </div>
    <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
   </td>
@@ -101,6 +101,9 @@ $(function() {
 <tr class="memitem:a9327cb6d4465ee9352132d431cb4f3f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_w_text.html#a9327cb6d4465ee9352132d431cb4f3f2">changeCursor</a> ()</td></tr>
 <tr class="memdesc:a9327cb6d4465ee9352132d431cb4f3f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Меняет курсор на "руку" Назначается внешним ссылкам, как callback для наведения мыши.  <a href="class_s_w_text.html#a9327cb6d4465ee9352132d431cb4f3f2">Подробнее...</a><br /></td></tr>
 <tr class="separator:a9327cb6d4465ee9352132d431cb4f3f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c73ecee41a1a3da59d6a8117e0dad0e"><td class="memItemLeft" align="right" valign="top">sf::FloatRect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_w_text.html#a5c73ecee41a1a3da59d6a8117e0dad0e">getBounds</a> ()</td></tr>
+<tr class="memdesc:a5c73ecee41a1a3da59d6a8117e0dad0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Экономичная альтернатива sf::Text::getLocalBounds()  <a href="class_s_w_text.html#a5c73ecee41a1a3da59d6a8117e0dad0e">Подробнее...</a><br /></td></tr>
+<tr class="separator:a5c73ecee41a1a3da59d6a8117e0dad0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Открытые атрибуты</h2></td></tr>
@@ -185,6 +188,26 @@ $(function() {
   </dd>
 </dl>
 <dl class="section return"><dt>Возвращает</dt><dd>true, если мышь находится внутри габаритного прямоугольника слова. </dd></dl>
+
+</div>
+</div>
+<a id="a5c73ecee41a1a3da59d6a8117e0dad0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c73ecee41a1a3da59d6a8117e0dad0e">&#9670;&nbsp;</a></span>getBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::FloatRect SWText::getBounds </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Экономичная альтернатива sf::Text::getLocalBounds() </p>
+<p>Функция для расчетов габаритов слова. Сделана из фрагментов кода sf::Text::ensureGeometryUpdate() (этот метод вызывается под капотом sf::Text::getLocalBounds()), однако, в отличие от него, не обновляет вектор с вершинами sf::Vertex =&gt; расходует ощутимо меньше оперативной памяти. </p>
 
 </div>
 </div>

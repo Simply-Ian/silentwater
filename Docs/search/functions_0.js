@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['build_5fup_5fpages_110',['build_up_pages',['../class_controller.html#a590cf75f8bba321f5ed83e6c15a5b98c',1,'Controller']]]
+  ['build_5fup_5fpages_5ffrom_5ffrags_115',['build_up_pages_from_frags',['../class_controller.html#aa7acdb05683248c24d029b4c10a87420',1,'Controller']]]
 ];

@@ -5,19 +5,14 @@
     \typedef page_t
         \ingroup alias
         \brief Псевдоним для представления сверстанной страницы текста как вектора с объектами класса SWText
-        \todo Для экономии оперативной памяти планируется переход от хранения SWText к легковесным структурам, 
-        и созданию SWText только непосредственно при рендере текста.
     
     \class Controller Controller.h
     \brief Класс, управляющий выполнением приложения. 
     \details С вызова его методов load_book() и loop() начинается работа Silent Water. Хранит Model и View как 
-    закрытые поля. Также содержит матрицу слов, вектор сверстанных страниц и данные о внешнем виде текста
+    закрытые поля. Также содержит матрицу слов (в виде Fragments), вектор сверстанных страниц и данные о внешнем виде текста
     
-    \var page_t Controller::word_matrix
-    Вектор, хранящий слова с проставленными стилями
-    
-    \var vector <page_t> Controller::pages
-    Вектор типа page_t, хранящий сверстанные страницы
+    \var page_t cur_page
+    Текущая страница, готовая к отрисовке
     
     \var Controller::bookFont
     Шрифт, используемый при рендеринге текста книги
@@ -39,6 +34,7 @@
 
     \fn Controller::create_text_from_instance(Fragment frag)
     \brief Создает экземпляр SWText из Fragment, назначая текст, стили, callback-и и позицию.
+    \returns Указатель на экземпляр SWText
 
     \fn Controller::build_up_pages_from_frags()
     \brief Функция для верстки страниц книги
@@ -60,7 +56,7 @@
         \details Используется как коллбэк для view.leftButton. Обёртка для Controller::set_page_num(int new_num)
 
     \fn Controller::draw_page()
-        \brief Функция для рендера текущей страницы на текстуру View.page
+        \brief Функция для рендера текущей страницы <b>на текстуру View.page</b>
         \note Собственно отрисовкой на экран занимается метод View.update()
 
     \fn Controller::load_book(char* path);

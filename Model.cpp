@@ -1,11 +1,10 @@
-#include <iostream>
-#include <cstring> // pugixml returns all the string data as C strings
+#include <cstring> // pugixml returns all the string data as C-strings
 #include "load_text.h"
 #include <vector>
 #include <utility> // Для std::pair
 #include <map>
 #include "Model.h"
-#include <sstream>
+#include <sstream> // Для разбиения строки по разделителю
 using namespace std;
 
 Fragment::operator string() const{
@@ -20,33 +19,32 @@ Fragment::operator string() const{
     else return "\n";
 }
 
-void Fragment::erase(){
-    text.clear();
-    text.shrink_to_fit();
-    styles.clear();
-    styles.shrink_to_fit();
-}
-
-Walker::Walker(vector<Fragment> *f){
+Walker::Walker(list<Fragment> *f){
     frags = f; // Сохраняет ссылку на вектор, куда будут добавляться фрагменты текста
 }
 
 bool Walker::for_each(pugi::xml_node& node){
     if (is_in_body){
-        // Очищаем стили, установленные более низкими элементами
+        // Очищаем стили и атрибуты, установленные более низкими элементами
         while ((!cur_style.empty()) && cur_style.at(cur_style.size()-1).second >= depth()){
             cur_style.pop_back();
         }
+        while((!cur_attrs.empty()) && (--cur_attrs.end())->second.second >= depth()){
+            cur_attrs.erase(--cur_attrs.end());
+        }
+
         const string node_name = node.name(); // Конверсия C-строки в string
         if (names_to_styles.count(node_name) > 0)
             cur_style.push_back(style_t(names_to_styles[node_name], depth()));
         
         for (pugi::xml_attribute attr: node.attributes()){
-            cur_attrs[attr.name()] = attr.value();
+            // Сохраняются только атрибуты *:href
+            if (strcmp(attr.name(), (doc_links_name + ":href").c_str()) == 0)
+                cur_attrs[attr.name()] = attr_t(attr.value(), depth());
         }
 
         if (node.type() == pugi::xml_node_type::node_pcdata){
-            frags->push_back(Fragment(node.value(), format_styles(), cur_attrs));
+            frags->push_back(Fragment(node.value(), format_styles(), format_attrs()));
         }
         else if (strcmp(node.name(), "empty-line") == 0){
             frags->push_back(Fragment("\n", format_styles(), {}));
@@ -68,6 +66,14 @@ vector<Styles> Walker::format_styles(){
         return style;
 }
 
+map<string, string> Walker::format_attrs(){
+    map<string, string> formatted_attrs;
+    for(auto i = cur_attrs.begin(); i != cur_attrs.end(); i++){
+        formatted_attrs[i->first] = i->second.first;
+    }
+    return formatted_attrs;
+}
+
 void Model::load_fb2(char* FILE_NAME){
     pugi::xml_parse_result result = doc.load_file(FILE_NAME, pugi::parse_declaration);
     if (!result) throw runtime_error(result.description());
@@ -84,39 +90,29 @@ void Model::load_fb2(char* FILE_NAME){
             doc_links_name = name.substr(6, string::npos);
         }
     }
+    w.doc_links_name = this->doc_links_name;
     doc.traverse(w);
 }
 
-void Model::simple_out(){
-    for(Fragment i: fragments)
-        cout << (string)i << "\n";
-}
-
 void Model::split_into_words(){
-    vector<Fragment> words;
     char* word;
-    for (Fragment i: fragments){
-        if (i.text != "&&&"){
-            stringstream s(i.text);
+    int frags_len = fragments.size();
+    for (int index = 0; index < frags_len; index++){
+        auto i = fragments.begin();
+        if (i->text != "&&&"){
+            stringstream s(i->text);
             string word;
             while(getline(s, word, ' ')){
                 word += " ";
-                Fragment word_frag(word, i.styles, i.attrs);
-                words.push_back(word_frag);
+                Fragment word_frag(word, i->styles, i->attrs);
+                fragments.push_back(word_frag);
             }
         }
         else{
             Fragment word_frag("&&&", {}, {});
-            words.push_back(word_frag);
+            fragments.push_back(word_frag);
         }
+        fragments.pop_front();
     }
-    this->fragments = words;
     this->fragments.erase(this->fragments.begin()); // Обрезаем пустую строку перед первым абзацем
-}
-
-void Model::clear_fragments(){
-    for (auto frag_it = this->fragments.begin(); frag_it != this->fragments.end(); frag_it++){
-        frag_it->erase();
-    }
-    vector<Fragment>().swap(this->fragments);
 }

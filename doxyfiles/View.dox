@@ -37,6 +37,12 @@
         Назначается внешним ссылкам, как callback для наведения мыши.
         \warning Для того, чтобы сменить курсор на обычный, вызывается метод внутри Controller::loop()
     
+    \fn sf::FloatRect SWText::getBounds()
+    \brief Экономичная альтернатива sf::Text::getLocalBounds()
+    \details Функция для расчетов габаритов слова. Сделана из фрагментов кода sf::Text::ensureGeometryUpdate() (этот метод вызывается
+    под капотом sf::Text::getLocalBounds()), однако, в отличие от него, не обновляет вектор с вершинами sf::Vertex => расходует ощутимо
+    меньше оперативной памяти.
+    
 */
 /*!
     \struct View View.h

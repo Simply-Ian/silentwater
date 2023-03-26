@@ -38,4 +38,59 @@
     \brief Уничтожает Fragment::text и Fragment::styles, освобождает память после них
 
 
+    \class Model Model.h
+
+    \var list<Fragment> Model::fragments
+    \brief Двусвязный список, хранящий фрагменты текста.
+    \details std::list вместо std::vector для повышения скорости получения & удаления первого элемента.
+    \see \ref lifecycle
+
+    \var matrix_t Model::pages
+    \brief Хранит сверстанные страницы, состоящие из Fragment
+
+    \var string Model::doc_links_name
+    \brief Хранит префикс ссылок, определенный для документа его создателем.
+    \see \ref lifecycle
+
+    \fn void Model::load_fb2(char* FILE_NAME)
+    \brief Загружает fb2-файл, определяет кодировку, перезагружает файл в Юникод и запускает разбор xml
+
+    \fn void Model::split_into_words()
+    \brief Разделяет многословные Fragment-ы на отдельные слова.
+    \see \ref lifecycle
+
+    \var Walker Model::w{&fragments};
+    \brief Экземпляр Walker, используемый для парсинга текста
+    
+    \var pugi::xml_document Model::doc
+    \brief Представление текущего FB2-документа в виде дерева тегов. Подробнее смотри в документации к pugixml
+
+
+    \struct Walker Model.h
+    \brief Класс для парсинга XML средствами pugixml и первичной генерации объектов Fragment.
+
+    \var map<string, attr_t> Walker::cur_attrs
+    \brief Хранит атрибуты текущего тега и всех его родителей.
+    \note В целях экономии оперативной памяти (а std::map весьма прожорлив) сохраняется только атрибут *:href . При необходимости
+    будет добавлено сохранение и других атрибутов.
+
+    \var list<Fragment>* Walker::frags
+    \brief Указатель на Model::fragments
+
+    \var vector<style_t> Walker::cur_style;
+    \brief Хранит стили текущего тега и всех его родителей.
+
+    \var bool Walker::is_in_body
+    \brief Флаг, позволяющий не интерпретировать метаданные документа как текст собственно книги
+
+    \var string Walker::doc_links_name
+    \brief Префикс имени ссылок, определенный создателем .fb2-документа
+
+    \fn Walker::Walker(list<Fragment> *f)
+
+    \fn virtual bool Walker::for_each(pugi::xml_node& node)
+    \brief Функция, которая применяется рекурсивно ко всем тегам документа
+    \details Для каждого тега, содержащего текст или задающего пустую линию, создает Fragment, назначает ему стили и атрибуты; после этого
+    добавляет Fragment в Model::fragments
+    \see \ref lifecycle
 */

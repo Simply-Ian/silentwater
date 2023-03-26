@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Silent Water Reader
-   &#160;<span id="projectnumber">0.1-dev</span>
+   &#160;<span id="projectnumber">0.2-dev</span>
    </div>
    <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
   </td>
@@ -83,24 +83,30 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Открытые члены</h2></td></tr>
 <tr class="memitem:a382562565c2b04943830033c7bc6867c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a382562565c2b04943830033c7bc6867c">load_fb2</a> (char *FILE_NAME)</td></tr>
+<tr class="memdesc:a382562565c2b04943830033c7bc6867c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Загружает fb2-файл, определяет кодировку, перезагружает файл в Юникод и запускает разбор xml.  <a href="class_model.html#a382562565c2b04943830033c7bc6867c">Подробнее...</a><br /></td></tr>
 <tr class="separator:a382562565c2b04943830033c7bc6867c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa22e059991ef2aac2fc3dedebabc117"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#aaa22e059991ef2aac2fc3dedebabc117">simple_out</a> ()</td></tr>
-<tr class="separator:aaa22e059991ef2aac2fc3dedebabc117"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92b3030bb771c2c0121f3599c425ac92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a92b3030bb771c2c0121f3599c425ac92">split_into_words</a> ()</td></tr>
+<tr class="memdesc:a92b3030bb771c2c0121f3599c425ac92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Разделяет многословные Fragment-ы на отдельные слова.  <a href="class_model.html#a92b3030bb771c2c0121f3599c425ac92">Подробнее...</a><br /></td></tr>
 <tr class="separator:a92b3030bb771c2c0121f3599c425ac92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Открытые атрибуты</h2></td></tr>
-<tr class="memitem:aa7a2a7afcb4826256bea0f7f52f2d439"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_fragment.html">Fragment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#aa7a2a7afcb4826256bea0f7f52f2d439">fragments</a></td></tr>
-<tr class="separator:aa7a2a7afcb4826256bea0f7f52f2d439"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab364d7b6d4cb0d8a8f4118c6892b754d"><td class="memItemLeft" align="right" valign="top">list&lt; <a class="el" href="struct_fragment.html">Fragment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#ab364d7b6d4cb0d8a8f4118c6892b754d">fragments</a></td></tr>
+<tr class="memdesc:ab364d7b6d4cb0d8a8f4118c6892b754d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Двусвязный список, хранящий фрагменты текста.  <a href="class_model.html#ab364d7b6d4cb0d8a8f4118c6892b754d">Подробнее...</a><br /></td></tr>
+<tr class="separator:ab364d7b6d4cb0d8a8f4118c6892b754d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a96960fd35e8776a628af9516d23959"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__alias.html#ga292aa9cd09c0634aa70bcc6b1bf94ee6">matrix_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a1a96960fd35e8776a628af9516d23959">pages</a></td></tr>
+<tr class="memdesc:a1a96960fd35e8776a628af9516d23959"><td class="mdescLeft">&#160;</td><td class="mdescRight">Хранит сверстанные страницы, состоящие из <a class="el" href="struct_fragment.html">Fragment</a>.  <a href="class_model.html#a1a96960fd35e8776a628af9516d23959">Подробнее...</a><br /></td></tr>
+<tr class="separator:a1a96960fd35e8776a628af9516d23959"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:addc6c8120e66de1dc231a5eff2b188ab"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#addc6c8120e66de1dc231a5eff2b188ab">doc_links_name</a></td></tr>
+<tr class="memdesc:addc6c8120e66de1dc231a5eff2b188ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Хранит префикс ссылок, определенный для документа его создателем.  <a href="class_model.html#addc6c8120e66de1dc231a5eff2b188ab">Подробнее...</a><br /></td></tr>
 <tr class="separator:addc6c8120e66de1dc231a5eff2b188ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Закрытые данные</h2></td></tr>
-<tr class="memitem:a37a1e8ac9124260024e612a8474c35d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_walker.html">Walker</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a37a1e8ac9124260024e612a8474c35d1">w</a> {&amp;<a class="el" href="class_model.html#aa7a2a7afcb4826256bea0f7f52f2d439">fragments</a>}</td></tr>
+<tr class="memitem:a37a1e8ac9124260024e612a8474c35d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_walker.html">Walker</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a37a1e8ac9124260024e612a8474c35d1">w</a> {&amp;<a class="el" href="class_model.html#ab364d7b6d4cb0d8a8f4118c6892b754d">fragments</a>}</td></tr>
 <tr class="separator:a37a1e8ac9124260024e612a8474c35d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6530ab4599693b8b6e5cd71cc694ffe"><td class="memItemLeft" align="right" valign="top">pugi::xml_document&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#ae6530ab4599693b8b6e5cd71cc694ffe">doc</a></td></tr>
+<tr class="memdesc:ae6530ab4599693b8b6e5cd71cc694ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Представление текущего FB2-документа в виде дерева тегов. Подробнее смотри в документации к pugixml.  <a href="class_model.html#ae6530ab4599693b8b6e5cd71cc694ffe">Подробнее...</a><br /></td></tr>
 <tr class="separator:ae6530ab4599693b8b6e5cd71cc694ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Методы</h2>
@@ -120,22 +126,7 @@ $(function() {
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="aaa22e059991ef2aac2fc3dedebabc117"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa22e059991ef2aac2fc3dedebabc117">&#9670;&nbsp;</a></span>simple_out()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Model::simple_out </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Загружает fb2-файл, определяет кодировку, перезагружает файл в Юникод и запускает разбор xml. </p>
 
 </div>
 </div>
@@ -153,6 +144,9 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Разделяет многословные Fragment-ы на отдельные слова. </p>
+<dl class="section see"><dt>См. также</dt><dd><a class="el" href="lifecycle.html">Жизненный цикл приложения</a> </dd></dl>
 
 </div>
 </div>
@@ -177,6 +171,8 @@ $(function() {
 </table>
 </div><div class="memdoc">
 
+<p>Представление текущего FB2-документа в виде дерева тегов. Подробнее смотри в документации к pugixml. </p>
+
 </div>
 </div>
 <a id="addc6c8120e66de1dc231a5eff2b188ab"></a>
@@ -191,19 +187,41 @@ $(function() {
       </table>
 </div><div class="memdoc">
 
+<p>Хранит префикс ссылок, определенный для документа его создателем. </p>
+<dl class="section see"><dt>См. также</dt><dd><a class="el" href="lifecycle.html">Жизненный цикл приложения</a> </dd></dl>
+
 </div>
 </div>
-<a id="aa7a2a7afcb4826256bea0f7f52f2d439"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7a2a7afcb4826256bea0f7f52f2d439">&#9670;&nbsp;</a></span>fragments</h2>
+<a id="ab364d7b6d4cb0d8a8f4118c6892b754d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab364d7b6d4cb0d8a8f4118c6892b754d">&#9670;&nbsp;</a></span>fragments</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt;<a class="el" href="struct_fragment.html">Fragment</a>&gt; Model::fragments</td>
+          <td class="memname">list&lt; <a class="el" href="struct_fragment.html">Fragment</a> &gt; Model::fragments</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Двусвязный список, хранящий фрагменты текста. </p>
+<p>std::list вместо std::vector для повышения скорости получения &amp; удаления первого элемента. </p><dl class="section see"><dt>См. также</dt><dd><a class="el" href="lifecycle.html">Жизненный цикл приложения</a> </dd></dl>
+
+</div>
+</div>
+<a id="a1a96960fd35e8776a628af9516d23959"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a96960fd35e8776a628af9516d23959">&#9670;&nbsp;</a></span>pages</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__alias.html#ga292aa9cd09c0634aa70bcc6b1bf94ee6">matrix_t</a> Model::pages</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Хранит сверстанные страницы, состоящие из <a class="el" href="struct_fragment.html">Fragment</a>. </p>
 
 </div>
 </div>
@@ -217,7 +235,7 @@ $(function() {
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_walker.html">Walker</a> Model::w {&amp;<a class="el" href="class_model.html#aa7a2a7afcb4826256bea0f7f52f2d439">fragments</a>}</td>
+          <td class="memname"><a class="el" href="struct_walker.html">Walker</a> Model::w {&amp;<a class="el" href="class_model.html#ab364d7b6d4cb0d8a8f4118c6892b754d">fragments</a>}</td>
         </tr>
       </table>
   </td>
@@ -231,6 +249,7 @@ $(function() {
 </div>
 <hr/>Объявления и описания членов классов находятся в файлах:<ul>
 <li><a class="el" href="_model_8h_source.html">Model.h</a></li>
+<li>doxyfiles/<a class="el" href="_model_8dox.html">Model.dox</a></li>
 <li><a class="el" href="_model_8cpp.html">Model.cpp</a></li>
 </ul>
 </div><!-- contents -->

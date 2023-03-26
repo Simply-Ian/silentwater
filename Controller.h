@@ -14,7 +14,7 @@ class Controller{
     int bookFontSize = 20 * view.SCALE;
     int lineInt = 3;
 
-    SWText create_text_from_instance(Fragment frag);
+    SWText* create_text_from_instance(Fragment frag);
     void build_up_pages_from_frags();
     void set_page_num(int new_num);
     void turn_page_back();

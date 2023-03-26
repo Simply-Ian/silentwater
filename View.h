@@ -45,4 +45,8 @@ class SWText : public sf::Text{
         bool checkMouseOn(sf::Vector2i pos);
         void open_URL();
         void changeCursor();
+        /* Функция для расчетов габаритов слова. Сделана из фрагментов кода sf::Text::ensureGeometryUpdate(),
+        однако, в отличие от нее, не обновляет вектор с вершинами sf::Vertex => расходует ощутимо меньше оперативной памяти
+        */
+        sf::FloatRect getBounds();
 };

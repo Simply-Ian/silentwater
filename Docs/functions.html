@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Silent Water Reader
-   &#160;<span id="projectnumber">0.1-dev</span>
+   &#160;<span id="projectnumber">0.2-dev</span>
    </div>
    <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
   </td>
@@ -80,8 +80,8 @@ $(function() {
 <li>bookFontSize
 : <a class="el" href="class_controller.html#a45a433225179ec3c82d63f81796d4503">Controller</a>
 </li>
-<li>build_up_pages()
-: <a class="el" href="class_controller.html#a590cf75f8bba321f5ed83e6c15a5b98c">Controller</a>
+<li>build_up_pages_from_frags()
+: <a class="el" href="class_controller.html#aa7acdb05683248c24d029b4c10a87420">Controller</a>
 </li>
 </ul>
 
@@ -96,17 +96,20 @@ $(function() {
 <li>Controller()
 : <a class="el" href="class_controller.html#a95c56822d667e94b031451729ce069a9">Controller</a>
 </li>
-<li>create_word_matrix()
-: <a class="el" href="class_controller.html#ad25257e04871a5b39fa649398fe73da3">Controller</a>
+<li>create_text_from_instance()
+: <a class="el" href="class_controller.html#a8d816f947265ab8a17e4e4ed6766c406">Controller</a>
 </li>
 <li>cur_attrs
-: <a class="el" href="struct_walker.html#a7b946fed7aae7c3178f823342e5b7bc5">Walker</a>
+: <a class="el" href="struct_walker.html#afc9ae9c897f6fa6b8a29ac2e518659e2">Walker</a>
+</li>
+<li>cur_page
+: <a class="el" href="class_controller.html#a65ac1bffca12d14fde21c7f37c9304cf">Controller</a>
 </li>
 <li>cur_page_num
 : <a class="el" href="class_controller.html#a181b7228f34da0ed914a3d10e8d90be5">Controller</a>
 </li>
 <li>cur_style
-: <a class="el" href="struct_walker.html#ad66b7503a89ae681ea4dd6c02789d14b">Walker</a>
+: <a class="el" href="struct_walker.html#ac4c64e5274f7300e5af6329e4cce4ecb">Walker</a>
 </li>
 </ul>
 
@@ -118,6 +121,7 @@ $(function() {
 <li>doc_links_name
 : <a class="el" href="class_model.html#addc6c8120e66de1dc231a5eff2b188ab">Model</a>
 , <a class="el" href="struct_view.html#af64152073e23daa4f39f07e5b2be5c08">View</a>
+, <a class="el" href="struct_walker.html#ad7a5efc53c43059000ef39460303a12a">Walker</a>
 </li>
 <li>draw_page()
 : <a class="el" href="class_controller.html#a4bdea1caffd93ead69ed05dc34f92cd7">Controller</a>
@@ -132,6 +136,9 @@ $(function() {
 <li>for_each()
 : <a class="el" href="struct_walker.html#a331dd5a5c2ffcddc877a7a63520f299d">Walker</a>
 </li>
+<li>format_attrs()
+: <a class="el" href="struct_walker.html#a05a3a27ac92d76625599d8370a072431">Walker</a>
+</li>
 <li>format_styles()
 : <a class="el" href="struct_walker.html#ac10d4345cf523835bbd25e987c3abe81">Walker</a>
 </li>
@@ -139,15 +146,18 @@ $(function() {
 : <a class="el" href="struct_fragment.html#ab4c44954f9e575fe9367bebfe31a1010">Fragment</a>
 </li>
 <li>fragments
-: <a class="el" href="class_model.html#aa7a2a7afcb4826256bea0f7f52f2d439">Model</a>
+: <a class="el" href="class_model.html#ab364d7b6d4cb0d8a8f4118c6892b754d">Model</a>
 </li>
 <li>frags
-: <a class="el" href="struct_walker.html#ac8f63f167786a14e4e57df116a9a9be4">Walker</a>
+: <a class="el" href="struct_walker.html#a69af29a9cabb993ef706579447c76052">Walker</a>
 </li>
 </ul>
 
 
 <h3><a id="index_g"></a>- g -</h3><ul>
+<li>getBounds()
+: <a class="el" href="class_s_w_text.html#a5c73ecee41a1a3da59d6a8117e0dad0e">SWText</a>
+</li>
 <li>gui
 : <a class="el" href="struct_view.html#a1b8674d0dbf48ce79d2dd7f9892a7e29">View</a>
 </li>
@@ -240,7 +250,7 @@ $(function() {
 : <a class="el" href="class_controller.html#a74dd9d92d0dac04836c3e135d7bbd51e">Controller</a>
 </li>
 <li>pages
-: <a class="el" href="class_controller.html#a9df161fe73994ea95fb3564b83e86995">Controller</a>
+: <a class="el" href="class_model.html#a1a96960fd35e8776a628af9516d23959">Model</a>
 </li>
 <li>pageSprite
 : <a class="el" href="struct_view.html#a6ba0be57333c9a0d0a5bde990c9b8861">View</a>
@@ -270,9 +280,6 @@ $(function() {
 </li>
 <li>SIDEBAR_WIDTH
 : <a class="el" href="struct_view.html#ad17558054fd553633403723943f62730">View</a>
-</li>
-<li>simple_out()
-: <a class="el" href="class_model.html#aaa22e059991ef2aac2fc3dedebabc117">Model</a>
 </li>
 <li>split_into_words()
 : <a class="el" href="class_model.html#a92b3030bb771c2c0121f3599c425ac92">Model</a>
@@ -327,13 +334,24 @@ $(function() {
 : <a class="el" href="class_model.html#a37a1e8ac9124260024e612a8474c35d1">Model</a>
 </li>
 <li>Walker()
-: <a class="el" href="struct_walker.html#a2992184c733ca8f3d74229bbe7a86456">Walker</a>
+: <a class="el" href="struct_walker.html#a18279e1fbdcbaf2f06d82b163dd43f16">Walker</a>
 </li>
 <li>win
 : <a class="el" href="struct_view.html#a419b69fcca03a481f4f17f7087e38884">View</a>
 </li>
-<li>word_matrix
-: <a class="el" href="class_controller.html#a536714f7c34b376c714da9b650be7c2d">Controller</a>
+</ul>
+
+
+<h3><a id="index_x"></a>- x -</h3><ul>
+<li>x
+: <a class="el" href="struct_fragment.html#a8009f75ed991897203e4a505f4b99498">Fragment</a>
+</li>
+</ul>
+
+
+<h3><a id="index_y"></a>- y -</h3><ul>
+<li>y
+: <a class="el" href="struct_fragment.html#ae503b0460a1e3dc8f0f9e07fa268e5f1">Fragment</a>
 </li>
 </ul>
 </div><!-- contents -->

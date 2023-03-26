@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Silent Water Reader
-   &#160;<span id="projectnumber">0.1-dev</span>
+   &#160;<span id="projectnumber">0.2-dev</span>
    </div>
    <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
   </td>
@@ -69,20 +69,11 @@ $(function() {
 <div class="contents">
 <div class="textblock"><dl class="reflist">
 <dt>Член <a class="el" href="class_controller.html#a40503cdc921ff9741a46d1770b9064df">Controller::load_book</a>  (char *path)</dt>
-<dd><a class="anchor" id="_todo000003"></a>Добавить обработку ошибок  </dd>
-<dt>Член <a class="el" href="class_controller.html#aa2b2ebf6ac85cf7e44d484b70788c315">Controller::set_page_num</a>  (int new_num)</dt>
-<dd><a class="anchor" id="_todo000002"></a>После перехода к хранению легковесных структур в pages эта функция должна стирать предыдущую отрисованную страницу и запускать рендеринг текущей страницы </dd>
-<dt>Член <a class="el" href="group__alias.html#ga7153150b299cf930f17d200a89628d88">page_t</a>  </dt>
-<dd><a class="anchor" id="_todo000001"></a>Для экономии оперативной памяти планируется переход от хранения <a class="el" href="class_s_w_text.html" title="Класс для отрисовки фрагмента текста на странице книги">SWText</a> к легковесным структурам, и созданию <a class="el" href="class_s_w_text.html" title="Класс для отрисовки фрагмента текста на странице книги">SWText</a> только непосредственно при рендере текста. </dd>
+<dd><a class="anchor" id="_todo000001"></a>Добавить обработку ошибок  </dd>
 <dt>Член <a class="el" href="struct_view.html#a325fee8ba05fc786cc5f3c1a042582d4">View::onWinResize</a>  (sf::Event::SizeEvent new_size)</dt>
-<dd><a class="anchor" id="_todo000007"></a>Переписать </dd>
+<dd><a class="anchor" id="_todo000003"></a>Переписать </dd>
 <dt>Страница <a class="el" href="lifecycle.html">Жизненный цикл приложения</a>  </dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000004"></a>Для определения кодировки текста файл должен открываться "вручную", чтобы избежать полного парсинга. Нужно только считать значение одного атрибута тега, расположенного в первой строке. Это можно реализовать без средств pugixml.</p>
-<p class="interdd"><a class="anchor" id="_todo000005"></a>Очистка cur_attrs</p><ol type="1">
-<li>Когда <a class="el" href="struct_walker.html">Walker</a> доходит до листа &ndash; текстового содержимого, он создает экземпляр <a class="el" href="struct_fragment.html">Fragment</a> с накопленными стилями и добавляет по указателю в вектор <a class="el" href="class_model.html#aa7a2a7afcb4826256bea0f7f52f2d439">Model::fragments</a>. Если <a class="el" href="struct_walker.html">Walker</a> встречает пустую линию, он добавляет <a class="el" href="struct_fragment.html">Fragment</a> без стилей, содержащий специальную метку "\n". В начале каждого абзаца в <a class="el" href="class_model.html#aa7a2a7afcb4826256bea0f7f52f2d439">Model::fragments</a> добавляется <a class="el" href="struct_fragment.html">Fragment</a> со специальной меткой "&amp;&amp;&amp;".</li>
-</ol>
-<p class="enddd"><a class="anchor" id="_todo000006"></a>Написать подробнее о <a class="el" href="class_controller.html#a4e9df4b25d627926eeea4b223ed61b77" title="Функция запускает главный GUI-цикл приложения">Controller::loop()</a> </p>
-</dd>
+<dd><a class="anchor" id="_todo000002"></a>Для определения кодировки текста файл должен открываться "вручную", чтобы избежать полного парсинга. Нужно только считать значение одного атрибута тега, расположенного в первой строке. Это можно реализовать без средств pugixml.</dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

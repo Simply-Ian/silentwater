@@ -1,6 +1,7 @@
 #include <utility>
 #include <string>
 #include <vector>
+#include <list> //Для хранения фрагментов
 #include "pugixml.hpp"
 #include <map>
 using namespace std;
@@ -11,6 +12,7 @@ enum Styles {BOLD, /*!< Полужирное начертание*/
             HEADER /*!< Заголовок. Рисуется как полужирный текст размером на 5 пт больше*/
 };
 using style_t = pair<Styles, int>; // Элемент списка стилей
+using attr_t = pair<string, int>;
 
 struct Fragment{
     Fragment(string t, vector<Styles> s, map<string, string> a){text = t; styles = s; attrs = a;}
@@ -21,19 +23,19 @@ struct Fragment{
     int y = 0;
 
     operator string() const;
-    void erase();
 };
 
 using matrix_t = vector<vector<Fragment>>;
 
 struct Walker: pugi::xml_tree_walker{
     public:
-        map<string, string> cur_attrs;
-        vector<Fragment> *frags;
+        map<string, attr_t> cur_attrs;
+        list<Fragment> *frags;
         vector<style_t> cur_style;
         bool is_in_body = false;
+        string doc_links_name;
 
-        Walker(vector<Fragment> *f);
+        Walker(list<Fragment> *f);
         virtual bool for_each(pugi::xml_node& node);
     
     private:
@@ -46,19 +48,19 @@ struct Walker: pugi::xml_tree_walker{
 
         // Создает список стилей для передачи конструктору Fragment
         vector<Styles> format_styles();
+        // Создает список атрибутов для передачи конструктору Fragment
+        map<string, string> format_attrs();
 };
 
 class Model{
     public:
-        vector<Fragment> fragments;
+        list<Fragment> fragments;
         matrix_t pages;
 
         // Загружает fb2-файл, определяет кодировку, перезагружает файл в Юникод и запускает разбор xml
         void load_fb2(char* FILE_NAME);
-        void simple_out();
         void split_into_words();
         string doc_links_name;
-        void clear_fragments();
     
     private:
         Walker w{&fragments};

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Silent Water Reader
-   &#160;<span id="projectnumber">0.1-dev</span>
+   &#160;<span id="projectnumber">0.2-dev</span>
    </div>
    <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
   </td>
@@ -114,7 +114,11 @@ $(function() {
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordtype">bool</span> checkMouseOn(sf::Vector2i pos);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordtype">void</span> open_URL();</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordtype">void</span> changeCursor();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;};</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="comment">/* Функция для расчетов габаритов слова. Сделана из фрагментов кода sf::Text::ensureGeometryUpdate(),</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">        однако, в отличие от нее, не обновляет вектор с вершинами sf::Vertex =&gt; расходует ощутимо меньше оперативной памяти</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        sf::FloatRect getBounds();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="astruct_view_html_a37ed015436bb8a3a6ae6dc7d9830d492"><div class="ttname"><a href="struct_view.html#a37ed015436bb8a3a6ae6dc7d9830d492">View::rightButton</a></div><div class="ttdeci">tgui::BitmapButton::Ptr rightButton</div><div class="ttdoc">Умный указатель на экранную кнопку &quot;Вправо&quot;.</div><div class="ttdef"><b>Definition:</b> View.h:26</div></div>
 <div class="ttc" id="astruct_view_html"><div class="ttname"><a href="struct_view.html">View</a></div><div class="ttdoc">Класс, отвечающий за GUI и взаимодействие с пользователем.</div><div class="ttdef"><b>Definition:</b> View.h:10</div></div>
