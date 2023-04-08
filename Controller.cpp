@@ -1,12 +1,12 @@
 #include "Controller.h"
 #include <map>
 #include <utility>
+#include <algorithm> // Для std::find()
 
 Controller::Controller(){
     pageNumberText.setFont(bookFont);
     pageNumberText.setFillColor(textColor);
     pageNumberText.setCharacterSize(bookFontSize + 2);
-    pageNumberText.setPosition(sf::Vector2f{view.PAGE_WIDTH - view.RF_WIDTH - 35, view.PAGE_HEIGHT - view.F_HEIGHT + 50});
     view.leftButton->onPress(&Controller::turn_page_back, this);
     view.leftButton->setMouseCursor(tgui::Cursor::Type::Hand);
     view.rightButton->onPress(&Controller::turn_page_fw, this);
@@ -20,6 +20,8 @@ void Controller::load_book(char* path){
     build_up_pages_from_frags();
 
     view.doc_links_name = model.doc_links_name;
+    view.build_up_toc(this->table_of_contents);
+    view.tocList->onItemSelect(&Controller::toc_navigate, this);
     set_page_num(0);
 }
 
@@ -59,6 +61,17 @@ void Controller::build_up_pages_from_frags(){
     float w_height;
     for (int index = 0; index < frags_len; index++){
         Fragment frag = *(model.fragments.begin());
+
+        // Добавляем элемент оглавления
+        if (std::find(frag.styles.begin(), frag.styles.end(), Styles::HEADER) != frag.styles.end()){
+            // Walker::for_each() гарантирует, что в атрибутах каждого фрагмента со стилем HEADLINE есть ключ "title"
+            tocElem to_be_added(model.pages.size(), frag.attrs["title"], frag.depth);
+
+            // Добавляем только уникальные элементы (из-за разбития на слова заголовки дублируются)
+            if(table_of_contents.size() == 0 || *(--table_of_contents.end()) != to_be_added)
+                table_of_contents.push_back(to_be_added);
+        }
+
         SWText* word = create_text_from_instance(frag);
         w_width = word->getBounds().width;
         w_height = word->getBounds().height;
@@ -101,6 +114,7 @@ void Controller::build_up_pages_from_frags(){
             carriage_pos.x += w_width;
             page.push_back(frag);
         }
+        
         model.fragments.pop_front();
         delete word;
     }
@@ -113,6 +127,8 @@ void Controller::draw_page(){
         view.page.draw(word);
     }
     pageNumberText.setString(sf::String(to_string(cur_page_num + 1)));
+    pageNumberText.setPosition(view.PAGE_WIDTH - view.RF_WIDTH - pageNumberText.getLocalBounds().width, \
+                view.PAGE_HEIGHT - view.F_HEIGHT + 50);
     view.page.draw(pageNumberText);
     view.page.display();
     view.pageSprite.setTexture(view.page.getTexture());
@@ -128,7 +144,6 @@ void Controller::loop(){
     while (view.win.isOpen()){
         updateFlag = false;
         while (view.win.pollEvent(event)){
-            eventHandledByTGUI = view.gui.handleEvent(event);
             if (event.type == sf::Event::Closed){
                 view.win.close();
             }
@@ -136,8 +151,8 @@ void Controller::loop(){
                 view.onWinResize(event.size);
             }
             else if (event.type == sf::Event::KeyPressed){
-                if(event.key.code == sf::Keyboard::Left) set_page_num(cur_page_num - 1);
-                else if(event.key.code == sf::Keyboard::Right) set_page_num(cur_page_num + 1);
+                if(event.key.code == sf::Keyboard::Left) turn_page_back();
+                else if(event.key.code == sf::Keyboard::Right) turn_page_fw();
             }
             else if (event.type == sf::Event::MouseButtonPressed){
                 for (SWText word: cur_page){
@@ -162,10 +177,11 @@ void Controller::loop(){
             }
             updateFlag = true;
         }
+        eventHandledByTGUI = view.gui.handleEvent(event);
         if (updateFlag){
             draw_page();
-            view.update();
         }
+        view.update();
         sf::sleep(sleep_dur);
     }
 }
@@ -175,18 +191,53 @@ void Controller::set_page_num(int new_num){
         cur_page.clear();
         cur_page_num = new_num;
         for (Fragment frag: model.pages[cur_page_num]){
-            SWText cur_word = *(create_text_from_instance(frag));
-            cur_page.push_back(cur_word);
+            SWText* cur_word = create_text_from_instance(frag);
+            cur_page.push_back(*cur_word);
+            delete cur_word;
         }
     }
 }
 
 void Controller::turn_page_back(){
-    set_page_num(cur_page_num - 1);
+    set_page_num_and_update_toc(cur_page_num - 1);
 }
 
 void Controller::turn_page_fw(){
-    set_page_num(cur_page_num + 1);
+    set_page_num_and_update_toc(cur_page_num + 1);
+}
+
+void Controller::toc_navigate(tgui::String name){
+    tgui::String selectedId = view.tocList->getSelectedItemId();
+    if (selectedId != ""){
+        int page_num = selectedId.toInt();
+        set_page_num(page_num);
+    }
+}
+
+void Controller::set_page_num_and_update_toc(int new_num){
+    // Обновляем оглавление
+    if(new_num > cur_page_num){
+        int toc_size = table_of_contents.size();
+        for (int index = view.tocList->getSelectedItemIndex() + 1; index < toc_size - 1; index++){
+            if (table_of_contents[index].page <= new_num && table_of_contents[index + 1].page > new_num){
+                view.tocList->setSelectedItemByIndex(index);
+            }
+        }
+        // Проверка последнего элемента. Если переход осуществляется с последнего элемента, есть риск выхода за границы вектора
+        if (table_of_contents[table_of_contents.size() - 1].page <= new_num){
+            view.tocList->setSelectedItemByIndex(table_of_contents.size() - 1);
+        }
+    }
+    else if(new_num < cur_page_num){
+        int cur_index = view.tocList->getSelectedItemIndex();
+        for (int index = 0; index < cur_index; index++){
+            if (table_of_contents[index].page <= new_num && table_of_contents[index + 1].page >= new_num){
+                view.tocList->setSelectedItemByIndex(index);
+                break;
+            }
+        }
+    }
+    set_page_num(new_num);
 }
 
 int main(int argc, char** argv){

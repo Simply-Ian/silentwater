@@ -34,6 +34,7 @@
 				"View.cpp",
 				"load_text.cpp",
 				"pugixml.cpp",
+				"Logger.cpp",
 				"-ltgui",
 				"-lsfml-graphics",
 				"-lsfml-system",

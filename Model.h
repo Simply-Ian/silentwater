@@ -15,12 +15,20 @@ using style_t = pair<Styles, int>; // Элемент списка стилей
 using attr_t = pair<string, int>;
 
 struct Fragment{
-    Fragment(string t, vector<Styles> s, map<string, string> a){text = t; styles = s; attrs = a;}
+    Fragment(string t, vector<Styles> s, map<string, string> a, int d=-1):
+        text(t), 
+        styles(s), 
+        attrs(a),
+        depth(d)
+        {
+
+        }
     string text;
     vector<Styles> styles;
     map<string, string> attrs;
     int x = 0;
     int y = 0;
+    int depth = 0;
 
     operator string() const;
 };

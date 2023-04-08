@@ -13,7 +13,7 @@ View::View(){
     PAGE_HEIGHT = (win.getSize().y - 2*TOP_BAR_HEIGHT) * SCALE;
     page.create(PAGE_WIDTH, PAGE_HEIGHT);
     page.setSmooth(true);
-    float pageSpriteX = (win.getSize().x - (PAGE_WIDTH / SCALE)) / 2.0f;
+    float pageSpriteX = (win.getSize().x - getPageScreenWidth()) / 2.0f;
     float pageSpriteY = 75;
     pageSprite.setPosition({pageSpriteX, pageSpriteY});
     pageSprite.setScale(1.0f / SCALE, 1.0f / SCALE);
@@ -26,19 +26,55 @@ View::View(){
     leftButton->setSize(64, PAGE_HEIGHT / SCALE);
     leftButton->setOrigin(0, 0);
     leftButton->setPosition(pageSpriteX - 64, pageSpriteY);
+    leftButton->getRenderer()->setOpacity(0.4f);
 
     rightButton = tgui::BitmapButton::create();
     gui.add(rightButton, "rightButton");
     rightButton->setImage(tgui::Texture("Icons/chevronRight.png"));
     rightButton->setSize(64, PAGE_HEIGHT / SCALE);
     rightButton->setOrigin(0, 0);
-    rightButton->setPosition(pageSpriteX + PAGE_WIDTH / SCALE, pageSpriteY);
+    rightButton->setPosition(pageSpriteX + getPageScreenWidth(), pageSpriteY);
+    rightButton->getRenderer()->setOpacity(0.4f);
+    
+    leftPan = tgui::Panel::create({300, "parent.height - 50"});
+    leftPan->setPosition({0, 50});
+    toc_header = tgui::Label::create("Оглавление");
+    toc_header->setTextSize(GUI_TEXT_SIZE + 3);
+    toc_header->setPosition({5, 0});
+    toc_header->setWidgetName("toc_header");
+    leftPan->add(toc_header);
+
+    tocList = tgui::ListBox::create();
+    tocList->setSize("parent.width - 10", "parent.height - 8 - toc_header.height");
+    tocList->setTextSize(GUI_TEXT_SIZE);
+    tocList->getRenderer()->setSelectedTextStyle(tgui::TextStyle::Bold);
+    tocList->getRenderer()->setBorders(1);
+    tocList->getRenderer()->setBorderColor({65, 65, 65});
+    tocList->setSelectedItemByIndex(0);
+    tocList->setScrollbarValue(0);
+    tocList->setPosition({5, "toc_header.top + toc_header.height + 3"});
+    leftPan->add(tocList);
+    gui.add(leftPan);
+
+    this->min_width = getPageScreenWidth() + leftPan->getSize().x*2 + leftButton->getSize().x*2;
+    this->min_height = getPageScreenHeight() + 50;
 }
 
 void View::onWinResize(sf::Event::SizeEvent new_size){
-    // auto mode = sf::VideoMode::getDesktopMode();
-    // if (win.getSize().x != mode.width || win.getSize().y != mode.height)
-    // win.setSize(sf::Vector2u(mode.width, mode.height));
+    sf::Vector2u win_size = win.getSize();
+    float pageSpriteX = (win_size.x - getPageScreenWidth()) / 2.0f;
+    float leftPanWidth = leftPan->getSize().x;
+    float leftButtonWidth = leftButton->getSize().x;
+    if (pageSpriteX < leftPanWidth + leftButtonWidth)
+        pageSpriteX = leftPanWidth + leftButtonWidth;
+    pageSprite.setPosition({pageSpriteX, 75});
+    rightButton->setPosition(pageSpriteX + getPageScreenWidth(), 75);
+    leftButton->setPosition(pageSpriteX - 64, 75);
+
+    win.setView(sf::View(sf::FloatRect{0.f, 0.f, static_cast<float>(win_size.x),
+                                         static_cast<float>(win_size.y)}));
+    gui.setAbsoluteView(tgui::FloatRect{0.f, 0.f, static_cast<float>(win_size.x),
+                                         static_cast<float>(win_size.y)});
 }
 
 void View::update(){
@@ -48,6 +84,26 @@ void View::update(){
     win.display();
 }
 
+void View::build_up_toc(vector<tocElem> items){
+    int init_depth = -1;
+    for (tocElem i: items){
+        if (init_depth == -1) init_depth = i.depth;
+        tgui::String header = i.headline;
+
+        int cur_depth = i.depth - init_depth >= 0? i.depth - init_depth : 1;
+        header.insert(0, cur_depth * 2 + 1, ' ');
+        tocList->addItem(header, tgui::String::fromNumber(i.page));
+    }
+}
+
+int View::getPageScreenWidth(){
+    return PAGE_WIDTH / SCALE;
+}
+
+int View::getPageScreenHeight(){
+    return PAGE_HEIGHT / SCALE;
+}
+
 bool SWText::checkMouseOn(sf::Vector2i pos){
     sf::FloatRect self_pos = getGlobalBounds();
     int click_x = parent->SCALE * (pos.x - parent->pageSprite.getPosition().x);
@@ -55,6 +111,7 @@ bool SWText::checkMouseOn(sf::Vector2i pos){
     return (click_x >= self_pos.left && click_x <= self_pos.left + self_pos.width)
             && (click_y >= self_pos.top && click_y <= self_pos.top + self_pos.height);
 }
+
 SWText::SWText(View* parent): sf::Text::Text(){
     this->parent = parent;
 }

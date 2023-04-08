@@ -42,9 +42,17 @@ bool Walker::for_each(pugi::xml_node& node){
             if (strcmp(attr.name(), (doc_links_name + ":href").c_str()) == 0)
                 cur_attrs[attr.name()] = attr_t(attr.value(), depth());
         }
+        if (strcmp(node.name(), "title") == 0){
+            cur_attrs["title"] = attr_t("", depth());
+        }
 
         if (node.type() == pugi::xml_node_type::node_pcdata){
-            frags->push_back(Fragment(node.value(), format_styles(), format_attrs()));
+            Fragment to_be_added(node.value(), format_styles(), format_attrs(), depth());
+            /* Перед разбиением на отдельные слова сохраняем в атрибутах каждого фрагмента-заголовка исходное название.
+            */
+            if (cur_attrs.count("title") != 0)
+                to_be_added.attrs["title"] = to_be_added.text;
+            frags->push_back(to_be_added);
         }
         else if (strcmp(node.name(), "empty-line") == 0){
             frags->push_back(Fragment("\n", format_styles(), {}));
@@ -104,7 +112,7 @@ void Model::split_into_words(){
             string word;
             while(getline(s, word, ' ')){
                 word += " ";
-                Fragment word_frag(word, i->styles, i->attrs);
+                Fragment word_frag(word, i->styles, i->attrs, i->depth);
                 fragments.push_back(word_frag);
             }
         }
