@@ -52,6 +52,28 @@
 			"detail": "компилятор: /usr/bin/g++"
 		},
 		{
+			"type": "cppbuild",
+			"label": "Сборка decode_test",
+			"command": "/usr/bin/g++",
+			"args": [
+				"-fdiagnostics-color=always",
+				"-g",
+				"-O0",
+				"decode_test.cpp",
+				"decode_base64.cpp",
+				"-o",
+				"decode_test"
+			],
+			"options": {
+				"cwd": "/home/ivan/CppProjects/Fictionizer"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "компилятор: /usr/bin/g++"
+		},
+		{
 			"type": "shell",
 			"label": "Запуск massif",
 			"command": "valgrind",

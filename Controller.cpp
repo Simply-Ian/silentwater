@@ -119,6 +119,9 @@ void Controller::build_up_pages_from_frags(){
         delete word;
     }
     if (page.size() > 0) model.pages.push_back(page); // Adding the last page of the book.
+    // Добавляем обложку, если документ содержит соответствующую картинку
+    if (model.binaries.count("#cover.jpg") != 0)
+        model.pages.insert(model.pages.begin(), {Fragment("", {}, {{"id", "#cover.jpg"}}, ct::IMAGE)});
 }
 
 void Controller::draw_page(){
@@ -242,7 +245,7 @@ void Controller::set_page_num_and_update_toc(int new_num){
 
 int main(int argc, char** argv){
     Controller cont;
-    char FILE_NAME[] = "RedRing.fb2";
+    char FILE_NAME[] = "Books/Дары волхвов.fb2";
     cont.load_book(argc == 1? FILE_NAME : argv[1]);
     cont.loop();
     return 0;

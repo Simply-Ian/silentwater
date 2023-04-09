@@ -9,21 +9,37 @@ using namespace std;
 enum Styles {BOLD, /*!< Полужирное начертание*/
             ITALIC, /*!< Курсивное начертание*/
             LINK, /*!< Гиперссылка. Рисуется как подчеркнутый текст синего цвета*/
-            HEADER /*!< Заголовок. Рисуется как полужирный текст размером на 5 пт больше*/
+            HEADER, /*!< Заголовок. Рисуется как полужирный текст размером на 5 пт больше*/
+            IMAGE
+};
+namespace ct{
+    enum ContentType {
+        TEXT,
+        IMAGE,
+        TABLE //<! Еще не используется, зарезервировано на будущее
+    };
 };
 using style_t = pair<Styles, int>; // Элемент списка стилей
 using attr_t = pair<string, int>;
 
 struct Fragment{
-    Fragment(string t, vector<Styles> s, map<string, string> a, int d=-1):
+    Fragment(string t, vector<Styles> s, map<string, string> a, ct::ContentType ct, int d=-1):
         text(t), 
         styles(s), 
         attrs(a),
-        depth(d)
+        depth(d),
+        type(ct)
         {
 
         }
+    
+    Fragment(): text(""), styles{}, attrs{}, depth(-1), type(ct::TEXT)
+    {
+
+    }
+
     string text;
+    ct::ContentType type;
     vector<Styles> styles;
     map<string, string> attrs;
     int x = 0;
@@ -40,7 +56,8 @@ struct Walker: pugi::xml_tree_walker{
         map<string, attr_t> cur_attrs;
         list<Fragment> *frags;
         vector<style_t> cur_style;
-        bool is_in_body = false;
+        string body_name = "out_of_body"; /*<! Согласно стандарту fb2, первый безымянный раздел body документа содержит основной 
+        текст; раздел body с именем "notes" -- примечания */
         string doc_links_name;
 
         Walker(list<Fragment> *f);
@@ -51,26 +68,29 @@ struct Walker: pugi::xml_tree_walker{
             pair<string, Styles>("strong", Styles::BOLD),
             pair<string, Styles>("emphasis", Styles::ITALIC),
             pair<string, Styles>("a", Styles::LINK),
-            pair<string, Styles>("title", Styles::HEADER)
+            pair<string, Styles>("title", Styles::HEADER),
+            pair<string, Styles>("image", Styles::IMAGE)
         };
 
         // Создает список стилей для передачи конструктору Fragment
         vector<Styles> format_styles();
         // Создает список атрибутов для передачи конструктору Fragment
         map<string, string> format_attrs();
+        const string OUT_OF_BODY = "out_of_body";
 };
 
 class Model{
     public:
         list<Fragment> fragments;
         matrix_t pages;
+        string doc_links_name;
+        map<string, string> binaries; //<! Двоичные вложения в кодировке base64
 
         // Загружает fb2-файл, определяет кодировку, перезагружает файл в Юникод и запускает разбор xml
         void load_fb2(char* FILE_NAME);
         void split_into_words();
-        string doc_links_name;
-    
     private:
         Walker w{&fragments};
         pugi::xml_document doc;
+        void extract_binaries();
 };
