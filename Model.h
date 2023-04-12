@@ -4,6 +4,7 @@
 #include <list> //Для хранения фрагментов
 #include "pugixml.hpp"
 #include <map>
+#include "content_types.h"
 using namespace std;
 
 enum Styles {BOLD, /*!< Полужирное начертание*/
@@ -12,13 +13,7 @@ enum Styles {BOLD, /*!< Полужирное начертание*/
             HEADER, /*!< Заголовок. Рисуется как полужирный текст размером на 5 пт больше*/
             IMAGE
 };
-namespace ct{
-    enum ContentType {
-        TEXT,
-        IMAGE,
-        TABLE //<! Еще не используется, зарезервировано на будущее
-    };
-};
+
 using style_t = pair<Styles, int>; // Элемент списка стилей
 using attr_t = pair<string, int>;
 
@@ -32,8 +27,20 @@ struct Fragment{
         {
 
         }
+
+    Fragment(string t, vector<Styles> s, map<string, string> a, ct::ContentType ct, int _x, int _y, int d=-1):
+    text(t), 
+    styles(s), 
+    attrs(a),
+    depth(d),
+    type(ct),
+    x(_x),
+    y(_y)
+    {
+
+    }
     
-    Fragment(): text(""), styles{}, attrs{}, depth(-1), type(ct::TEXT)
+    Fragment(): text(""), styles{}, attrs{}, depth(-1), type(ct::ContentType::TEXT)
     {
 
     }
@@ -55,12 +62,13 @@ struct Walker: pugi::xml_tree_walker{
     public:
         map<string, attr_t> cur_attrs;
         list<Fragment> *frags;
+        map<string, string>* binaries;
         vector<style_t> cur_style;
         string body_name = "out_of_body"; /*<! Согласно стандарту fb2, первый безымянный раздел body документа содержит основной 
         текст; раздел body с именем "notes" -- примечания */
         string doc_links_name;
 
-        Walker(list<Fragment> *f);
+        Walker(list<Fragment> *f, map<string, string> *b) : frags(f), binaries(b) {};
         virtual bool for_each(pugi::xml_node& node);
     
     private:
@@ -84,13 +92,12 @@ class Model{
         list<Fragment> fragments;
         matrix_t pages;
         string doc_links_name;
-        map<string, string> binaries; //<! Двоичные вложения в кодировке base64
+        map<string, string> binaries;
 
         // Загружает fb2-файл, определяет кодировку, перезагружает файл в Юникод и запускает разбор xml
         void load_fb2(char* FILE_NAME);
         void split_into_words();
     private:
-        Walker w{&fragments};
+        Walker w{&fragments, &binaries};
         pugi::xml_document doc;
-        void extract_binaries();
 };

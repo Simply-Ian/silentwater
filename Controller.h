@@ -3,12 +3,17 @@
 #include "tocElem.h"
 #include "Logger.h"
 
-using page_t = vector<SWText>;
+using imagepair_t = pair<sf::Sprite*, sf::Texture*>;
+
+struct Page{
+    vector<SWText> words;
+    vector<imagepair_t> pics;
+};
 
 class Controller{
     Model model;
     View view;
-    page_t cur_page;
+    Page cur_page;
     sf::Font bookFont;
     sf::Text pageNumberText;
     sf::Color textColor{67, 67, 67};
@@ -17,6 +22,7 @@ class Controller{
     int lineInt = 3;
 
     SWText* create_text_from_instance(Fragment frag);
+    pair<sf::Sprite*, sf::Texture*> create_image_from_instance(Fragment frag);
     void build_up_pages_from_frags();
     void set_page_num(int new_num);
     void set_page_num_and_update_toc(int new_num);
@@ -24,6 +30,7 @@ class Controller{
     void turn_page_fw();
     void draw_page();
     void toc_navigate(tgui::String name);
+    float pic_resize_logic(sf::FloatRect obj_bounds, bool fullpage_mode=false);
 
     public:
         vector<tocElem> table_of_contents;

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Silent Water Reader
-   &#160;<span id="projectnumber">0.2-dev</span>
+   &#160;<span id="projectnumber">0.3-dev</span>
    </div>
    <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
   </td>
@@ -75,6 +75,8 @@ $(function() {
 <a href="#details">Подробнее...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="_model_8h_source.html">Model.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_view_8h_source.html">View.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="toc_elem_8h_source.html">tocElem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_logger_8h_source.html">Logger.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Граф включаемых заголовочных файлов для Controller.h:</div>
 <div class="dyncontent">
@@ -90,15 +92,18 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Классы</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_page.html">Page</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Представление текущей страницы  <a href="struct_page.html#details">Подробнее...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html">Controller</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Класс, управляющий выполнением приложения.  <a href="class_controller.html#details">Подробнее...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Определения типов</h2></td></tr>
-<tr class="memitem:ga7153150b299cf930f17d200a89628d88"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__alias.html#ga7153150b299cf930f17d200a89628d88">page_t</a> = vector&lt; <a class="el" href="class_s_w_text.html">SWText</a> &gt;</td></tr>
-<tr class="memdesc:ga7153150b299cf930f17d200a89628d88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Псевдоним для представления сверстанной страницы текста как вектора с объектами класса <a class="el" href="class_s_w_text.html" title="Класс для отрисовки фрагмента текста на странице книги">SWText</a>.  <a href="group__alias.html#ga7153150b299cf930f17d200a89628d88">Подробнее...</a><br /></td></tr>
-<tr class="separator:ga7153150b299cf930f17d200a89628d88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabd4d099240d183b0884124a4cb1df8e3"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__alias.html#gabd4d099240d183b0884124a4cb1df8e3">imagepair_t</a> = pair&lt; sf::Sprite *, sf::Texture * &gt;</td></tr>
+<tr class="memdesc:gabd4d099240d183b0884124a4cb1df8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Представление иллюстрации в виде пары &lt;sf::Sprite*, sf::Texture*&gt;  <a href="group__alias.html#gabd4d099240d183b0884124a4cb1df8e3">Подробнее...</a><br /></td></tr>
+<tr class="separator:gabd4d099240d183b0884124a4cb1df8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
 <div class="textblock"><p>Заголовочный файл, определяющий класс <a class="el" href="class_controller.html" title="Класс, управляющий выполнением приложения.">Controller</a> и псевдоним типа page_t. </p>

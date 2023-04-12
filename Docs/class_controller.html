@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Silent Water Reader
-   &#160;<span id="projectnumber">0.2-dev</span>
+   &#160;<span id="projectnumber">0.3-dev</span>
    </div>
    <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
   </td>
@@ -65,6 +65,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#pub-attribs">Открытые атрибуты</a> &#124;
 <a href="#pri-methods">Закрытые члены</a> &#124;
 <a href="#pri-attribs">Закрытые данные</a> &#124;
 <a href="class_controller-members.html">Полный список членов класса</a>  </div>
@@ -94,17 +95,30 @@ $(function() {
 <tr class="memdesc:a4e9df4b25d627926eeea4b223ed61b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция запускает главный GUI-цикл приложения  <a href="class_controller.html#a4e9df4b25d627926eeea4b223ed61b77">Подробнее...</a><br /></td></tr>
 <tr class="separator:a4e9df4b25d627926eeea4b223ed61b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Открытые атрибуты</h2></td></tr>
+<tr class="memitem:aa03ded663c77d5013ddd4f46f075a1a8"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="structtoc_elem.html">tocElem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#aa03ded663c77d5013ddd4f46f075a1a8">table_of_contents</a></td></tr>
+<tr class="separator:aa03ded663c77d5013ddd4f46f075a1a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5197749e883824c79b9623774e4a7568"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_logger.html">Logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a5197749e883824c79b9623774e4a7568">logger</a> {&quot;log.txt&quot;}</td></tr>
+<tr class="separator:a5197749e883824c79b9623774e4a7568"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Закрытые члены</h2></td></tr>
 <tr class="memitem:a8d816f947265ab8a17e4e4ed6766c406"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_w_text.html">SWText</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a8d816f947265ab8a17e4e4ed6766c406">create_text_from_instance</a> (<a class="el" href="struct_fragment.html">Fragment</a> frag)</td></tr>
 <tr class="memdesc:a8d816f947265ab8a17e4e4ed6766c406"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создает экземпляр <a class="el" href="class_s_w_text.html" title="Класс для отрисовки фрагмента текста на странице книги">SWText</a> из <a class="el" href="struct_fragment.html">Fragment</a>, назначая текст, стили, callback-и и позицию.  <a href="class_controller.html#a8d816f947265ab8a17e4e4ed6766c406">Подробнее...</a><br /></td></tr>
 <tr class="separator:a8d816f947265ab8a17e4e4ed6766c406"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f140c4b6c6b92597fae4401d1b78563"><td class="memItemLeft" align="right" valign="top">pair&lt; sf::Sprite *, sf::Texture * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a1f140c4b6c6b92597fae4401d1b78563">create_image_from_instance</a> (<a class="el" href="struct_fragment.html">Fragment</a> frag)</td></tr>
+<tr class="memdesc:a1f140c4b6c6b92597fae4401d1b78563"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция для создания готовой к отрисовке иллюстрации из фрагмента, имеющего тип ct::ContentType::IMAGE и содержащего закодированное в формате base64 изображение  <a href="class_controller.html#a1f140c4b6c6b92597fae4401d1b78563">Подробнее...</a><br /></td></tr>
+<tr class="separator:a1f140c4b6c6b92597fae4401d1b78563"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7acdb05683248c24d029b4c10a87420"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#aa7acdb05683248c24d029b4c10a87420">build_up_pages_from_frags</a> ()</td></tr>
 <tr class="memdesc:aa7acdb05683248c24d029b4c10a87420"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция для верстки страниц книги  <a href="class_controller.html#aa7acdb05683248c24d029b4c10a87420">Подробнее...</a><br /></td></tr>
 <tr class="separator:aa7acdb05683248c24d029b4c10a87420"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2b2ebf6ac85cf7e44d484b70788c315"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#aa2b2ebf6ac85cf7e44d484b70788c315">set_page_num</a> (int new_num)</td></tr>
 <tr class="memdesc:aa2b2ebf6ac85cf7e44d484b70788c315"><td class="mdescLeft">&#160;</td><td class="mdescRight">Предназначена для перехода на произвольную страницу документа  <a href="class_controller.html#aa2b2ebf6ac85cf7e44d484b70788c315">Подробнее...</a><br /></td></tr>
 <tr class="separator:aa2b2ebf6ac85cf7e44d484b70788c315"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50cc8a296ed49cdc7ab4a6b8223418c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a50cc8a296ed49cdc7ab4a6b8223418c3">set_page_num_and_update_toc</a> (int new_num)</td></tr>
+<tr class="memdesc:a50cc8a296ed49cdc7ab4a6b8223418c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обертка над <a class="el" href="class_controller.html#aa2b2ebf6ac85cf7e44d484b70788c315" title="Предназначена для перехода на произвольную страницу документа">Controller::set_page_num()</a>. Перед переходом на заданную страницу обновляет состояние оглавления.  <a href="class_controller.html#a50cc8a296ed49cdc7ab4a6b8223418c3">Подробнее...</a><br /></td></tr>
+<tr class="separator:a50cc8a296ed49cdc7ab4a6b8223418c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a965525299ba8820b953579402fbb7ec5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a965525299ba8820b953579402fbb7ec5">turn_page_back</a> ()</td></tr>
 <tr class="memdesc:a965525299ba8820b953579402fbb7ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция для перехода на предыдущую страницу книги.  <a href="class_controller.html#a965525299ba8820b953579402fbb7ec5">Подробнее...</a><br /></td></tr>
 <tr class="separator:a965525299ba8820b953579402fbb7ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,6 +128,12 @@ $(function() {
 <tr class="memitem:a4bdea1caffd93ead69ed05dc34f92cd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a4bdea1caffd93ead69ed05dc34f92cd7">draw_page</a> ()</td></tr>
 <tr class="memdesc:a4bdea1caffd93ead69ed05dc34f92cd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция для рендера текущей страницы <b>на текстуру <a class="el" href="struct_view.html#a68af5763991f41f61e936dadb99a9791" title="Текстура страницы. На ней отрисовывается текст текущей страницы.">View.page</a></b>  <a href="class_controller.html#a4bdea1caffd93ead69ed05dc34f92cd7">Подробнее...</a><br /></td></tr>
 <tr class="separator:a4bdea1caffd93ead69ed05dc34f92cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c2e40391d08029fa3fd63f55467a00f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a3c2e40391d08029fa3fd63f55467a00f">toc_navigate</a> (tgui::String name)</td></tr>
+<tr class="memdesc:a3c2e40391d08029fa3fd63f55467a00f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Коллбэк для события "Выделен элемент оглавления". Запускает переход на страницу  <a href="class_controller.html#a3c2e40391d08029fa3fd63f55467a00f">Подробнее...</a><br /></td></tr>
+<tr class="separator:a3c2e40391d08029fa3fd63f55467a00f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae45cbe80e05a0f47fdd1774d2cd06106"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#ae45cbe80e05a0f47fdd1774d2cd06106">pic_resize_logic</a> (sf::FloatRect obj_bounds, bool fullpage_mode=false)</td></tr>
+<tr class="memdesc:ae45cbe80e05a0f47fdd1774d2cd06106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция, определяющая коэффициент масштабирования иллюстраций.  <a href="class_controller.html#ae45cbe80e05a0f47fdd1774d2cd06106">Подробнее...</a><br /></td></tr>
+<tr class="separator:ae45cbe80e05a0f47fdd1774d2cd06106"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Закрытые данные</h2></td></tr>
@@ -121,8 +141,8 @@ $(function() {
 <tr class="separator:a85523dcb33e36c83c7b412a688fc431f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af14d6d41e296aaf8fa2850bbd1ebab87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_view.html">View</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#af14d6d41e296aaf8fa2850bbd1ebab87">view</a></td></tr>
 <tr class="separator:af14d6d41e296aaf8fa2850bbd1ebab87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65ac1bffca12d14fde21c7f37c9304cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__alias.html#ga7153150b299cf930f17d200a89628d88">page_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a65ac1bffca12d14fde21c7f37c9304cf">cur_page</a></td></tr>
-<tr class="separator:a65ac1bffca12d14fde21c7f37c9304cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5f181e948f5e77ec7da23ef09615e03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_page.html">Page</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#ab5f181e948f5e77ec7da23ef09615e03">cur_page</a></td></tr>
+<tr class="separator:ab5f181e948f5e77ec7da23ef09615e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ca0fc0d4cd8f2ebd44d8a004f6e3086"><td class="memItemLeft" align="right" valign="top">sf::Font&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a1ca0fc0d4cd8f2ebd44d8a004f6e3086">bookFont</a></td></tr>
 <tr class="separator:a1ca0fc0d4cd8f2ebd44d8a004f6e3086"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74dd9d92d0dac04836c3e135d7bbd51e"><td class="memItemLeft" align="right" valign="top">sf::Text&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a74dd9d92d0dac04836c3e135d7bbd51e">pageNumberText</a></td></tr>
@@ -183,7 +203,42 @@ $(function() {
 
 <p>Функция для верстки страниц книги </p>
 <dl class="section note"><dt>Заметки</dt><dd>Работает не с экземплярами <a class="el" href="class_s_w_text.html" title="Класс для отрисовки фрагмента текста на странице книги">SWText</a>, а с объектами <a class="el" href="struct_fragment.html">Fragment</a></dd></dl>
-<p>Осуществляет верстку страниц, назначая позиции элементам Controller::model::fragments. Назначает позиции, упаковывает в vector&lt;Fragment&gt; и добавляет сверстанную страницу в Controller::model::pages. </p>
+<p>Осуществляет верстку страниц, назначая позиции элементам Controller::model.fragments. Назначает позиции, упаковывает в vector&lt;Fragment&gt; и добавляет сверстанную страницу в Controller::model.pages. Также создает титульную страницу в случае, если в файле .fb2 содержится изображение обложки </p>
+
+</div>
+</div>
+<a id="a1f140c4b6c6b92597fae4401d1b78563"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f140c4b6c6b92597fae4401d1b78563">&#9670;&nbsp;</a></span>create_image_from_instance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::create_image_from_instance </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_fragment.html">Fragment</a>&#160;</td>
+          <td class="paramname"><em>frag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Функция для создания готовой к отрисовке иллюстрации из фрагмента, имеющего тип ct::ContentType::IMAGE и содержащего закодированное в формате base64 изображение </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">frag</td><td>Фрагмент, содержащий изображение </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Пару &lt;Указатель на спрайт, указатель на текстуру&gt;. Для корректной отрисовки текстура должна существовать все то время, пока используется спрайт. Поэтому и тот, и другая хранятся в динамической памяти в течение всего времени работы ридера, а для манипуляции ими используются указатели. </dd></dl>
 
 </div>
 </div>
@@ -291,6 +346,53 @@ $(function() {
 
 </div>
 </div>
+<a id="ae45cbe80e05a0f47fdd1774d2cd06106"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae45cbe80e05a0f47fdd1774d2cd06106">&#9670;&nbsp;</a></span>pic_resize_logic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::pic_resize_logic </td>
+          <td>(</td>
+          <td class="paramtype">sf::FloatRect&#160;</td>
+          <td class="paramname"><em>obj_bounds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>fullpage_mode</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Функция, определяющая коэффициент масштабирования иллюстраций. </p>
+<p>Часто иллюстрации, хранящиеся внутри файла с книгой, могут быть шире или выше страницы, а обложка &ndash; напротив, слишком маленькой. Функция рассчитывает коэффициент масштабирования картинки с тем, чтобы пропорции изображения остались прежними, но его ширина не превышала ширины страницы без полей, а высота &ndash; высоты страницы без колонтитулов. </p><dl class="section note"><dt>Заметки</dt><dd>Если обычная иллюстрация не выходит за границы полей/колонтитулов, то ее размер не изменяется; однако обложка <b>принудительно масштабируется</b> по размеру целой страницы. </dd></dl>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_bounds</td><td>Границы исходного изображения </td></tr>
+    <tr><td class="paramname">fullpage_mode</td><td>По умолчанию равен false. Является ли текущее изображение обложкой книги (true) или же обычной иллюстрацией. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Коэффициент масштабирования </dd></dl>
+
+</div>
+</div>
 <a id="aa2b2ebf6ac85cf7e44d484b70788c315"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa2b2ebf6ac85cf7e44d484b70788c315">&#9670;&nbsp;</a></span>set_page_num()</h2>
 
@@ -322,7 +424,63 @@ $(function() {
   </table>
   </dd>
 </dl>
-<p>Стирает текущую страницу <a class="el" href="class_controller.html#a65ac1bffca12d14fde21c7f37c9304cf">Controller::cur_page</a> и создает новую, конвертируя объекты <a class="el" href="struct_fragment.html">Fragment</a> в <a class="el" href="class_s_w_text.html" title="Класс для отрисовки фрагмента текста на странице книги">SWText</a> </p>
+<p>Стирает текущую страницу <a class="el" href="class_controller.html#ab5f181e948f5e77ec7da23ef09615e03">Controller::cur_page</a> и создает новую, конвертируя объекты <a class="el" href="struct_fragment.html">Fragment</a> в <a class="el" href="class_s_w_text.html" title="Класс для отрисовки фрагмента текста на странице книги">SWText</a> или std::pair&lt;sf::Sprite*, sf::Texture*&gt;, в зависимости от типа. </p>
+
+</div>
+</div>
+<a id="a50cc8a296ed49cdc7ab4a6b8223418c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50cc8a296ed49cdc7ab4a6b8223418c3">&#9670;&nbsp;</a></span>set_page_num_and_update_toc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::set_page_num_and_update_toc </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>new_num</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Обертка над <a class="el" href="class_controller.html#aa2b2ebf6ac85cf7e44d484b70788c315" title="Предназначена для перехода на произвольную страницу документа">Controller::set_page_num()</a>. Перед переходом на заданную страницу обновляет состояние оглавления. </p>
+
+</div>
+</div>
+<a id="a3c2e40391d08029fa3fd63f55467a00f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c2e40391d08029fa3fd63f55467a00f">&#9670;&nbsp;</a></span>toc_navigate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::toc_navigate </td>
+          <td>(</td>
+          <td class="paramtype">tgui::String&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Коллбэк для события "Выделен элемент оглавления". Запускает переход на страницу </p>
 
 </div>
 </div>
@@ -429,8 +587,8 @@ $(function() {
 
 </div>
 </div>
-<a id="a65ac1bffca12d14fde21c7f37c9304cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65ac1bffca12d14fde21c7f37c9304cf">&#9670;&nbsp;</a></span>cur_page</h2>
+<a id="ab5f181e948f5e77ec7da23ef09615e03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5f181e948f5e77ec7da23ef09615e03">&#9670;&nbsp;</a></span>cur_page</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -439,7 +597,7 @@ $(function() {
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__alias.html#ga7153150b299cf930f17d200a89628d88">page_t</a> Controller::cur_page</td>
+          <td class="memname"><a class="el" href="struct_page.html">Page</a> Controller::cur_page</td>
         </tr>
       </table>
   </td>
@@ -448,6 +606,7 @@ $(function() {
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Текущая страница, готовая к отрисовке </p>
 
 </div>
 </div>
@@ -497,6 +656,21 @@ $(function() {
 
 </div>
 </div>
+<a id="a5197749e883824c79b9623774e4a7568"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5197749e883824c79b9623774e4a7568">&#9670;&nbsp;</a></span>logger</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Controller::logger {&quot;log.txt&quot;}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Объект логгера. </p>
+
+</div>
+</div>
 <a id="a85523dcb33e36c83c7b412a688fc431f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a85523dcb33e36c83c7b412a688fc431f">&#9670;&nbsp;</a></span>model</h2>
 
@@ -539,6 +713,21 @@ $(function() {
 </table>
 </div><div class="memdoc">
 <p>Текстовая метка, обозначающая номер текущей страницы. Хранится и рендерится отдельно от слов книги. </p>
+
+</div>
+</div>
+<a id="aa03ded663c77d5013ddd4f46f075a1a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa03ded663c77d5013ddd4f46f075a1a8">&#9670;&nbsp;</a></span>table_of_contents</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; <a class="el" href="structtoc_elem.html">tocElem</a> &gt; Controller::table_of_contents</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Список разделов (глав) книги </p>
 
 </div>
 </div>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Silent Water Reader
-   &#160;<span id="projectnumber">0.2-dev</span>
+   &#160;<span id="projectnumber">0.3-dev</span>
    </div>
    <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
   </td>
@@ -66,6 +66,8 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Открытые члены</a> &#124;
 <a href="#pub-attribs">Открытые атрибуты</a> &#124;
+<a href="#pri-methods">Закрытые члены</a> &#124;
+<a href="#pri-attribs">Закрытые данные</a> &#124;
 <a href="struct_view-members.html">Полный список членов класса</a>  </div>
   <div class="headertitle">
 <div class="title">Структура View</div>  </div>
@@ -86,6 +88,11 @@ $(function() {
 <tr class="separator:a325fee8ba05fc786cc5f3c1a042582d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c98202846728b495760fad0907b8b0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a1c98202846728b495760fad0907b8b0f">update</a> ()</td></tr>
 <tr class="separator:a1c98202846728b495760fad0907b8b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab249b22cf2d05591a27747244aa08cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#aab249b22cf2d05591a27747244aa08cd">build_up_toc</a> (vector&lt; <a class="el" href="structtoc_elem.html">tocElem</a> &gt; items)</td></tr>
+<tr class="separator:aab249b22cf2d05591a27747244aa08cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29970439bb396f096d3e8f45ea042642"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a29970439bb396f096d3e8f45ea042642">getPageScreenWidth</a> ()</td></tr>
+<tr class="memdesc:a29970439bb396f096d3e8f45ea042642"><td class="mdescLeft">&#160;</td><td class="mdescRight">Рассчитывает ширину области на экране, которую займет страница.  <a href="struct_view.html#a29970439bb396f096d3e8f45ea042642">Подробнее...</a><br /></td></tr>
+<tr class="separator:a29970439bb396f096d3e8f45ea042642"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Открытые атрибуты</h2></td></tr>
@@ -99,6 +106,8 @@ $(function() {
 <tr class="separator:aba4282ce61a926c00a1a462acb45a3ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0240cbd309ed91b6d8562a8f3b3ad67f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a0240cbd309ed91b6d8562a8f3b3ad67f">TOP_BAR_HEIGHT</a> = 75</td></tr>
 <tr class="separator:a0240cbd309ed91b6d8562a8f3b3ad67f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac65615c5f3bfb8ec0846286d0ecbc28e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#ac65615c5f3bfb8ec0846286d0ecbc28e">GUI_TEXT_SIZE</a> = 18</td></tr>
+<tr class="separator:ac65615c5f3bfb8ec0846286d0ecbc28e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6b54a57b9ff1c7c79882eef7799706b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#ad6b54a57b9ff1c7c79882eef7799706b">LF_WIDTH</a> = 55.0 * <a class="el" href="struct_view.html#aba4282ce61a926c00a1a462acb45a3ab">SCALE</a></td></tr>
 <tr class="separator:ad6b54a57b9ff1c7c79882eef7799706b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c974e1567de62eacb8718c01b6f96c4"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a6c974e1567de62eacb8718c01b6f96c4">RF_WIDTH</a> = 15.0 * <a class="el" href="struct_view.html#aba4282ce61a926c00a1a462acb45a3ab">SCALE</a></td></tr>
@@ -112,6 +121,8 @@ $(function() {
 <tr class="memitem:a419b69fcca03a481f4f17f7087e38884"><td class="memItemLeft" align="right" valign="top">sf::RenderWindow&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a419b69fcca03a481f4f17f7087e38884">win</a></td></tr>
 <tr class="memdesc:a419b69fcca03a481f4f17f7087e38884"><td class="mdescLeft">&#160;</td><td class="mdescRight">Главное окно GUI.  <a href="struct_view.html#a419b69fcca03a481f4f17f7087e38884">Подробнее...</a><br /></td></tr>
 <tr class="separator:a419b69fcca03a481f4f17f7087e38884"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79b63618386c9956867a40648304922a"><td class="memItemLeft" align="right" valign="top">sf::ContextSettings&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a79b63618386c9956867a40648304922a">settings</a></td></tr>
+<tr class="separator:a79b63618386c9956867a40648304922a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b8674d0dbf48ce79d2dd7f9892a7e29"><td class="memItemLeft" align="right" valign="top">tgui::GuiSFML&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a1b8674d0dbf48ce79d2dd7f9892a7e29">gui</a></td></tr>
 <tr class="memdesc:a1b8674d0dbf48ce79d2dd7f9892a7e29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Объект, отвечающий за работу с GUI.  <a href="struct_view.html#a1b8674d0dbf48ce79d2dd7f9892a7e29">Подробнее...</a><br /></td></tr>
 <tr class="separator:a1b8674d0dbf48ce79d2dd7f9892a7e29"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,12 +132,31 @@ $(function() {
 <tr class="memitem:a37ed015436bb8a3a6ae6dc7d9830d492"><td class="memItemLeft" align="right" valign="top">tgui::BitmapButton::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a37ed015436bb8a3a6ae6dc7d9830d492">rightButton</a></td></tr>
 <tr class="memdesc:a37ed015436bb8a3a6ae6dc7d9830d492"><td class="mdescLeft">&#160;</td><td class="mdescRight">Умный указатель на экранную кнопку "Вправо".  <a href="struct_view.html#a37ed015436bb8a3a6ae6dc7d9830d492">Подробнее...</a><br /></td></tr>
 <tr class="separator:a37ed015436bb8a3a6ae6dc7d9830d492"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82ec4e586181d5ee03ec364885b0c370"><td class="memItemLeft" align="right" valign="top">tgui::Panel::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a82ec4e586181d5ee03ec364885b0c370">leftPan</a></td></tr>
+<tr class="separator:a82ec4e586181d5ee03ec364885b0c370"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b32d00a00f51279c3d427b99835ca08"><td class="memItemLeft" align="right" valign="top">tgui::ListBox::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a2b32d00a00f51279c3d427b99835ca08">tocList</a></td></tr>
+<tr class="separator:a2b32d00a00f51279c3d427b99835ca08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a921f785a8b5f5d22a331839c9e4d3c12"><td class="memItemLeft" align="right" valign="top">tgui::Label::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a921f785a8b5f5d22a331839c9e4d3c12">toc_header</a></td></tr>
+<tr class="separator:a921f785a8b5f5d22a331839c9e4d3c12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68af5763991f41f61e936dadb99a9791"><td class="memItemLeft" align="right" valign="top">sf::RenderTexture&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a68af5763991f41f61e936dadb99a9791">page</a></td></tr>
 <tr class="memdesc:a68af5763991f41f61e936dadb99a9791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Текстура страницы. На ней отрисовывается текст текущей страницы.  <a href="struct_view.html#a68af5763991f41f61e936dadb99a9791">Подробнее...</a><br /></td></tr>
 <tr class="separator:a68af5763991f41f61e936dadb99a9791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ba0be57333c9a0d0a5bde990c9b8861"><td class="memItemLeft" align="right" valign="top">sf::Sprite&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a6ba0be57333c9a0d0a5bde990c9b8861">pageSprite</a></td></tr>
 <tr class="memdesc:a6ba0be57333c9a0d0a5bde990c9b8861"><td class="mdescLeft">&#160;</td><td class="mdescRight">Спрайт, использующий текстуру page.  <a href="struct_view.html#a6ba0be57333c9a0d0a5bde990c9b8861">Подробнее...</a><br /></td></tr>
 <tr class="separator:a6ba0be57333c9a0d0a5bde990c9b8861"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Закрытые члены</h2></td></tr>
+<tr class="memitem:a22abef77d902b74d99fe8eaa27ca6f71"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a22abef77d902b74d99fe8eaa27ca6f71">getPageScreenHeight</a> ()</td></tr>
+<tr class="separator:a22abef77d902b74d99fe8eaa27ca6f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Закрытые данные</h2></td></tr>
+<tr class="memitem:a1b75205917ba3f99374e66bd842a9d9f"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a1b75205917ba3f99374e66bd842a9d9f">min_width</a></td></tr>
+<tr class="memdesc:a1b75205917ba3f99374e66bd842a9d9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Минимальные ширина и высота окна  <a href="struct_view.html#a1b75205917ba3f99374e66bd842a9d9f">Подробнее...</a><br /></td></tr>
+<tr class="separator:a1b75205917ba3f99374e66bd842a9d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b42e7e8f6e72f4a0a40c401cabbfc85"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_view.html#a4b42e7e8f6e72f4a0a40c401cabbfc85">min_height</a></td></tr>
+<tr class="separator:a4b42e7e8f6e72f4a0a40c401cabbfc85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
 <div class="textblock"><p>Класс, отвечающий за GUI и взаимодействие с пользователем. </p>
@@ -151,6 +181,68 @@ $(function() {
 </div>
 </div>
 <h2 class="groupheader">Методы</h2>
+<a id="aab249b22cf2d05591a27747244aa08cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab249b22cf2d05591a27747244aa08cd">&#9670;&nbsp;</a></span>build_up_toc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void View::build_up_toc </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; <a class="el" href="structtoc_elem.html">tocElem</a> &gt;&#160;</td>
+          <td class="paramname"><em>items</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a22abef77d902b74d99fe8eaa27ca6f71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22abef77d902b74d99fe8eaa27ca6f71">&#9670;&nbsp;</a></span>getPageScreenHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int View::getPageScreenHeight </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a29970439bb396f096d3e8f45ea042642"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29970439bb396f096d3e8f45ea042642">&#9670;&nbsp;</a></span>getPageScreenWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int View::getPageScreenWidth </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Рассчитывает ширину области на экране, которую займет страница. </p>
+
+</div>
+</div>
 <a id="a325fee8ba05fc786cc5f3c1a042582d4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a325fee8ba05fc786cc5f3c1a042582d4">&#9670;&nbsp;</a></span>onWinResize()</h2>
 
@@ -238,6 +330,20 @@ $(function() {
 
 </div>
 </div>
+<a id="ac65615c5f3bfb8ec0846286d0ecbc28e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac65615c5f3bfb8ec0846286d0ecbc28e">&#9670;&nbsp;</a></span>GUI_TEXT_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int View::GUI_TEXT_SIZE = 18</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ab13dc7a36e66c3a5ae063c03805715b2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab13dc7a36e66c3a5ae063c03805715b2">&#9670;&nbsp;</a></span>H_HEIGHT</h2>
 
@@ -269,6 +375,20 @@ $(function() {
 
 </div>
 </div>
+<a id="a82ec4e586181d5ee03ec364885b0c370"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82ec4e586181d5ee03ec364885b0c370">&#9670;&nbsp;</a></span>leftPan</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tgui::Panel::Ptr View::leftPan</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad6b54a57b9ff1c7c79882eef7799706b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad6b54a57b9ff1c7c79882eef7799706b">&#9670;&nbsp;</a></span>LF_WIDTH</h2>
 
@@ -281,6 +401,52 @@ $(function() {
       </table>
 </div><div class="memdoc">
 <p>Ширина левого поля на странице </p>
+
+</div>
+</div>
+<a id="a4b42e7e8f6e72f4a0a40c401cabbfc85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b42e7e8f6e72f4a0a40c401cabbfc85">&#9670;&nbsp;</a></span>min_height</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int View::min_height</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1b75205917ba3f99374e66bd842a9d9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b75205917ba3f99374e66bd842a9d9f">&#9670;&nbsp;</a></span>min_width</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int View::min_width</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Минимальные ширина и высота окна </p>
 
 </div>
 </div>
@@ -395,6 +561,20 @@ $(function() {
 
 </div>
 </div>
+<a id="a79b63618386c9956867a40648304922a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79b63618386c9956867a40648304922a">&#9670;&nbsp;</a></span>settings</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::ContextSettings View::settings</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad17558054fd553633403723943f62730"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad17558054fd553633403723943f62730">&#9670;&nbsp;</a></span>SIDEBAR_WIDTH</h2>
 
@@ -407,6 +587,34 @@ $(function() {
       </table>
 </div><div class="memdoc">
 <p>Ширина в px боковых панелей </p>
+
+</div>
+</div>
+<a id="a921f785a8b5f5d22a331839c9e4d3c12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a921f785a8b5f5d22a331839c9e4d3c12">&#9670;&nbsp;</a></span>toc_header</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tgui::Label::Ptr View::toc_header</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2b32d00a00f51279c3d427b99835ca08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b32d00a00f51279c3d427b99835ca08">&#9670;&nbsp;</a></span>tocList</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tgui::ListBox::Ptr View::tocList</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

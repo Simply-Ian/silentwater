@@ -30,7 +30,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/run",
-            "args": [],
+            "args": ["Books/Alisa.fb2"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

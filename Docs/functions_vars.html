@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Silent Water Reader
-   &#160;<span id="projectnumber">0.2-dev</span>
+   &#160;<span id="projectnumber">0.3-dev</span>
    </div>
    <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
   </td>
@@ -74,6 +74,13 @@ $(function() {
 
 
 <h3><a id="index_b"></a>- b -</h3><ul>
+<li>binaries
+: <a class="el" href="class_model.html#a4201da1dfb92e83e6e6abd79d619e0d1">Model</a>
+, <a class="el" href="struct_walker.html#a9a6460522d28749ad2db43356a2a5356">Walker</a>
+</li>
+<li>body_name
+: <a class="el" href="struct_walker.html#abfb860cc69f556b687ada49440759443">Walker</a>
+</li>
 <li>bookFont
 : <a class="el" href="class_controller.html#a1ca0fc0d4cd8f2ebd44d8a004f6e3086">Controller</a>
 </li>
@@ -88,7 +95,7 @@ $(function() {
 : <a class="el" href="struct_walker.html#afc9ae9c897f6fa6b8a29ac2e518659e2">Walker</a>
 </li>
 <li>cur_page
-: <a class="el" href="class_controller.html#a65ac1bffca12d14fde21c7f37c9304cf">Controller</a>
+: <a class="el" href="class_controller.html#ab5f181e948f5e77ec7da23ef09615e03">Controller</a>
 </li>
 <li>cur_page_num
 : <a class="el" href="class_controller.html#a181b7228f34da0ed914a3d10e8d90be5">Controller</a>
@@ -100,6 +107,10 @@ $(function() {
 
 
 <h3><a id="index_d"></a>- d -</h3><ul>
+<li>depth
+: <a class="el" href="struct_fragment.html#a27497b180bbacff55152da96aecdd90f">Fragment</a>
+, <a class="el" href="structtoc_elem.html#a7b06b428ecfa0fb537c4e912d826dcc7">tocElem</a>
+</li>
 <li>doc
 : <a class="el" href="class_model.html#ae6530ab4599693b8b6e5cd71cc694ffe">Model</a>
 </li>
@@ -115,6 +126,12 @@ $(function() {
 <li>F_HEIGHT
 : <a class="el" href="struct_view.html#ab4acf2f9808275142941b89c905d4807">View</a>
 </li>
+<li>FILE
+: <a class="el" href="class_logger.html#a33723fe5004128995b47893f9729970d">Logger</a>
+</li>
+<li>filename
+: <a class="el" href="class_logger.html#ad40c75ece6b50213e146357a87668947">Logger</a>
+</li>
 <li>fragments
 : <a class="el" href="class_model.html#ab364d7b6d4cb0d8a8f4118c6892b754d">Model</a>
 </li>
@@ -128,12 +145,18 @@ $(function() {
 <li>gui
 : <a class="el" href="struct_view.html#a1b8674d0dbf48ce79d2dd7f9892a7e29">View</a>
 </li>
+<li>GUI_TEXT_SIZE
+: <a class="el" href="struct_view.html#ac65615c5f3bfb8ec0846286d0ecbc28e">View</a>
+</li>
 </ul>
 
 
 <h3><a id="index_h"></a>- h -</h3><ul>
 <li>H_HEIGHT
 : <a class="el" href="struct_view.html#ab13dc7a36e66c3a5ae063c03805715b2">View</a>
+</li>
+<li>headline
+: <a class="el" href="structtoc_elem.html#a42de8203c3d35606f84663d183731183">tocElem</a>
 </li>
 </ul>
 
@@ -142,9 +165,6 @@ $(function() {
 <li>is_clickable
 : <a class="el" href="class_s_w_text.html#a19e2c243fc1fece6602220a7a2893a73">SWText</a>
 </li>
-<li>is_in_body
-: <a class="el" href="struct_walker.html#ad83297277abff119f2200b2c1c24055e">Walker</a>
-</li>
 </ul>
 
 
@@ -152,16 +172,28 @@ $(function() {
 <li>leftButton
 : <a class="el" href="struct_view.html#a2ba7d0d040c4f0eed1e49d6cf5f0e73e">View</a>
 </li>
+<li>leftPan
+: <a class="el" href="struct_view.html#a82ec4e586181d5ee03ec364885b0c370">View</a>
+</li>
 <li>LF_WIDTH
 : <a class="el" href="struct_view.html#ad6b54a57b9ff1c7c79882eef7799706b">View</a>
 </li>
 <li>lineInt
 : <a class="el" href="class_controller.html#a62aacc61ea3984bca312209c6535bea7">Controller</a>
 </li>
+<li>logger
+: <a class="el" href="class_controller.html#a5197749e883824c79b9623774e4a7568">Controller</a>
+</li>
 </ul>
 
 
 <h3><a id="index_m"></a>- m -</h3><ul>
+<li>min_height
+: <a class="el" href="struct_view.html#a4b42e7e8f6e72f4a0a40c401cabbfc85">View</a>
+</li>
+<li>min_width
+: <a class="el" href="struct_view.html#a1b75205917ba3f99374e66bd842a9d9f">View</a>
+</li>
 <li>model
 : <a class="el" href="class_controller.html#a85523dcb33e36c83c7b412a688fc431f">Controller</a>
 </li>
@@ -182,12 +214,16 @@ $(function() {
 <li>onHover
 : <a class="el" href="class_s_w_text.html#aded00e08d997845e3acf79133cc9eacd">SWText</a>
 </li>
+<li>OUT_OF_BODY
+: <a class="el" href="struct_walker.html#ade8b19f59f8c6508e5b568e809784b4f">Walker</a>
+</li>
 </ul>
 
 
 <h3><a id="index_p"></a>- p -</h3><ul>
 <li>page
-: <a class="el" href="struct_view.html#a68af5763991f41f61e936dadb99a9791">View</a>
+: <a class="el" href="structtoc_elem.html#a508deca288b178e388f6ecdaf977087f">tocElem</a>
+, <a class="el" href="struct_view.html#a68af5763991f41f61e936dadb99a9791">View</a>
 </li>
 <li>PAGE_HEIGHT
 : <a class="el" href="struct_view.html#a8703725f0440d6d7ea3154e5d2c1f0fc">View</a>
@@ -207,6 +243,9 @@ $(function() {
 <li>parent
 : <a class="el" href="class_s_w_text.html#ab58645019d77e953e5828e54dd606a36">SWText</a>
 </li>
+<li>pics
+: <a class="el" href="struct_page.html#a5bc9dee02611651535acd2680833c92b">Page</a>
+</li>
 </ul>
 
 
@@ -224,6 +263,9 @@ $(function() {
 <li>SCALE
 : <a class="el" href="struct_view.html#aba4282ce61a926c00a1a462acb45a3ab">View</a>
 </li>
+<li>settings
+: <a class="el" href="struct_view.html#a79b63618386c9956867a40648304922a">View</a>
+</li>
 <li>SIDEBAR_WIDTH
 : <a class="el" href="struct_view.html#ad17558054fd553633403723943f62730">View</a>
 </li>
@@ -234,14 +276,26 @@ $(function() {
 
 
 <h3><a id="index_t"></a>- t -</h3><ul>
+<li>table_of_contents
+: <a class="el" href="class_controller.html#aa03ded663c77d5013ddd4f46f075a1a8">Controller</a>
+</li>
 <li>text
 : <a class="el" href="struct_fragment.html#a812f6c55410c7f836a6e8ff48d4acb55">Fragment</a>
 </li>
 <li>textColor
 : <a class="el" href="class_controller.html#af86c1a35f02d5e79cd933901cf506175">Controller</a>
 </li>
+<li>toc_header
+: <a class="el" href="struct_view.html#a921f785a8b5f5d22a331839c9e4d3c12">View</a>
+</li>
+<li>tocList
+: <a class="el" href="struct_view.html#a2b32d00a00f51279c3d427b99835ca08">View</a>
+</li>
 <li>TOP_BAR_HEIGHT
 : <a class="el" href="struct_view.html#a0240cbd309ed91b6d8562a8f3b3ad67f">View</a>
+</li>
+<li>type
+: <a class="el" href="struct_fragment.html#a239dd87a2549920a558a1c7fa8fd99d9">Fragment</a>
 </li>
 </ul>
 
@@ -259,6 +313,9 @@ $(function() {
 </li>
 <li>win
 : <a class="el" href="struct_view.html#a419b69fcca03a481f4f17f7087e38884">View</a>
+</li>
+<li>words
+: <a class="el" href="struct_page.html#acd99b5e731c6b60d19982ec8774e23e6">Page</a>
 </li>
 </ul>
 

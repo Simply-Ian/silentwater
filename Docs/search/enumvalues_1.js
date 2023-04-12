@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['header_191',['HEADER',['../_model_8h.html#a7aa3419d0e6ee02d49e91aeca67fc9fda2e57918a09d25b07a664e505d50a97f6',1,'Model.h']]]
+  ['critical_288',['CRITICAL',['../class_logger.html#a471b24b561ec3b85bd455750eebb8828a4157b31e8897f6aaf720fe5e869638b9',1,'Logger']]]
 ];

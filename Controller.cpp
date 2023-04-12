@@ -2,6 +2,8 @@
 #include <map>
 #include <utility>
 #include <algorithm> // Для std::find()
+#include "decode_base64.h"
+#include "content_types.h"
 
 Controller::Controller(){
     pageNumberText.setFont(bookFont);
@@ -51,6 +53,24 @@ SWText* Controller::create_text_from_instance(Fragment frag){
     return word;
 }
 
+pair<sf::Sprite*, sf::Texture*> Controller::create_image_from_instance(Fragment frag){
+    string attr_name = model.doc_links_name + ":href";
+    if (frag.attrs.count(attr_name) != 0){
+        string pic_name = frag.attrs[model.doc_links_name + ":href"];
+        pic_name.erase(0, 1);
+        long decoded_len = model.binaries[pic_name].size()/4 * 3;
+        char* decoded = decode_base64(model.binaries[pic_name].c_str());
+        sf::Texture* picture = new sf::Texture;
+        picture->loadFromMemory(decoded, decoded_len);
+        sf::Sprite* sprite = new sf::Sprite;
+        sprite->setTexture(*picture);
+        sprite->setPosition(frag.x, frag.y);
+        delete[] decoded;
+        return {sprite, picture};
+    }
+    throw;
+}
+
 void Controller::build_up_pages_from_frags(){
     vector<Fragment> page;
     int line_len_px = view.PAGE_WIDTH - view.LF_WIDTH - view.RF_WIDTH;
@@ -59,75 +79,133 @@ void Controller::build_up_pages_from_frags(){
     int frags_len = model.fragments.size();
     float w_width;
     float w_height;
+
+    auto new_page = [&](){
+        model.pages.push_back(page);
+        page.clear();
+        carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
+    };
+
     for (int index = 0; index < frags_len; index++){
         Fragment frag = *(model.fragments.begin());
 
         // Добавляем элемент оглавления
         if (std::find(frag.styles.begin(), frag.styles.end(), Styles::HEADER) != frag.styles.end()){
             // Walker::for_each() гарантирует, что в атрибутах каждого фрагмента со стилем HEADLINE есть ключ "title"
-            tocElem to_be_added(model.pages.size(), frag.attrs["title"], frag.depth);
+            tocElem to_be_added(model.pages.size() + 1, frag.attrs["title"], frag.depth); // +1 из-за обложки
 
             // Добавляем только уникальные элементы (из-за разбития на слова заголовки дублируются)
             if(table_of_contents.size() == 0 || *(--table_of_contents.end()) != to_be_added)
                 table_of_contents.push_back(to_be_added);
         }
-
-        SWText* word = create_text_from_instance(frag);
-        w_width = word->getBounds().width;
-        w_height = word->getBounds().height;
-        if (carriage_pos.x + w_width - 1 > line_len_px){
-            if (carriage_pos.y + w_height >= view.PAGE_HEIGHT - view.F_HEIGHT){ // Страница заполнена
-                model.pages.push_back(page);
-                page.clear();
-                carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
-            }
-            else{
-                carriage_pos = {view.LF_WIDTH, carriage_pos.y + bookFontSize + lineInt};
-            }
-        }
-
-        if (word->getString().toAnsiString() == string("&&&")){
-            float new_y = carriage_pos.y + 1.5f*(bookFontSize + lineInt);
-            if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT){
-                carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
-                model.pages.push_back(page);
-                page.clear();
-            }
-            else{
-                carriage_pos = {view.LF_WIDTH, new_y};
-            }
-        }
-        else if (word->getString().toAnsiString() == string("\n")){
-            float new_y = carriage_pos.y + (bookFontSize + lineInt) * 2;
-            if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT){
-                carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
-                model.pages.push_back(page);
-                page.clear();
-            }
-            else{
-                carriage_pos = {view.LF_WIDTH, new_y};
-            }
-        }
-        else {
-            frag.x = carriage_pos.x;
-            frag.y = carriage_pos.y;
-            carriage_pos.x += w_width;
-            page.push_back(frag);
-        }
+        if (frag.type == ct::ContentType::TEXT){
+            SWText* obj = create_text_from_instance(frag);
+            w_width = obj->getBounds().width;
+            w_height = obj->getBounds().height;
         
+            if (carriage_pos.x + w_width - 1 > line_len_px){
+                if (carriage_pos.y + w_height >= view.PAGE_HEIGHT - view.F_HEIGHT) // Страница заполнена
+                    new_page();
+                else
+                    carriage_pos = {view.LF_WIDTH, carriage_pos.y + bookFontSize + lineInt};
+            }
+
+            if (obj->getString().toAnsiString() == string("&&&")){
+                float new_y = carriage_pos.y + 1.5f*(bookFontSize + lineInt);
+                if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT)
+                    new_page();
+                else
+                    carriage_pos = {view.LF_WIDTH, new_y};
+            }
+            else if (obj->getString().toAnsiString() == string("\n")){
+                float new_y = carriage_pos.y + (bookFontSize + lineInt) * 2;
+                if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT)
+                    new_page();
+                else
+                    carriage_pos = {view.LF_WIDTH, new_y};
+            }
+            else {
+                frag.x = carriage_pos.x;
+                frag.y = carriage_pos.y;
+                carriage_pos.x += w_width;
+                page.push_back(frag);
+            }
+            
+            delete obj;
+        }
+        else if (frag.type == ct::ContentType::IMAGE){
+            imagepair_t IP = create_image_from_instance(frag);
+            sf::Sprite* obj = IP.first;
+            sf::FloatRect obj_bounds = obj->getLocalBounds();
+            float resize_factor = pic_resize_logic(obj_bounds);
+            obj_bounds.width *= resize_factor;
+            obj_bounds.height *= resize_factor;
+
+            if (carriage_pos.x != view.LF_WIDTH)
+                carriage_pos = {view.LF_WIDTH, carriage_pos.y +  + 1.5f*(bookFontSize + lineInt)};
+            
+            if (carriage_pos.y + obj_bounds.height >= view.PAGE_HEIGHT - view.F_HEIGHT)
+                new_page();
+            // Коэффициент 3, так как правое поле слишком узкое
+            frag.x = view.LF_WIDTH + ((view.PAGE_WIDTH - view.LF_WIDTH - view.RF_WIDTH*3) - obj_bounds.width) / 2;
+            frag.y = carriage_pos.y;
+            page.push_back(frag);
+            carriage_pos.y += obj_bounds.height;
+            delete IP.first, IP.second;
+        }
         model.fragments.pop_front();
-        delete word;
     }
     if (page.size() > 0) model.pages.push_back(page); // Adding the last page of the book.
     // Добавляем обложку, если документ содержит соответствующую картинку
-    if (model.binaries.count("#cover.jpg") != 0)
-        model.pages.insert(model.pages.begin(), {Fragment("", {}, {{"id", "#cover.jpg"}}, ct::IMAGE)});
+    if (model.binaries.count("cover.jpg") != 0){
+        Fragment cover("", {}, {{model.doc_links_name + ":href", "#cover.jpg"}}, 
+            ct::ContentType::IMAGE);
+        imagepair_t IP = create_image_from_instance(cover);
+        sf::Sprite* obj = IP.first;
+        sf::FloatRect obj_bounds = obj->getLocalBounds();
+        float resize_factor = pic_resize_logic(obj_bounds, true);
+        int width = obj_bounds.width * resize_factor;
+        int height = obj_bounds.height * resize_factor;
+
+        cover.x = (view.PAGE_WIDTH  - width) / 2;
+        cover.y = (view.PAGE_HEIGHT  - height) / 2;
+
+        model.pages.insert(model.pages.begin(), {cover});
+    }
+}
+
+float Controller::pic_resize_logic(sf::FloatRect obj_bounds, bool fullpage_mode){
+    // Коэффициент 3, так как правое поле слишком узкое
+    int accessable_width = (view.PAGE_WIDTH - view.LF_WIDTH - view.RF_WIDTH * 3); 
+    int accessable_height = (view.PAGE_HEIGHT - view.H_HEIGHT - view.F_HEIGHT);
+    obj_bounds.width *= view.SCALE;
+    obj_bounds.height *= view.SCALE;
+    float h_resize_factor;
+    float v_resize_factor;
+    float resize_factor;
+    if (fullpage_mode){
+        h_resize_factor = accessable_width / obj_bounds.width;
+        v_resize_factor = accessable_height / obj_bounds.height;
+    }
+    else{
+        h_resize_factor = accessable_width < obj_bounds.width ? accessable_width / obj_bounds.width : 1;
+        v_resize_factor = accessable_height < obj_bounds.height ? accessable_height / obj_bounds.height : 1;
+    }
+    resize_factor = std::min(h_resize_factor, v_resize_factor);
+
+    return view.SCALE * resize_factor;
 }
 
 void Controller::draw_page(){
     view.page.clear(sf::Color::White);
-    for (SWText word: this->cur_page){
+    for (SWText word: this->cur_page.words){
         view.page.draw(word);
+    }
+    for (imagepair_t pic: this->cur_page.pics){
+        float scale_factor = pic_resize_logic(pic.first->getLocalBounds(), 
+                cur_page_num == 0 && model.binaries.count("cover.jpg") > 0);
+        pic.first->setScale(scale_factor, scale_factor);
+        view.page.draw(*pic.first);
     }
     pageNumberText.setString(sf::String(to_string(cur_page_num + 1)));
     pageNumberText.setPosition(view.PAGE_WIDTH - view.RF_WIDTH - pageNumberText.getLocalBounds().width, \
@@ -158,7 +236,7 @@ void Controller::loop(){
                 else if(event.key.code == sf::Keyboard::Right) turn_page_fw();
             }
             else if (event.type == sf::Event::MouseButtonPressed){
-                for (SWText word: cur_page){
+                for (SWText word: cur_page.words){
                     if (word.checkMouseOn({event.mouseButton.x, 
                                         event.mouseButton.y}))
                         word.onClick(&word);
@@ -167,7 +245,7 @@ void Controller::loop(){
             else if (event.type == sf::Event::MouseMoved){
                 if(!eventHandledByTGUI){
                     bool wordHoveredFlag = false;
-                    for (SWText word: cur_page){
+                    for (SWText word: cur_page.words){
                         if (word.checkMouseOn({event.mouseMove.x, 
                                             event.mouseMove.y})){
                             word.onHover(&word);
@@ -191,12 +269,24 @@ void Controller::loop(){
 
 void Controller::set_page_num(int new_num){
     if (new_num >= 0 && new_num < this->model.pages.size()){
-        cur_page.clear();
+        cur_page.words.clear();
+        for (imagepair_t IP: cur_page.pics){
+            delete IP.first;
+            delete IP.second;
+        }
+        cur_page.pics.clear();
         cur_page_num = new_num;
         for (Fragment frag: model.pages[cur_page_num]){
-            SWText* cur_word = create_text_from_instance(frag);
-            cur_page.push_back(*cur_word);
-            delete cur_word;
+            if (frag.type == ct::ContentType::TEXT){
+                SWText* cur_word = create_text_from_instance(frag);
+                cur_page.words.push_back(*cur_word);
+                delete cur_word;
+            }
+            else if (frag.type == ct::ContentType::IMAGE){
+                pair<sf::Sprite*, sf::Texture*> cur_pic = create_image_from_instance(frag);
+                cur_pic.first->setScale(view.SCALE, view.SCALE);
+                cur_page.pics.push_back(cur_pic);
+            }
         }
     }
 }

@@ -2,16 +2,16 @@
     \file Controller.h
     \brief Заголовочный файл, определяющий класс Controller и псевдоним типа page_t
 
-    \typedef page_t
+    \typedef imagepair_t
         \ingroup alias
-        \brief Псевдоним для представления сверстанной страницы текста как вектора с объектами класса SWText
+        \brief Представление иллюстрации в виде пары <sf::Sprite*, sf::Texture*>
     
     \class Controller Controller.h
     \brief Класс, управляющий выполнением приложения. 
     \details С вызова его методов load_book() и loop() начинается работа Silent Water. Хранит Model и View как 
     закрытые поля. Также содержит матрицу слов (в виде Fragments), вектор сверстанных страниц и данные о внешнем виде текста
     
-    \var page_t cur_page
+    \var Page Controller::cur_page
     Текущая страница, готовая к отрисовке
     
     \var Controller::bookFont
@@ -32,6 +32,12 @@
     \var Controller::lineInt
     Межстрочный интервал 
 
+    \var vector<tocElem> Controller::table_of_contents
+    Список разделов (глав) книги
+
+    \var Controller::logger
+    Объект логгера.
+
     \fn Controller::create_text_from_instance(Fragment frag)
     \brief Создает экземпляр SWText из Fragment, назначая текст, стили, callback-и и позицию.
     \returns Указатель на экземпляр SWText
@@ -39,13 +45,15 @@
     \fn Controller::build_up_pages_from_frags()
     \brief Функция для верстки страниц книги
     \note Работает не с экземплярами SWText, а с объектами Fragment
-    \details Осуществляет верстку страниц, назначая позиции элементам Controller::model::fragments. Назначает позиции, упаковывает 
-    в vector<Fragment> и добавляет сверстанную страницу в Controller::model::pages.
+    \details Осуществляет верстку страниц, назначая позиции элементам Controller::model.fragments. Назначает позиции, упаковывает в vector<Fragment> и добавляет сверстанную страницу в Controller::model.pages. Также создает титульную страницу в случае, если в файле .fb2 содержится изображение обложки
 
     \fn Controller::set_page_num(int new_num)
         \brief Предназначена для перехода на произвольную страницу документа
         \param new_num Номер страницы, на которую нужно перейти
-        \details Стирает текущую страницу Controller::cur_page и создает новую, конвертируя объекты Fragment в SWText
+        \details Стирает текущую страницу Controller::cur_page и создает новую, конвертируя объекты Fragment в SWText или std::pair<sf::Sprite*, sf::Texture*>, в зависимости от типа.
+    
+    \fn Controller::set_page_num_and_update_toc(int new_num)
+        \brief Обертка над Controller::set_page_num(). Перед переходом на заданную страницу обновляет состояние оглавления.
 
     \fn Controller::turn_page_back()
         \brief Функция для перехода на предыдущую страницу книги.
@@ -59,14 +67,38 @@
         \brief Функция для рендера текущей страницы <b>на текстуру View.page</b>
         \note Собственно отрисовкой на экран занимается метод View.update()
 
-    \fn Controller::load_book(char* path);
+    \fn Controller::load_book(char* path)
         \brief Позволяет загрузить fb2-документ по переданному пути.
         \param path Путь до fb2-документа
         \warning Не проверяет валидность пути, если файл не существует, приложение аварийно завершит работу.
         \todo Добавить обработку ошибок 
 
-    \fn Controller::loop();
+    \fn Controller::loop()
         \brief Функция запускает главный GUI-цикл приложения
     
+    \fn Controller::create_image_from_instance(Fragment frag)
+        \brief Функция для создания готовой к отрисовке иллюстрации из фрагмента, имеющего тип ct::ContentType::IMAGE и 
+        содержащего закодированное в формате base64 изображение
+        \param frag Фрагмент, содержащий изображение
+        \returns Пару <Указатель на спрайт, указатель на текстуру>. Для корректной отрисовки текстура должна существовать все то время, пока используется спрайт. Поэтому и тот, и другая хранятся в динамической памяти в течение всего времени работы ридера, а для манипуляции ими используются указатели.
+    
+    \fn Controller::pic_resize_logic(sf::FloatRect obj_bounds, bool fullpage_mode)
+        \brief Функция, определяющая коэффициент масштабирования иллюстраций.
+        \details Часто иллюстрации, хранящиеся внутри файла с книгой, могут быть шире или выше страницы, а обложка -- напротив, слишком маленькой. Функция рассчитывает коэффициент масштабирования картинки с тем, чтобы пропорции изображения остались прежними, но его ширина не превышала ширины страницы без полей, а высота -- высоты страницы без колонтитулов.
+        \note Если обычная иллюстрация не выходит за границы полей/колонтитулов, то ее размер не изменяется; однако обложка <b>принудительно масштабируется</b> по размеру целой страницы.
+        \param obj_bounds Границы исходного изображения
+        \param fullpage_mode По умолчанию равен false. Является ли текущее изображение обложкой книги (true) или же обычной иллюстрацией.
+        \returns Коэффициент масштабирования
 
+    \fn Controller::toc_navigate(tgui::String name)
+        \brief Коллбэк для события "Выделен элемент оглавления". Запускает переход на страницу
+
+    \struct Page
+    \brief Представление текущей страницы
+    \details Хранит вектора, содержащие готовые к отрисовке элементы текста, изображения.
+    \var vector<SWText> Page::words
+    Элементы текста
+
+    \var vector<imagepair_t> Page::pics
+    Изображения
 */

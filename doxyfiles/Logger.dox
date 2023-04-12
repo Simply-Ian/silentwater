@@ -1,0 +1,18 @@
+/*!
+    \file Logger.h
+    \brief Заголовочный файл, определяющий класс логгера
+
+    \class Logger
+    \brief Простой логгер
+    \var Logger::filename
+    Путь к файлу, в который пишутся сообщения
+
+    \var Logger::FILE
+    Файловый поток вывода
+
+    \enum LOgger::levels
+    Уровни важности сообщения.
+
+    \fn Logger::log(std::string message, levels level)
+    Вывод сообщения с заданными текстом и уровнем важности в файл
+*/

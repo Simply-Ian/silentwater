@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['page_5ft_187',['page_t',['../group__alias.html#ga7153150b299cf930f17d200a89628d88',1,'Controller.h']]]
+  ['matrix_5ft_282',['matrix_t',['../group__alias.html#ga292aa9cd09c0634aa70bcc6b1bf94ee6',1,'Model.h']]]
 ];

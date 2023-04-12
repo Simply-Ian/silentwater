@@ -1,42 +1,45 @@
 var indexSectionsWithContent =
 {
-  0: "abcdfghilmnoprstuvwxyÐ",
-  1: "cfmsvw",
-  2: "cglmv",
-  3: "bcdfglmostuvw",
-  4: "abcdfghilmnoprstvwxy",
-  5: "amps",
-  6: "s",
-  7: "bhil",
-  8: "Ð",
-  9: "sÐ"
+  0: "abcdfghilmnoprstuvwxy~Ð",
+  1: "cflmpstvw",
+  2: "c",
+  3: "cdglmtv",
+  4: "bcdfglmopstuvw~",
+  5: "abcdfghilmnoprstvwxy",
+  6: "aims",
+  7: "cls",
+  8: "bchiltw",
+  9: "Ð",
+  10: "sÐ"
 };
 
 var indexSectionNames =
 {
   0: "all",
   1: "classes",
-  2: "files",
-  3: "functions",
-  4: "variables",
-  5: "typedefs",
-  6: "enums",
-  7: "enumvalues",
-  8: "groups",
-  9: "pages"
+  2: "namespaces",
+  3: "files",
+  4: "functions",
+  5: "variables",
+  6: "typedefs",
+  7: "enums",
+  8: "enumvalues",
+  9: "groups",
+  10: "pages"
 };
 
 var indexSectionLabels =
 {
   0: "Указатель",
   1: "Классы",
-  2: "Файлы",
-  3: "Функции",
-  4: "Переменные",
-  5: "Определения типов",
-  6: "Перечисления",
-  7: "Элементы перечислений",
-  8: "Группы",
-  9: "Страницы"
+  2: "Пространства имен",
+  3: "Файлы",
+  4: "Функции",
+  5: "Переменные",
+  6: "Определения типов",
+  7: "Перечисления",
+  8: "Элементы перечислений",
+  9: "Группы",
+  10: "Страницы"
 };
 

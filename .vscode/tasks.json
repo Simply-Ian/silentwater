@@ -35,6 +35,7 @@
 				"load_text.cpp",
 				"pugixml.cpp",
 				"Logger.cpp",
+				"decode_base64.cpp",
 				"-ltgui",
 				"-lsfml-graphics",
 				"-lsfml-system",

@@ -19,13 +19,9 @@ Fragment::operator string() const{
     else return "\n";
 }
 
-Walker::Walker(list<Fragment> *f){
-    frags = f; // Сохраняет ссылку на вектор, куда будут добавляться фрагменты текста
-}
-
 bool Walker::for_each(pugi::xml_node& node){
     if (strcmp(node.name(), "body") == 0){
-        body_name = node.find_attribute([](pugi::xml_attribute x){return strcmp(x.name(), "name") == 0;}).name();
+        body_name = node.find_attribute([](pugi::xml_attribute x){return strcmp(x.name(), "name") == 0;}).value();
     }
     else if (depth() <= 1)
         body_name = OUT_OF_BODY;
@@ -48,31 +44,39 @@ bool Walker::for_each(pugi::xml_node& node){
             if (strcmp(attr.name(), (doc_links_name + ":href").c_str()) == 0)
                 cur_attrs[attr.name()] = attr_t(attr.value(), depth());
         }
-        if (node_name == "title"){
+        if (node_name == "title"){ //??
             cur_attrs["title"] = attr_t("", depth());
         }
-        else if (node_name == "image")
-            cur_attrs["bin_id"] = attr_t(node.find_attribute(
-                [](pugi::xml_attribute x)-> bool {
-                    return strcmp(x.name(), "id") == 0;
-                }).value(), depth());
-        
 
         if (node.type() == pugi::xml_node_type::node_pcdata){
-            Fragment to_be_added(node.value(), format_styles(), format_attrs(), ct::TEXT, depth());
+            Fragment to_be_added(node.value(), format_styles(), format_attrs(), ct::ContentType::TEXT, depth());
             // Перед разбиением на отдельные слова сохраняем в атрибутах каждого фрагмента-заголовка исходное название.
             if (cur_attrs.count("title") != 0)
                 to_be_added.attrs["title"] = to_be_added.text;
             frags->push_back(to_be_added);
         }
         else if (strcmp(node.name(), "empty-line") == 0){
-            frags->push_back(Fragment("\n", format_styles(), {}, ct::TEXT));
+            frags->push_back(Fragment("\n", format_styles(), {}, ct::ContentType::TEXT));
         }
         else if (strcmp(node.name(), "p") == 0){
-            frags->push_back(Fragment("&&&", format_styles(), {}, ct::TEXT));
+            frags->push_back(Fragment("&&&", format_styles(), {}, ct::ContentType::TEXT));
         }
         else if (strcmp(node.name(), "image") == 0){
-            frags->push_back(Fragment("", {}, format_attrs(), ct::IMAGE));
+            frags->push_back(Fragment("", {}, format_attrs(), ct::ContentType::IMAGE));
+        }
+    }
+    else if (body_name == OUT_OF_BODY){
+        if (strcmp(node.name(), "binary") == 0){
+            string href = node.attribute("id").value();
+            string encoded = node.first_child().value();
+            // Вычищаем символы перевода строки, которые попадаются в base64 внутри файлов от некоторых библиотек
+            size_t break_pos = encoded.find('\n');
+            while (break_pos != string::npos){
+                encoded.erase(break_pos, 1);
+                break_pos = encoded.find('\n', break_pos + 1);
+            }
+            
+            binaries->insert({href, encoded});
         }
     }
     return true;
@@ -112,38 +116,30 @@ void Model::load_fb2(char* FILE_NAME){
     }
     w.doc_links_name = this->doc_links_name;
     doc.traverse(w);
-    extract_binaries();
 }
 
 void Model::split_into_words(){
-    char* word;
     int frags_len = fragments.size();
     for (int index = 0; index < frags_len; index++){
         auto i = fragments.begin();
-        if (i->type == ct::TEXT && i->text != "&&&"){
-            stringstream s(i->text);
-            string word;
-            while(getline(s, word, ' ')){
-                word += " ";
-                Fragment word_frag(word, i->styles, i->attrs, i->type, i->depth);
+        if (i->type == ct::TEXT){
+            if (i->text != "&&&"){
+                stringstream s(i->text);
+                string word;
+                while(getline(s, word, ' ')){
+                    word += " ";
+                    Fragment word_frag(word, i->styles, i->attrs, i->type, i->depth);
+                    fragments.push_back(word_frag);
+                }
+            }
+            else{
+                Fragment word_frag("&&&", {}, {}, ct::TEXT);
                 fragments.push_back(word_frag);
             }
         }
-        else{
-            Fragment word_frag("&&&", {}, {}, ct::TEXT);
-            fragments.push_back(word_frag);
-        }
+        else
+            fragments.push_back(*i);
         fragments.pop_front();
     }
     this->fragments.erase(this->fragments.begin()); // Обрезаем пустую строку перед первым абзацем
-}
-
-void Model::extract_binaries(){
-    // Извлекаем иллюстрации
-    pugi::xml_node binary = doc.find_node([](pugi::xml_node x) -> bool {
-        return strcmp(x.name(), "binary") == 0;
-    });
-    for (auto i = binary; i; i = i.next_sibling("binary")){
-        this->binaries[i.attribute("id").value()] = i.first_child().value();
-    }
 }

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['walker_141',['Walker',['../struct_walker.html#a18279e1fbdcbaf2f06d82b163dd43f16',1,'Walker']]]
+  ['view_216',['View',['../struct_view.html#a44ad60a768422d3fa8fbd7576950080a',1,'View']]]
 ];

@@ -2,3 +2,5 @@ massif.out.*
 *.fb2
 run
 log.txt
+decode_test
+valgrind.supp

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Silent Water Reader
-   &#160;<span id="projectnumber">0.2-dev</span>
+   &#160;<span id="projectnumber">0.3-dev</span>
    </div>
    <div id="projectbrief">Свободное приложение для чтения электронных книг в формате fb2</div>
   </td>
@@ -73,7 +73,11 @@ $(function() {
 <dt>Член <a class="el" href="struct_view.html#a325fee8ba05fc786cc5f3c1a042582d4">View::onWinResize</a>  (sf::Event::SizeEvent new_size)</dt>
 <dd><a class="anchor" id="_todo000003"></a>Переписать </dd>
 <dt>Страница <a class="el" href="lifecycle.html">Жизненный цикл приложения</a>  </dt>
-<dd><a class="anchor" id="_todo000002"></a>Для определения кодировки текста файл должен открываться "вручную", чтобы избежать полного парсинга. Нужно только считать значение одного атрибута тега, расположенного в первой строке. Это можно реализовать без средств pugixml.</dd>
+<dd><a class="anchor" id="_todo000002"></a>Для определения кодировки текста файл должен открываться "вручную", чтобы избежать полного парсинга. Нужно только считать значение одного атрибута тега, расположенного в первой строке. Это можно реализовать без средств pugixml. <br  />
+ Затем внутри model::load_fb2() вызывается функция <a class="el" href="load__text_8cpp.html#a2a7f5299a57b0c0947c3a483d525f60c">load_text()</a>. Она снова открывает файл и конвертирует его в UTF-8 с помощью libiconv. Далее происходит XML-парсинг, строится дерево тегов, определяется префикс ссылок. И, наконец, запускается <a class="el" href="struct_walker.html" title="Класс для парсинга XML средствами pugixml и первичной генерации объектов Fragment.">Walker</a>.<ol type="1">
+<li><a class="el" href="struct_walker.html" title="Класс для парсинга XML средствами pugixml и первичной генерации объектов Fragment.">Walker</a> рекурсивно обходит все дерево тегов, игнорируя теги вне секции &lt;body&gt; . На каждом шаге он обновляет <a class="el" href="struct_walker.html#ac4c64e5274f7300e5af6329e4cce4ecb" title="Хранит стили текущего тега и всех его родителей.">Walker::cur_style</a> и <a class="el" href="struct_walker.html#afc9ae9c897f6fa6b8a29ac2e518659e2" title="Хранит атрибуты текущего тега и всех его родителей.">Walker::cur_attrs</a> . Если текущий тег задает стиль для вложенного в него текста или имеет атрибуты, значения стилей сохраняются в <a class="el" href="struct_walker.html#ac4c64e5274f7300e5af6329e4cce4ecb" title="Хранит стили текущего тега и всех его родителей.">Walker::cur_style</a> с указанием глубины, на которой находится тег; названия и значения атрибутов сохраняются в <a class="el" href="struct_walker.html#afc9ae9c897f6fa6b8a29ac2e518659e2" title="Хранит атрибуты текущего тега и всех его родителей.">Walker::cur_attrs</a>. На каждом шаге из <a class="el" href="struct_walker.html#ac4c64e5274f7300e5af6329e4cce4ecb" title="Хранит стили текущего тега и всех его родителей.">Walker::cur_style</a> удаляются стили и атрибуты, установленные более глубокими тегами. </li>
+</ol>
+</dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

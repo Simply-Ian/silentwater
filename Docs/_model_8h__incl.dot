@@ -16,4 +16,6 @@ digraph "Model.h"
   Node6 [label="pugixml.hpp",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
   Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node7 [label="map",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="content_types.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$content__types_8h.html",tooltip=" "];
 }

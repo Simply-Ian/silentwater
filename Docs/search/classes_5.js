@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['walker_100',['Walker',['../struct_walker.html',1,'']]]
+  ['swtext_149',['SWText',['../class_s_w_text.html',1,'']]]
 ];
