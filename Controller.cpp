@@ -73,18 +73,8 @@ pair<sf::Sprite*, sf::Texture*> Controller::create_image_from_instance(Fragment 
 
 void Controller::build_up_pages_from_frags(){
     vector<Fragment> page;
-    int line_len_px = view.PAGE_WIDTH - view.LF_WIDTH - view.RF_WIDTH;
     sf::Vector2f carriage_pos = {view.LF_WIDTH, view.H_HEIGHT}; // Position relative to the lt corner of view.pageSprite
-    
     int frags_len = model.fragments.size();
-    float w_width;
-    float w_height;
-
-    auto new_page = [&](){
-        model.pages.push_back(page);
-        page.clear();
-        carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
-    };
 
     for (int index = 0; index < frags_len; index++){
         Fragment frag = *(model.fragments.begin());
@@ -99,64 +89,57 @@ void Controller::build_up_pages_from_frags(){
                 table_of_contents.push_back(to_be_added);
         }
         if (frag.type == ct::ContentType::TEXT){
-            SWText* obj = create_text_from_instance(frag);
-            w_width = obj->getBounds().width;
-            w_height = obj->getBounds().height;
-        
-            if (carriage_pos.x + w_width - 1 > line_len_px){
-                if (carriage_pos.y + w_height >= view.PAGE_HEIGHT - view.F_HEIGHT) // Страница заполнена
-                    new_page();
-                else
-                    carriage_pos = {view.LF_WIDTH, carriage_pos.y + bookFontSize + lineInt};
-            }
-
-            if (obj->getString().toAnsiString() == string("&&&")){
-                float new_y = carriage_pos.y + 1.5f*(bookFontSize + lineInt);
-                if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT)
-                    new_page();
-                else
-                    carriage_pos = {view.LF_WIDTH, new_y};
-            }
-            else if (obj->getString().toAnsiString() == string("\n")){
-                float new_y = carriage_pos.y + (bookFontSize + lineInt) * 2;
-                if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT)
-                    new_page();
-                else
-                    carriage_pos = {view.LF_WIDTH, new_y};
-            }
-            else {
-                frag.x = carriage_pos.x;
-                frag.y = carriage_pos.y;
-                carriage_pos.x += w_width;
-                page.push_back(frag);
-            }
-            
-            delete obj;
+            add_text(frag, page, carriage_pos);
         }
         else if (frag.type == ct::ContentType::IMAGE){
-            imagepair_t IP = create_image_from_instance(frag);
-            sf::Sprite* obj = IP.first;
-            sf::FloatRect obj_bounds = obj->getLocalBounds();
-            float resize_factor = pic_resize_logic(obj_bounds);
-            obj_bounds.width *= resize_factor;
-            obj_bounds.height *= resize_factor;
-
-            if (carriage_pos.x != view.LF_WIDTH)
-                carriage_pos = {view.LF_WIDTH, carriage_pos.y +  + 1.5f*(bookFontSize + lineInt)};
-            
-            if (carriage_pos.y + obj_bounds.height >= view.PAGE_HEIGHT - view.F_HEIGHT)
-                new_page();
-            // Коэффициент 3, так как правое поле слишком узкое
-            frag.x = view.LF_WIDTH + ((view.PAGE_WIDTH - view.LF_WIDTH - view.RF_WIDTH*3) - obj_bounds.width) / 2;
-            frag.y = carriage_pos.y;
-            page.push_back(frag);
-            carriage_pos.y += obj_bounds.height;
-            delete IP.first, IP.second;
+            add_image(frag, page, carriage_pos);
         }
         model.fragments.pop_front();
     }
     if (page.size() > 0) model.pages.push_back(page); // Adding the last page of the book.
+
     // Добавляем обложку, если документ содержит соответствующую картинку
+    add_coverpage();
+}
+
+void Controller::add_text(Fragment frag, vector<Fragment> &page, sf::Vector2f &carriage_pos){
+    SWText* obj = create_text_from_instance(frag);
+    float w_width = obj->getBounds().width;
+    float w_height = obj->getBounds().height;
+    int line_len_px = view.PAGE_WIDTH - view.LF_WIDTH - view.RF_WIDTH;
+    
+    if (carriage_pos.x + w_width - 1 > line_len_px){
+        if (carriage_pos.y + w_height >= view.PAGE_HEIGHT - view.F_HEIGHT) // Страница заполнена
+            new_page(page, carriage_pos);
+        else
+            carriage_pos = {view.LF_WIDTH, carriage_pos.y + bookFontSize + lineInt};
+    }
+
+    if (obj->getString().toAnsiString() == string("&&&")){
+        float new_y = carriage_pos.y + 1.5f*(bookFontSize + lineInt);
+        if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT)
+            new_page(page, carriage_pos);
+        else
+            carriage_pos = {view.LF_WIDTH, new_y};
+    }
+    else if (obj->getString().toAnsiString() == string("\n")){
+        float new_y = carriage_pos.y + (bookFontSize + lineInt) * 2;
+        if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT)
+            new_page(page, carriage_pos);
+        else
+            carriage_pos = {view.LF_WIDTH, new_y};
+    }
+    else {
+        frag.x = carriage_pos.x;
+        frag.y = carriage_pos.y;
+        carriage_pos.x += w_width;
+        page.push_back(frag);
+    }
+    
+    delete obj;
+}
+
+void Controller::add_coverpage(){
     if (model.binaries.count("cover.jpg") != 0){
         Fragment cover("", {}, {{model.doc_links_name + ":href", "#cover.jpg"}}, 
             ct::ContentType::IMAGE);
@@ -172,6 +155,33 @@ void Controller::build_up_pages_from_frags(){
 
         model.pages.insert(model.pages.begin(), {cover});
     }
+}
+
+void Controller::new_page(vector<Fragment> &page, sf::Vector2f &carriage_pos){
+    model.pages.push_back(page);
+    page.clear();
+    carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
+}
+
+void Controller::add_image(Fragment frag, vector<Fragment> &page, sf::Vector2f &carriage_pos){
+    imagepair_t IP = create_image_from_instance(frag);
+    sf::Sprite* obj = IP.first;
+    sf::FloatRect obj_bounds = obj->getLocalBounds();
+    float resize_factor = pic_resize_logic(obj_bounds);
+    obj_bounds.width *= resize_factor;
+    obj_bounds.height *= resize_factor;
+
+    if (carriage_pos.x != view.LF_WIDTH)
+        carriage_pos = {view.LF_WIDTH, carriage_pos.y +  + 1.5f*(bookFontSize + lineInt)};
+    
+    if (carriage_pos.y + obj_bounds.height >= view.PAGE_HEIGHT - view.F_HEIGHT)
+        new_page(page, carriage_pos);
+    // Коэффициент 3, так как правое поле слишком узкое
+    frag.x = view.LF_WIDTH + ((view.PAGE_WIDTH - view.LF_WIDTH - view.RF_WIDTH*3) - obj_bounds.width) / 2;
+    frag.y = carriage_pos.y;
+    page.push_back(frag);
+    carriage_pos.y += obj_bounds.height;
+    delete IP.first, IP.second;
 }
 
 float Controller::pic_resize_logic(sf::FloatRect obj_bounds, bool fullpage_mode){
