@@ -36,6 +36,7 @@
 				"pugixml.cpp",
 				"Logger.cpp",
 				"decode_base64.cpp",
+				"AlignmentGroup.cpp",
 				"-ltgui",
 				"-lsfml-graphics",
 				"-lsfml-system",

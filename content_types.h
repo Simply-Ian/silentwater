@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SW_CONTENT_TYPES
+#define SW_CONTENT_TYPES
 namespace ct{
     enum ContentType {
         TEXT,
@@ -6,3 +7,4 @@ namespace ct{
         TABLE //<! Еще не используется, зарезервировано на будущее
     };
 };
+#endif

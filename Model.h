@@ -5,13 +5,16 @@
 #include "pugixml.hpp"
 #include <map>
 #include "content_types.h"
+#include "AlignmentGroup.h"
 using namespace std;
 
 enum Styles {BOLD, /*!< Полужирное начертание*/
             ITALIC, /*!< Курсивное начертание*/
             LINK, /*!< Гиперссылка. Рисуется как подчеркнутый текст синего цвета*/
             HEADER, /*!< Заголовок. Рисуется как полужирный текст размером на 5 пт больше*/
-            IMAGE
+            IMAGE,
+            POEM,
+            SUBTITLE
 };
 
 using style_t = pair<Styles, int>; // Элемент списка стилей
@@ -49,6 +52,7 @@ struct Fragment{
     ct::ContentType type;
     vector<Styles> styles;
     map<string, string> attrs;
+    int align_group_num = -1; // Индекс группы выравнивания в Controller::align_groups
     int x = 0;
     int y = 0;
     int depth = 0;
@@ -77,7 +81,9 @@ struct Walker: pugi::xml_tree_walker{
             pair<string, Styles>("emphasis", Styles::ITALIC),
             pair<string, Styles>("a", Styles::LINK),
             pair<string, Styles>("title", Styles::HEADER),
-            pair<string, Styles>("image", Styles::IMAGE)
+            pair<string, Styles>("image", Styles::IMAGE),
+            pair<string, Styles>("poem", Styles::POEM),
+            pair<string, Styles>("subtitle", Styles::SUBTITLE)
         };
 
         // Создает список стилей для передачи конструктору Fragment
@@ -93,6 +99,7 @@ class Model{
         matrix_t pages;
         string doc_links_name;
         map<string, string> binaries;
+        map<string, string> notes;
 
         // Загружает fb2-файл, определяет кодировку, перезагружает файл в Юникод и запускает разбор xml
         void load_fb2(char* FILE_NAME);

@@ -40,6 +40,10 @@ SWText* Controller::create_text_from_instance(Fragment frag){
             word->setStyle(word->getStyle() | sf::Text::Style::Bold);
             word->setCharacterSize(bookFontSize + 5);
         }
+        if (style == Styles::SUBTITLE) {
+            word->setStyle(word->getStyle() | sf::Text::Style::Bold);
+            word->setCharacterSize(bookFontSize + 2);
+        }
         if (style == Styles::ITALIC) word->setStyle(word->getStyle() | sf::Text::Style::Bold);
         if (style == Styles::LINK){
             word->setStyle(word->getStyle() | sf::Text::Style::Underlined);
@@ -80,7 +84,7 @@ void Controller::build_up_pages_from_frags(){
         Fragment frag = *(model.fragments.begin());
 
         // Добавляем элемент оглавления
-        if (std::find(frag.styles.begin(), frag.styles.end(), Styles::HEADER) != frag.styles.end()){
+        if (std::find(frag.styles.begin(), frag.styles.end(), Styles::HEADER) != frag.styles.end() && frag.text !="&&&"){
             // Walker::for_each() гарантирует, что в атрибутах каждого фрагмента со стилем HEADLINE есть ключ "title"
             tocElem to_be_added(model.pages.size() + 1, frag.attrs["title"], frag.depth); // +1 из-за обложки
 
@@ -100,6 +104,7 @@ void Controller::build_up_pages_from_frags(){
 
     // Добавляем обложку, если документ содержит соответствующую картинку
     add_coverpage();
+    align_frags();
 }
 
 void Controller::add_text(Fragment frag, vector<Fragment> &page, sf::Vector2f &carriage_pos){
@@ -115,21 +120,41 @@ void Controller::add_text(Fragment frag, vector<Fragment> &page, sf::Vector2f &c
             carriage_pos = {view.LF_WIDTH, carriage_pos.y + bookFontSize + lineInt};
     }
 
-    if (obj->getString().toAnsiString() == string("&&&")){
+    if (frag.text == "&&&"){
         float new_y = carriage_pos.y + 1.5f*(bookFontSize + lineInt);
         if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT)
             new_page(page, carriage_pos);
-        else
+        else{
             carriage_pos = {view.LF_WIDTH, new_y};
+            update_align_groups();
+        }
     }
-    else if (obj->getString().toAnsiString() == string("\n")){
+    else if (frag.text == "\n"){
         float new_y = carriage_pos.y + (bookFontSize + lineInt) * 2;
         if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT)
             new_page(page, carriage_pos);
-        else
+        else{
             carriage_pos = {view.LF_WIDTH, new_y};
+            update_align_groups();
+        }
+    }
+    else if (frag.text == "SW_POEM_START"){
+        // Встречая специальный код, контроллер создает группу выравнивания
+        align_groups.push_back(AlignmentGroup(alignType::CENTER, line_len_px));
+    }
+    else if (frag.text == "SW_POEM_NEW_LINE"){
+        // Встречая специальный код, контроллер обновляет данные группы выравнивания
+        update_align_groups();
     }
     else {
+        /* Если текущее слово -- часть стихотворной строфы, то фрагменту назначается группа выравнивания, 
+        а длина текущей стихотворной строки, хранящейся в align_group, увеличивается на длину слова */
+        if (!align_groups.empty()){
+            if(std::find(frag.styles.begin(), frag.styles.end(), Styles::POEM) != frag.styles.end()){
+                frag.align_group_num = align_groups.size() - 1;
+                align_groups.back().line_len += w_width;
+            }
+        }
         frag.x = carriage_pos.x;
         frag.y = carriage_pos.y;
         carriage_pos.x += w_width;
@@ -137,6 +162,20 @@ void Controller::add_text(Fragment frag, vector<Fragment> &page, sf::Vector2f &c
     }
     
     delete obj;
+}
+
+void Controller::align_frags(){
+    for (auto page = model.pages.begin(); page != model.pages.end(); page++){
+        for (auto frag = page->begin(); frag != page->end(); frag++){
+            if (frag->align_group_num != -1)
+                frag->x += align_groups.at(frag->align_group_num).offset();
+        }
+    }
+}
+
+void Controller::update_align_groups(){
+    if (!align_groups.empty())
+        align_groups.back().updateMaxLineLen();
 }
 
 void Controller::add_coverpage(){
@@ -161,6 +200,7 @@ void Controller::new_page(vector<Fragment> &page, sf::Vector2f &carriage_pos){
     model.pages.push_back(page);
     page.clear();
     carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
+    update_align_groups();
 }
 
 void Controller::add_image(Fragment frag, vector<Fragment> &page, sf::Vector2f &carriage_pos){
@@ -318,25 +358,27 @@ void Controller::toc_navigate(tgui::String name){
 }
 
 void Controller::set_page_num_and_update_toc(int new_num){
+    if (table_of_contents.size() > 0){
     // Обновляем оглавление
     if(new_num > cur_page_num){
-        int toc_size = table_of_contents.size();
-        for (int index = view.tocList->getSelectedItemIndex() + 1; index < toc_size - 1; index++){
-            if (table_of_contents[index].page <= new_num && table_of_contents[index + 1].page > new_num){
-                view.tocList->setSelectedItemByIndex(index);
+            int toc_size = table_of_contents.size();
+            for (int index = view.tocList->getSelectedItemIndex() + 1; index < toc_size - 1; index++){
+                if (table_of_contents[index].page <= new_num && table_of_contents[index + 1].page > new_num){
+                    view.tocList->setSelectedItemByIndex(index);
+                }
+            }
+            // Проверка последнего элемента. Если переход осуществляется с последнего элемента, есть риск выхода за границы вектора
+            if (table_of_contents[table_of_contents.size() - 1].page <= new_num){
+                view.tocList->setSelectedItemByIndex(table_of_contents.size() - 1);
             }
         }
-        // Проверка последнего элемента. Если переход осуществляется с последнего элемента, есть риск выхода за границы вектора
-        if (table_of_contents[table_of_contents.size() - 1].page <= new_num){
-            view.tocList->setSelectedItemByIndex(table_of_contents.size() - 1);
-        }
-    }
-    else if(new_num < cur_page_num){
-        int cur_index = view.tocList->getSelectedItemIndex();
-        for (int index = 0; index < cur_index; index++){
-            if (table_of_contents[index].page <= new_num && table_of_contents[index + 1].page >= new_num){
-                view.tocList->setSelectedItemByIndex(index);
-                break;
+        else if(new_num < cur_page_num){
+            int cur_index = view.tocList->getSelectedItemIndex();
+            for (int index = 0; index < cur_index; index++){
+                if (table_of_contents[index].page <= new_num && table_of_contents[index + 1].page >= new_num){
+                    view.tocList->setSelectedItemByIndex(index);
+                    break;
+                }
             }
         }
     }

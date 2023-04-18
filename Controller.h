@@ -2,6 +2,7 @@
 #include "View.h"
 #include "tocElem.h"
 #include "Logger.h"
+#include "AlignmentGroup.h"
 
 using imagepair_t = pair<sf::Sprite*, sf::Texture*>;
 
@@ -20,6 +21,7 @@ class Controller{
     int cur_page_num = 0;
     int bookFontSize = 20 * view.SCALE;
     int lineInt = 3;
+    vector<AlignmentGroup> align_groups;
 
     SWText* create_text_from_instance(Fragment frag);
     pair<sf::Sprite*, sf::Texture*> create_image_from_instance(Fragment frag);
@@ -36,6 +38,11 @@ class Controller{
     void new_page(vector<Fragment> &cur_page, sf::Vector2f &carriage_pos);
     void add_image(Fragment frag, vector<Fragment> &cur_page, sf::Vector2f &carriage_pos);
     void add_text(Fragment frag, vector<Fragment> &cur_page, sf::Vector2f &carriage_pos);
+    /* Когда после стихотворных строк появляется фрагмент, не имеющий стиля Styles::POEM (это проверяется внутри add_text()),
+    это значит, что стихотворение закончилось и его можно выровнять по центру. Этим и занимается align_frags()
+    */
+    void align_frags();
+    void update_align_groups(); // Проверяет размер align_groups и стартует соотв. метод AlignGroup
 
     public:
         vector<tocElem> table_of_contents;

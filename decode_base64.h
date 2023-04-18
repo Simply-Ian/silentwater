@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DECODE_BASE_64
+#define DECODE_BASE_64
+
 #include <cstdint>
 #include <cstring>
 
@@ -8,3 +10,5 @@
     \returns Возвращает ссылку на начало последовательности байтовых данных.
 */
 char* decode_base64(const char* start);
+
+#endif

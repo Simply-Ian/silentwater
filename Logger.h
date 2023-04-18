@@ -1,3 +1,6 @@
+#ifndef SW_LOGGER
+#define SW_LOGGER
+
 #include <fstream>
 #include <string>
 
@@ -16,3 +19,4 @@ class Logger{
 
         void log(std::string message, levels level);
 };
+#endif

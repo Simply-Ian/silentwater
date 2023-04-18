@@ -5,6 +5,7 @@
 #include <map>
 #include "Model.h"
 #include <sstream> // Для разбиения строки по разделителю
+#include <algorithm> // Для std::find
 using namespace std;
 
 Fragment::operator string() const{
@@ -20,7 +21,8 @@ Fragment::operator string() const{
 }
 
 bool Walker::for_each(pugi::xml_node& node){
-    if (strcmp(node.name(), "body") == 0){
+    const string node_name = node.name(); // Конверсия C-строки в string
+    if (node_name == "body"){
         body_name = node.find_attribute([](pugi::xml_attribute x){return strcmp(x.name(), "name") == 0;}).value();
     }
     else if (depth() <= 1)
@@ -35,7 +37,6 @@ bool Walker::for_each(pugi::xml_node& node){
             cur_attrs.erase(--cur_attrs.end());
         }
 
-        const string node_name = node.name(); // Конверсия C-строки в string
         if (names_to_styles.count(node_name) > 0)
             cur_style.push_back(style_t(names_to_styles[node_name], depth()));
         
@@ -44,7 +45,9 @@ bool Walker::for_each(pugi::xml_node& node){
             if (strcmp(attr.name(), (doc_links_name + ":href").c_str()) == 0)
                 cur_attrs[attr.name()] = attr_t(attr.value(), depth());
         }
-        if (node_name == "title"){ //??
+        if (node_name == "title"){ 
+            /* Указываем, что следующие фрагменты относятся к заголовку. Это необходимо для постройки оглавления.
+            Здесь важно не значение атрибута, а просто его наличие. */
             cur_attrs["title"] = attr_t("", depth());
         }
 
@@ -55,18 +58,25 @@ bool Walker::for_each(pugi::xml_node& node){
                 to_be_added.attrs["title"] = to_be_added.text;
             frags->push_back(to_be_added);
         }
-        else if (strcmp(node.name(), "empty-line") == 0){
+        else if (node_name == "empty-line" || node_name == "subtitle"){
             frags->push_back(Fragment("\n", format_styles(), {}, ct::ContentType::TEXT));
         }
-        else if (strcmp(node.name(), "p") == 0){
+        else if (node_name == "p" || node_name == "stanza"){
             frags->push_back(Fragment("&&&", format_styles(), {}, ct::ContentType::TEXT));
         }
-        else if (strcmp(node.name(), "image") == 0){
+        else if (node_name == "v"){
+            frags->push_back(Fragment("&&&", format_styles(), {}, ct::ContentType::TEXT));
+            frags->push_back(Fragment("SW_POEM_NEW_LINE", format_styles(), {}, ct::ContentType::TEXT));
+        }
+        else if (node_name == "poem"){
+            frags->push_back(Fragment("SW_POEM_START", format_styles(), {}, ct::ContentType::TEXT));
+        }
+        else if (node_name == "image"){
             frags->push_back(Fragment("", {}, format_attrs(), ct::ContentType::IMAGE));
         }
     }
     else if (body_name == OUT_OF_BODY){
-        if (strcmp(node.name(), "binary") == 0){
+        if (node_name == "binary"){
             string href = node.attribute("id").value();
             string encoded = node.first_child().value();
             // Вычищаем символы перевода строки, которые попадаются в base64 внутри файлов от некоторых библиотек
@@ -120,10 +130,11 @@ void Model::load_fb2(char* FILE_NAME){
 
 void Model::split_into_words(){
     int frags_len = fragments.size();
+    vector<string> spec_codes = {"&&&", "SW_POEM_START", "SW_POEM_NEW_LINE"};
     for (int index = 0; index < frags_len; index++){
         auto i = fragments.begin();
         if (i->type == ct::TEXT){
-            if (i->text != "&&&"){
+            if (find(spec_codes.begin(), spec_codes.end(), i->text) == spec_codes.end()){
                 stringstream s(i->text);
                 string word;
                 while(getline(s, word, ' ')){
@@ -133,8 +144,7 @@ void Model::split_into_words(){
                 }
             }
             else{
-                Fragment word_frag("&&&", {}, {}, ct::TEXT);
-                fragments.push_back(word_frag);
+                fragments.push_back(*i);
             }
         }
         else

@@ -1,6 +1,6 @@
 #include <TGUI/Core.hpp>
 #include <TGUI/Backends/SFML.hpp>
-#include <TGUI/AllWidgets.hpp>
+#include <TGUI/AllWidgets.hpp> //<! \todo Оставить только нужные заголовки
 #include <functional>
 #include <string>
 #include <map>

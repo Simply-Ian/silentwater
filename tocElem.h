@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SW_TOC_ELEM
+#define SW_TOC_ELEM
 #include <string>
 
 struct tocElem {
@@ -23,3 +24,4 @@ struct tocElem {
         return (cmp.page != this->page) || (cmp.depth != this->depth) || (cmp.headline != this->headline);
     }
 };
+#endif
