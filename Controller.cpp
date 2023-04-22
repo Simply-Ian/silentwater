@@ -27,14 +27,14 @@ void Controller::load_book(char* path){
     set_page_num(0);
 }
 
-SWText* Controller::create_text_from_instance(Fragment frag){
+SWText* Controller::create_text_from_instance(Fragment* frag){
     SWText* word = new SWText(&view);
-    word->setString(sf::String::fromUtf8(frag.text.begin(), frag.text.end()));
+    word->setString(sf::String::fromUtf8(frag->text.begin(), frag->text.end()));
     word->setFont(bookFont);
     word->setFillColor(textColor);
     word->setCharacterSize(bookFontSize);
-    word->attrs = frag.attrs;
-    for (Styles style: frag.styles){
+    word->attrs = frag->attrs;
+    for (Styles style: frag->styles){
         if (style == Styles::BOLD) word->setStyle(word->getStyle() | sf::Text::Style::Bold);
         if (style == Styles::HEADER) {
             word->setStyle(word->getStyle() | sf::Text::Style::Bold);
@@ -53,14 +53,14 @@ SWText* Controller::create_text_from_instance(Fragment frag){
             word->is_clickable = true;
         }
     }
-    word->setPosition({static_cast<float>(frag.x), static_cast<float>(frag.y)});
+    word->setPosition({static_cast<float>(frag->x), static_cast<float>(frag->y)});
     return word;
 }
 
-pair<sf::Sprite*, sf::Texture*> Controller::create_image_from_instance(Fragment frag){
+pair<sf::Sprite*, sf::Texture*> Controller::create_image_from_instance(Fragment* frag){
     string attr_name = model.doc_links_name + ":href";
-    if (frag.attrs.count(attr_name) != 0){
-        string pic_name = frag.attrs[model.doc_links_name + ":href"];
+    if (frag->attrs.count(attr_name) != 0){
+        string pic_name = frag->attrs[model.doc_links_name + ":href"];
         pic_name.erase(0, 1);
         long decoded_len = model.binaries[pic_name].size()/4 * 3;
         char* decoded = decode_base64(model.binaries[pic_name].c_str());
@@ -68,7 +68,7 @@ pair<sf::Sprite*, sf::Texture*> Controller::create_image_from_instance(Fragment 
         picture->loadFromMemory(decoded, decoded_len);
         sf::Sprite* sprite = new sf::Sprite;
         sprite->setTexture(*picture);
-        sprite->setPosition(frag.x, frag.y);
+        sprite->setPosition(frag->x, frag->y);
         delete[] decoded;
         return {sprite, picture};
     }
@@ -76,27 +76,28 @@ pair<sf::Sprite*, sf::Texture*> Controller::create_image_from_instance(Fragment 
 }
 
 void Controller::build_up_pages_from_frags(){
-    vector<Fragment> page;
+    vector<Fragment*> page;
     sf::Vector2f carriage_pos = {view.LF_WIDTH, view.H_HEIGHT}; // Position relative to the lt corner of view.pageSprite
     int frags_len = model.fragments.size();
 
     for (int index = 0; index < frags_len; index++){
-        Fragment frag = *(model.fragments.begin());
+        Fragment* frag_ptr = *(model.fragments.begin());
 
         // Добавляем элемент оглавления
-        if (std::find(frag.styles.begin(), frag.styles.end(), Styles::HEADER) != frag.styles.end() && frag.text !="&&&"){
+        if (std::find(frag_ptr->styles.begin(), frag_ptr->styles.end(), Styles::HEADER) != frag_ptr->styles.end() 
+                        && frag_ptr->text !="&&&" && frag_ptr->text !="\n"){
             // Walker::for_each() гарантирует, что в атрибутах каждого фрагмента со стилем HEADLINE есть ключ "title"
-            tocElem to_be_added(model.pages.size() + 1, frag.attrs["title"], frag.depth); // +1 из-за обложки
+            tocElem to_be_added(model.pages.size() + 1, frag_ptr->attrs["title"], frag_ptr->depth); // +1 из-за обложки
 
             // Добавляем только уникальные элементы (из-за разбития на слова заголовки дублируются)
             if(table_of_contents.size() == 0 || *(--table_of_contents.end()) != to_be_added)
                 table_of_contents.push_back(to_be_added);
         }
-        if (frag.type == ct::ContentType::TEXT){
-            add_text(frag, page, carriage_pos);
+        if (frag_ptr->type == ct::ContentType::TEXT){
+            add_text(frag_ptr, page, carriage_pos);
         }
-        else if (frag.type == ct::ContentType::IMAGE){
-            add_image(frag, page, carriage_pos);
+        else if (frag_ptr->type == ct::ContentType::IMAGE){
+            add_image(frag_ptr, page, carriage_pos);
         }
         model.fragments.pop_front();
     }
@@ -107,7 +108,7 @@ void Controller::build_up_pages_from_frags(){
     align_frags();
 }
 
-void Controller::add_text(Fragment frag, vector<Fragment> &page, sf::Vector2f &carriage_pos){
+void Controller::add_text(Fragment* frag, vector<Fragment*> &page, sf::Vector2f &carriage_pos){
     SWText* obj = create_text_from_instance(frag);
     float w_width = obj->getBounds().width;
     float w_height = obj->getBounds().height;
@@ -120,7 +121,16 @@ void Controller::add_text(Fragment frag, vector<Fragment> &page, sf::Vector2f &c
             carriage_pos = {view.LF_WIDTH, carriage_pos.y + bookFontSize + lineInt};
     }
 
-    if (frag.text == "&&&"){
+    if (frag->text == "&&&"){
+        float new_y = carriage_pos.y + 2.f*(bookFontSize + lineInt);
+        if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT)
+            new_page(page, carriage_pos);
+        else{
+            carriage_pos = {view.LF_WIDTH, new_y};
+            update_align_groups();
+        }
+    }
+    else if (frag->text == "\n"){
         float new_y = carriage_pos.y + 1.5f*(bookFontSize + lineInt);
         if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT)
             new_page(page, carriage_pos);
@@ -129,20 +139,11 @@ void Controller::add_text(Fragment frag, vector<Fragment> &page, sf::Vector2f &c
             update_align_groups();
         }
     }
-    else if (frag.text == "\n"){
-        float new_y = carriage_pos.y + (bookFontSize + lineInt) * 2;
-        if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT)
-            new_page(page, carriage_pos);
-        else{
-            carriage_pos = {view.LF_WIDTH, new_y};
-            update_align_groups();
-        }
-    }
-    else if (frag.text == "SW_POEM_START"){
+    else if (frag->text == "SW_POEM_START"){
         // Встречая специальный код, контроллер создает группу выравнивания
         align_groups.push_back(AlignmentGroup(alignType::CENTER, line_len_px));
     }
-    else if (frag.text == "SW_POEM_NEW_LINE"){
+    else if (frag->text == "SW_POEM_NEW_LINE"){
         // Встречая специальный код, контроллер обновляет данные группы выравнивания
         update_align_groups();
     }
@@ -150,13 +151,13 @@ void Controller::add_text(Fragment frag, vector<Fragment> &page, sf::Vector2f &c
         /* Если текущее слово -- часть стихотворной строфы, то фрагменту назначается группа выравнивания, 
         а длина текущей стихотворной строки, хранящейся в align_group, увеличивается на длину слова */
         if (!align_groups.empty()){
-            if(std::find(frag.styles.begin(), frag.styles.end(), Styles::POEM) != frag.styles.end()){
-                frag.align_group_num = align_groups.size() - 1;
+            if(std::find(frag->styles.begin(), frag->styles.end(), Styles::POEM) != frag->styles.end()){
+                frag->align_group_num = align_groups.size() - 1;
                 align_groups.back().line_len += w_width;
             }
         }
-        frag.x = carriage_pos.x;
-        frag.y = carriage_pos.y;
+        frag->x = carriage_pos.x;
+        frag->y = carriage_pos.y;
         carriage_pos.x += w_width;
         page.push_back(frag);
     }
@@ -167,8 +168,8 @@ void Controller::add_text(Fragment frag, vector<Fragment> &page, sf::Vector2f &c
 void Controller::align_frags(){
     for (auto page = model.pages.begin(); page != model.pages.end(); page++){
         for (auto frag = page->begin(); frag != page->end(); frag++){
-            if (frag->align_group_num != -1)
-                frag->x += align_groups.at(frag->align_group_num).offset();
+            if ((*frag)->align_group_num != -1)
+                (*frag)->x += align_groups.at((*frag)->align_group_num).offset();
         }
     }
 }
@@ -180,7 +181,7 @@ void Controller::update_align_groups(){
 
 void Controller::add_coverpage(){
     if (model.binaries.count("cover.jpg") != 0){
-        Fragment cover("", {}, {{model.doc_links_name + ":href", "#cover.jpg"}}, 
+        Fragment* cover = new Fragment("", {}, {{model.doc_links_name + ":href", "#cover.jpg"}}, 
             ct::ContentType::IMAGE);
         imagepair_t IP = create_image_from_instance(cover);
         sf::Sprite* obj = IP.first;
@@ -189,21 +190,21 @@ void Controller::add_coverpage(){
         int width = obj_bounds.width * resize_factor;
         int height = obj_bounds.height * resize_factor;
 
-        cover.x = (view.PAGE_WIDTH  - width) / 2;
-        cover.y = (view.PAGE_HEIGHT  - height) / 2;
+        cover->x = (view.PAGE_WIDTH  - width) / 2;
+        cover->y = (view.PAGE_HEIGHT  - height) / 2;
 
         model.pages.insert(model.pages.begin(), {cover});
     }
 }
 
-void Controller::new_page(vector<Fragment> &page, sf::Vector2f &carriage_pos){
+void Controller::new_page(vector<Fragment*> &page, sf::Vector2f &carriage_pos){
     model.pages.push_back(page);
     page.clear();
     carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
     update_align_groups();
 }
 
-void Controller::add_image(Fragment frag, vector<Fragment> &page, sf::Vector2f &carriage_pos){
+void Controller::add_image(Fragment* frag, vector<Fragment*> &page, sf::Vector2f &carriage_pos){
     imagepair_t IP = create_image_from_instance(frag);
     sf::Sprite* obj = IP.first;
     sf::FloatRect obj_bounds = obj->getLocalBounds();
@@ -217,8 +218,8 @@ void Controller::add_image(Fragment frag, vector<Fragment> &page, sf::Vector2f &
     if (carriage_pos.y + obj_bounds.height >= view.PAGE_HEIGHT - view.F_HEIGHT)
         new_page(page, carriage_pos);
     // Коэффициент 3, так как правое поле слишком узкое
-    frag.x = view.LF_WIDTH + ((view.PAGE_WIDTH - view.LF_WIDTH - view.RF_WIDTH*3) - obj_bounds.width) / 2;
-    frag.y = carriage_pos.y;
+    frag->x = view.LF_WIDTH + ((view.PAGE_WIDTH - view.LF_WIDTH - view.RF_WIDTH*3) - obj_bounds.width) / 2;
+    frag->y = carriage_pos.y;
     page.push_back(frag);
     carriage_pos.y += obj_bounds.height;
     delete IP.first, IP.second;
@@ -326,13 +327,13 @@ void Controller::set_page_num(int new_num){
         }
         cur_page.pics.clear();
         cur_page_num = new_num;
-        for (Fragment frag: model.pages[cur_page_num]){
-            if (frag.type == ct::ContentType::TEXT){
+        for (Fragment* frag: model.pages[cur_page_num]){
+            if (frag->type == ct::ContentType::TEXT){
                 SWText* cur_word = create_text_from_instance(frag);
                 cur_page.words.push_back(*cur_word);
                 delete cur_word;
             }
-            else if (frag.type == ct::ContentType::IMAGE){
+            else if (frag->type == ct::ContentType::IMAGE){
                 pair<sf::Sprite*, sf::Texture*> cur_pic = create_image_from_instance(frag);
                 cur_pic.first->setScale(view.SCALE, view.SCALE);
                 cur_page.pics.push_back(cur_pic);

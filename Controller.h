@@ -23,8 +23,8 @@ class Controller{
     int lineInt = 3;
     vector<AlignmentGroup> align_groups;
 
-    SWText* create_text_from_instance(Fragment frag);
-    pair<sf::Sprite*, sf::Texture*> create_image_from_instance(Fragment frag);
+    SWText* create_text_from_instance(Fragment* frag);
+    pair<sf::Sprite*, sf::Texture*> create_image_from_instance(Fragment* frag);
     void set_page_num(int new_num);
     void set_page_num_and_update_toc(int new_num);
     void turn_page_back();
@@ -35,9 +35,9 @@ class Controller{
     void build_up_pages_from_frags();
     float pic_resize_logic(sf::FloatRect obj_bounds, bool fullpage_mode=false);
     void add_coverpage();
-    void new_page(vector<Fragment> &cur_page, sf::Vector2f &carriage_pos);
-    void add_image(Fragment frag, vector<Fragment> &cur_page, sf::Vector2f &carriage_pos);
-    void add_text(Fragment frag, vector<Fragment> &cur_page, sf::Vector2f &carriage_pos);
+    void new_page(vector<Fragment*> &page, sf::Vector2f &carriage_pos);
+    void add_image(Fragment* frag, vector<Fragment*> &page, sf::Vector2f &carriage_pos);
+    void add_text(Fragment* frag, vector<Fragment*> &page, sf::Vector2f &carriage_pos);
     /* Когда после стихотворных строк появляется фрагмент, не имеющий стиля Styles::POEM (это проверяется внутри add_text()),
     это значит, что стихотворение закончилось и его можно выровнять по центру. Этим и занимается align_frags()
     */

@@ -60,19 +60,19 @@ struct Fragment{
     operator string() const;
 };
 
-using matrix_t = vector<vector<Fragment>>;
+using matrix_t = vector<vector<Fragment*>>;
 
 struct Walker: pugi::xml_tree_walker{
     public:
         map<string, attr_t> cur_attrs;
-        list<Fragment> *frags;
+        list<Fragment*> *frags;
         map<string, string>* binaries;
         vector<style_t> cur_style;
         string body_name = "out_of_body"; /*<! Согласно стандарту fb2, первый безымянный раздел body документа содержит основной 
         текст; раздел body с именем "notes" -- примечания */
         string doc_links_name;
 
-        Walker(list<Fragment> *f, map<string, string> *b) : frags(f), binaries(b) {};
+        Walker(list<Fragment*> *f, map<string, string> *b) : frags(f), binaries(b) {};
         virtual bool for_each(pugi::xml_node& node);
     
     private:
@@ -95,7 +95,7 @@ struct Walker: pugi::xml_tree_walker{
 
 class Model{
     public:
-        list<Fragment> fragments;
+        list<Fragment*> fragments;
         matrix_t pages;
         string doc_links_name;
         map<string, string> binaries;

@@ -10,7 +10,7 @@ class Logger{
     public:
         enum levels{INFO, WARNING, CRITICAL}; 
         Logger(std::string f): filename(f){
-            FILE.open(filename);
+            FILE.open(filename, std::ios::app);
         }
 
         ~Logger(){

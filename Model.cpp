@@ -52,27 +52,33 @@ bool Walker::for_each(pugi::xml_node& node){
         }
 
         if (node.type() == pugi::xml_node_type::node_pcdata){
-            Fragment to_be_added(node.value(), format_styles(), format_attrs(), ct::ContentType::TEXT, depth());
+            Fragment* to_be_added = new Fragment(node.value(), format_styles(), format_attrs(), ct::ContentType::TEXT, depth());
             // Перед разбиением на отдельные слова сохраняем в атрибутах каждого фрагмента-заголовка исходное название.
             if (cur_attrs.count("title") != 0)
-                to_be_added.attrs["title"] = to_be_added.text;
+                to_be_added->attrs["title"] = to_be_added->text;
             frags->push_back(to_be_added);
         }
         else if (node_name == "empty-line" || node_name == "subtitle"){
-            frags->push_back(Fragment("\n", format_styles(), {}, ct::ContentType::TEXT));
+            Fragment* to_be_added = new Fragment("\n", format_styles(), {}, ct::ContentType::TEXT);
+            frags->push_back(to_be_added);
         }
         else if (node_name == "p" || node_name == "stanza"){
-            frags->push_back(Fragment("&&&", format_styles(), {}, ct::ContentType::TEXT));
+            Fragment* to_be_added = new Fragment("\n", format_styles(), {}, ct::ContentType::TEXT);
+            frags->push_back(to_be_added);
         }
         else if (node_name == "v"){
-            frags->push_back(Fragment("&&&", format_styles(), {}, ct::ContentType::TEXT));
-            frags->push_back(Fragment("SW_POEM_NEW_LINE", format_styles(), {}, ct::ContentType::TEXT));
+            Fragment* break_to_be_added = new Fragment("&&&", format_styles(), {}, ct::ContentType::TEXT);
+            frags->push_back(break_to_be_added);
+            Fragment* line_to_be_added = new Fragment("SW_POEM_NEW_LINE", format_styles(), {}, ct::ContentType::TEXT);
+            frags->push_back(line_to_be_added);
         }
         else if (node_name == "poem"){
-            frags->push_back(Fragment("SW_POEM_START", format_styles(), {}, ct::ContentType::TEXT));
+            Fragment* to_be_added = new Fragment("SW_POEM_START", format_styles(), {}, ct::ContentType::TEXT);
+            frags->push_back(to_be_added);
         }
         else if (node_name == "image"){
-            frags->push_back(Fragment("", {}, format_attrs(), ct::ContentType::IMAGE));
+            Fragment* to_be_added = new Fragment("", {}, format_attrs(), ct::ContentType::IMAGE);
+            frags->push_back(to_be_added);
         }
     }
     else if (body_name == OUT_OF_BODY){
@@ -130,25 +136,25 @@ void Model::load_fb2(char* FILE_NAME){
 
 void Model::split_into_words(){
     int frags_len = fragments.size();
-    vector<string> spec_codes = {"&&&", "SW_POEM_START", "SW_POEM_NEW_LINE"};
+    vector<string> spec_codes = {"&&&", "SW_POEM_START", "SW_POEM_NEW_LINE", "\n"};
     for (int index = 0; index < frags_len; index++){
-        auto i = fragments.begin();
+        auto i = *(fragments.begin());
         if (i->type == ct::TEXT){
             if (find(spec_codes.begin(), spec_codes.end(), i->text) == spec_codes.end()){
                 stringstream s(i->text);
                 string word;
                 while(getline(s, word, ' ')){
                     word += " ";
-                    Fragment word_frag(word, i->styles, i->attrs, i->type, i->depth);
+                    Fragment* word_frag = new Fragment(word, i->styles, i->attrs, i->type, i->depth);
                     fragments.push_back(word_frag);
                 }
             }
             else{
-                fragments.push_back(*i);
+                fragments.push_back(i);
             }
         }
         else
-            fragments.push_back(*i);
+            fragments.push_back(i);
         fragments.pop_front();
     }
     this->fragments.erase(this->fragments.begin()); // Обрезаем пустую строку перед первым абзацем
