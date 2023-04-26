@@ -8,18 +8,6 @@
 #include <algorithm> // Для std::find
 using namespace std;
 
-Fragment::operator string() const{
-    if(text != "&&&"){
-        string for_return = "Style: <";
-        for (auto i = styles.begin(); i != styles.end(); i++)
-            for_return += to_string((int)(*i)) + ", ";
-        for_return += "> ";
-        for_return += text;
-        return for_return;
-    }
-    else return "\n";
-}
-
 bool Walker::for_each(pugi::xml_node& node){
     const string node_name = node.name(); // Конверсия C-строки в string
     if (node_name == "body"){

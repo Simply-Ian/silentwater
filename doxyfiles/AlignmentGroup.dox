@@ -16,23 +16,24 @@
     \property AlignmentGroup::alignType type
     Тип выравнивания
 
-    \var int AlignmentGroup::line_len = 0
-    Длина текущей обрабатываемой строки.
-    \details Добавляя каждое новое слово в строку, Controller увеличивает это свойство на длину слова (в px)
-
-    \property int AlignmentGroup::max_line_len = 0
-    Длина самой длинной из всех принадлежащих данной группе строк.
-
     \property int AlignmentGroup::available_space
     Ширина страницы без полей
 
-    \fn void AlignmentGroup::updateMaxLineLen()
-    Сравнивает AlignmentGroup::max_line_len и AlignmentGroup::line_len, присваивает первому свойству наибольшее значение.
-    \details Также обнуляет AlignmentGroup::line_len. Вызывается контроллером при каждом переходе на новую строку.
-    \throws LineLenException, если AlignmentGroup::line_len меньше нуля или больше, чем AlignmentGroup::max_line_len.
+    \property std::list<Fragment*> AlignmentGroup::frags
+    Указатели на фрагменты, к которым применена данная группа выравнивания.
 
     \fn void AlignmentGroup::setAvailableSpace(int space)
     Обновляет AlignmentGroup::available_space. Предназначен для создания узких столбиков текста/эпиграфов.
     \param space Новое значение ширины полосы
     \throws LineLenException, если получает на вход значение меньше 0.
+
+    \fn void AlignmentGroup::addFragment(Fragment* frag)
+    Добавляет указатель на фрагмент в AlignmentGroup::frags
+    \param frag указатель на фрагмент, который нужно добавить
+
+    \fn void AlignmentGroup::align()
+    Обертка над AlignmentGroup::align_center_blockwise(), AlignmentGroup::align_center_linewise() и т.п. Запускает соответствующий метод выравнивания в зависимости от значения AlignmentGroup::type.
+
+    \fn void AlignmentGroup::align_center_blockwise()
+    Выравнивает блок текста, к которому применена данная группа выравнивания, по центру страницы. Считает длину самой длинной строки в блоке и сдвигает блок так, чтобы самая длинная строка находилась по центру страницы.
 */

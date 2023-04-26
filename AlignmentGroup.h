@@ -1,8 +1,10 @@
 #ifndef ALIGNMENT_GROUP
 #define ALIGNMENT_GROUP
 #include <string>
+#include <list>
+#include "Fragment.h"
 
-enum alignType{CENTER, RIGHT};
+enum alignType{CENTER_BLOCKWISE, CENTER_LINEWISE, RIGHT_LINEWISE, RIGHT_BLOCKWISE, JUSTIFY};
 
 class LineLenException{
     std::string message;
@@ -15,15 +17,16 @@ class LineLenException{
 struct AlignmentGroup{
     bool aligned = false; // Выполнено ли выравнивание текста, принадлежащего этой группе
     alignType type;
-    AlignmentGroup(alignType t, int a) : type(t), available_space(a) {};
-    int line_len = 0; // Длина текущей обрабатываемой строки
-    int offset();
-    // Этод метод должен вызываться в конце каждой прочитанной строки текста, который нужно выровнять
-    void updateMaxLineLen();
+    AlignmentGroup(alignType t, int a) : type(t), available_space(a){};
     void setAvailableSpace(int space);
+    void addFragment(Fragment* frag){
+        this->frags.push_back(frag);
+    }
+    void align();
 
     private:
-        int max_line_len = 0;
         int available_space;
+        std::list<Fragment*> frags;
+        void align_center_blockwise();
 };
 #endif

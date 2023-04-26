@@ -105,7 +105,7 @@ void Controller::build_up_pages_from_frags(){
 
     // Добавляем обложку, если документ содержит соответствующую картинку
     add_coverpage();
-    align_frags();
+    apply_alignments();
 }
 
 void Controller::add_text(Fragment* frag, vector<Fragment*> &page, sf::Vector2f &carriage_pos){
@@ -127,7 +127,6 @@ void Controller::add_text(Fragment* frag, vector<Fragment*> &page, sf::Vector2f 
             new_page(page, carriage_pos);
         else{
             carriage_pos = {view.LF_WIDTH, new_y};
-            update_align_groups();
         }
     }
     else if (frag->text == "\n"){
@@ -136,47 +135,36 @@ void Controller::add_text(Fragment* frag, vector<Fragment*> &page, sf::Vector2f 
             new_page(page, carriage_pos);
         else{
             carriage_pos = {view.LF_WIDTH, new_y};
-            update_align_groups();
         }
     }
     else if (frag->text == "SW_POEM_START"){
         // Встречая специальный код, контроллер создает группу выравнивания
-        align_groups.push_back(AlignmentGroup(alignType::CENTER, line_len_px));
+        align_groups.push_back(AlignmentGroup(alignType::CENTER_BLOCKWISE, line_len_px - 2*view.RF_WIDTH));
     }
     else if (frag->text == "SW_POEM_NEW_LINE"){
         // Встречая специальный код, контроллер обновляет данные группы выравнивания
-        update_align_groups();
     }
     else {
-        /* Если текущее слово -- часть стихотворной строфы, то фрагменту назначается группа выравнивания, 
-        а длина текущей стихотворной строки, хранящейся в align_group, увеличивается на длину слова */
+        // Если текущее слово -- часть стихотворной строфы, то фрагменту назначается группа выравнивания
         if (!align_groups.empty()){
             if(std::find(frag->styles.begin(), frag->styles.end(), Styles::POEM) != frag->styles.end()){
-                frag->align_group_num = align_groups.size() - 1;
-                align_groups.back().line_len += w_width;
+                align_groups.back().addFragment(frag);
             }
         }
         frag->x = carriage_pos.x;
         frag->y = carriage_pos.y;
         carriage_pos.x += w_width;
+        frag->width = w_width;
         page.push_back(frag);
     }
     
     delete obj;
 }
 
-void Controller::align_frags(){
-    for (auto page = model.pages.begin(); page != model.pages.end(); page++){
-        for (auto frag = page->begin(); frag != page->end(); frag++){
-            if ((*frag)->align_group_num != -1)
-                (*frag)->x += align_groups.at((*frag)->align_group_num).offset();
-        }
+void Controller::apply_alignments(){
+    for (auto group = this->align_groups.begin(); group != align_groups.end(); group++){
+        group->align();
     }
-}
-
-void Controller::update_align_groups(){
-    if (!align_groups.empty())
-        align_groups.back().updateMaxLineLen();
 }
 
 void Controller::add_coverpage(){
@@ -201,7 +189,6 @@ void Controller::new_page(vector<Fragment*> &page, sf::Vector2f &carriage_pos){
     model.pages.push_back(page);
     page.clear();
     carriage_pos = {view.LF_WIDTH, view.H_HEIGHT};
-    update_align_groups();
 }
 
 void Controller::add_image(Fragment* frag, vector<Fragment*> &page, sf::Vector2f &carriage_pos){

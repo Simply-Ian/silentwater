@@ -39,10 +39,9 @@ class Controller{
     void add_image(Fragment* frag, vector<Fragment*> &page, sf::Vector2f &carriage_pos);
     void add_text(Fragment* frag, vector<Fragment*> &page, sf::Vector2f &carriage_pos);
     /* Когда после стихотворных строк появляется фрагмент, не имеющий стиля Styles::POEM (это проверяется внутри add_text()),
-    это значит, что стихотворение закончилось и его можно выровнять по центру. Этим и занимается align_frags()
+    это значит, что стихотворение закончилось и его можно выровнять по центру. Этим и занимается apply_alignments()
     */
-    void align_frags();
-    void update_align_groups(); // Проверяет размер align_groups и стартует соотв. метод AlignGroup
+    void apply_alignments();
 
     public:
         vector<tocElem> table_of_contents;

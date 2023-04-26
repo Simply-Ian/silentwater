@@ -30,7 +30,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/run",
-            "args": ["$HOME/Загрузки/Bagazh.fb2"],
+            "args": ["Books/Bagazh.fb2"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

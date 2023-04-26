@@ -1,20 +1,11 @@
 #include "AlignmentGroup.h"
 
-int AlignmentGroup::offset(){
-    if (this->type == alignType::CENTER){
-        return (available_space - max_line_len) / 2;
+void AlignmentGroup::align(){
+    switch(this->type){
+        case alignType::CENTER_BLOCKWISE:
+            align_center_blockwise();
+            break;
     }
-    else return 0; // Stub
-}
-
-void AlignmentGroup::updateMaxLineLen(){
-    if (line_len >= 0 && line_len <= available_space){
-        if (line_len > this->max_line_len)
-            max_line_len = line_len;
-        line_len = 0;
-    }
-    else
-        throw LineLenException("Failed to set a max line length to an AlignmentGroup object. Invalid line len", line_len);
 }
 
 void AlignmentGroup::setAvailableSpace(int space){
@@ -22,4 +13,25 @@ void AlignmentGroup::setAvailableSpace(int space){
         this->available_space = space;
     else
         throw LineLenException("Too little available space", space);
+}
+
+void AlignmentGroup::align_center_blockwise(){
+    int cur_y = -1;
+    int cur_line_len = 0;
+    int max_line_len = 0;
+    for(auto iter = frags.begin(); iter != frags.end(); iter++){
+        Fragment* frag_ptr = *iter;
+        if (frag_ptr->y != cur_y){
+            max_line_len = cur_line_len > max_line_len? cur_line_len : max_line_len;
+            cur_line_len = 0;
+            cur_y = frag_ptr->y;
+        }
+        cur_line_len += frag_ptr->width;
+    }
+    max_line_len = cur_line_len > max_line_len? cur_line_len : max_line_len; // На случай, если последняя строка -- самая длинная
+    int offset = (available_space - max_line_len) / 2;
+
+    // Сдвигаем все фрагменты на величину offset
+    for(auto iter = frags.begin(); iter != frags.end(); iter++)
+        (*iter)->x += offset;
 }

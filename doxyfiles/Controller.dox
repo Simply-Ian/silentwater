@@ -41,14 +41,9 @@
     \property vector<AlignmentGroup> Controller::align_groups
     Группы выравнивания текста
 
-    \property void Controller::align_frags()
-    \brief Сдвигает фрагменты, которым назначена группа выравнивания
-    \details Метод проходится по всем страницам  Model::pages и по всем фрагментам на каждой странице. Если фрагменту назначена группа выравнивания, вызывает AlignmentGroup::offset и сдвигает фрагмент.
-    Вызывается в конце Controller::build_up_pages_from_frags()? после построения всех страниц
-
-    \property void Controller::update_align_groups()
-    Проверяет, не является ли Controller::align_groups пустым и, если в векторе есть хотя бы одна группа, вызывает AlignmentGroup::updateMaLineLen().
-    Вызывается при каждом переводе строки.
+    \property void Controller::apply_alignments()
+    \brief Запускает выравнивание фрагментов
+    \details Метод проходится по всем группам выравнивания, вызывая для каждой из них AlignmentGroup::align()
 
     \fn Controller::create_text_from_instance(Fragment frag)
     \brief Создает экземпляр SWText из Fragment, назначая текст, стили, callback-и и позицию.

@@ -12,48 +12,15 @@
         \ingroup alias
         \brief Псевдоним для хранения всех страниц книги
     
-    \struct Fragment Model.h
-    \var string Fragment::text
-    Хранит текст фрагмента
-
-    \var vector<Styles> Fragment::styles
-    Хранит стили, назначенные фрагменту
-
-    \var map<string, string> Fragment::attrs
-    Хранит атрибуты исходного XML-тега.
-    \note Перед версткой объекты Fragment, содержащие более одного слова, разбиваются на Fragment-ы, содержащие 1 слово.
-    Каждый из полученных объектов Fragment сохраняет в attrs значение исходного Fragment
-
-    \var int Fragment::x
-    X-координата объекта на странице
-
-    \var int Fragment::y
-    Y-координата объекта на странице
-
-    \var ct::ContentType Fragment::type
-    Тип фрагмента. 
-    \details Свойство определяет, как будет обрабатываться фрагмент при верстке и объекты какого класса -- SWText, sf::Sprite и т.п. -- будут созданы на его основе
-
-    \var int Fragment::align_group_num = -1
-    Индекс соответствующей данному фрагменту группы выравнивания в Controller::align_groups
-
-    \fn operator Fragment::string() const
-    \brief Строковое представление Fragment
-    \details Возвращает строку вида "<имя_стиля1, имя_стиля2, ...> Текст"
-
-    \fn void Fragment::erase()
-    \brief Уничтожает Fragment::text и Fragment::styles, освобождает память после них
-
-
     \class Model Model.h
 
-    \var list<Fragment> Model::fragments
-    \brief Двусвязный список, хранящий фрагменты текста.
-    \details std::list вместо std::vector для повышения скорости получения & удаления первого элемента.
+    \var list<Fragment*> Model::fragments
+    \brief Двусвязный список, хранящий указатели на фрагменты текста.
+    \details std::list вместо std::vector для повышения скорости получения & удаления первого элемента. Заполняется методом Model::split_into_words() еще до верстки.
     \see \ref lifecycle
 
     \var matrix_t Model::pages
-    \brief Хранит сверстанные страницы, состоящие из Fragment
+    \brief Хранит сверстанные страницы, состоящие из Fragment*
 
     \var string Model::doc_links_name
     \brief Хранит префикс ссылок, определенный для документа его создателем.
@@ -84,7 +51,7 @@
     \note В целях экономии оперативной памяти (а std::map весьма прожорлив) сохраняется только атрибут *:href . При необходимости
     будет добавлено сохранение и других атрибутов.
 
-    \var list<Fragment>* Walker::frags
+    \var list<Fragment*>* Walker::frags
     \brief Указатель на Model::fragments
 
     \var vector<style_t> Walker::cur_style;
@@ -96,11 +63,8 @@
     \var string Walker::doc_links_name
     \brief Префикс имени ссылок, определенный создателем .fb2-документа
 
-    \fn Walker::Walker(list<Fragment> *f)
-
     \fn virtual bool Walker::for_each(pugi::xml_node& node)
     \brief Функция, которая применяется рекурсивно ко всем тегам документа
-    \details Для каждого тега, содержащего текст или задающего пустую линию, создает Fragment, назначает ему стили и атрибуты; после этого
-    добавляет Fragment в Model::fragments
+    \details Для каждого тега, содержащего текст или задающего пустую линию, создает Fragment, назначает ему стили и атрибуты; после этого добавляет указатель на вновь созданный Fragment в Model::fragments
     \see \ref lifecycle
 */

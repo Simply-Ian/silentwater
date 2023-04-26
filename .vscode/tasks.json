@@ -37,6 +37,7 @@
 				"Logger.cpp",
 				"decode_base64.cpp",
 				"AlignmentGroup.cpp",
+				"Fragment.cpp",
 				"-ltgui",
 				"-lsfml-graphics",
 				"-lsfml-system",
@@ -50,7 +51,10 @@
 			"problemMatcher": [
 				"$gcc"
 			],
-			"group": "build",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
 			"detail": "компилятор: /usr/bin/g++"
 		},
 		{
