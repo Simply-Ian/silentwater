@@ -28,5 +28,7 @@ struct AlignmentGroup{
         int available_space;
         std::list<Fragment*> frags;
         void align_center_blockwise();
+        void align_center_linewise();
+        void align_right_linewise();
 };
 #endif

@@ -1,4 +1,5 @@
 #include "Fragment.h"
+#include <algorithm> // Для std::find()
 using namespace std;
 
 Fragment::operator string() const{
@@ -11,4 +12,8 @@ Fragment::operator string() const{
         return for_return;
     }
     else return "\n";
+}
+
+bool Fragment::has_a_style(Styles s){
+        return find(styles.begin(), styles.end(), s) != styles.end();
 }

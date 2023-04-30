@@ -1,7 +1,7 @@
 #ifndef SW_MODEL_H
 #define SW_MODEL_H
 
-#include <utility>
+#include <utility> // Для std::pair
 #include <string>
 #include <vector>
 #include <list> //Для хранения фрагментов
@@ -31,13 +31,14 @@ struct Walker: pugi::xml_tree_walker{
     
     private:
         map<string, Styles> names_to_styles = {
-            pair<string, Styles>("strong", Styles::BOLD),
-            pair<string, Styles>("emphasis", Styles::ITALIC),
-            pair<string, Styles>("a", Styles::LINK),
-            pair<string, Styles>("title", Styles::HEADER),
-            pair<string, Styles>("image", Styles::IMAGE),
-            pair<string, Styles>("poem", Styles::POEM),
-            pair<string, Styles>("subtitle", Styles::SUBTITLE)
+            {"strong", Styles::BOLD},
+            {"emphasis", Styles::ITALIC},
+            {"a", Styles::LINK},
+            {"title", Styles::HEADER},
+            {"image", Styles::IMAGE},
+            {"poem", Styles::POEM},
+            {"text-author", Styles::TEXT_AUTHOR},
+            {"subtitle", Styles::SUBTITLE}
         };
 
         // Создает список стилей для передачи конструктору Fragment

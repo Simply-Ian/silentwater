@@ -12,6 +12,7 @@ enum Styles {BOLD, /*!< Полужирное начертание*/
             HEADER, /*!< Заголовок. Рисуется как полужирный текст размером на 5 пт больше*/
             IMAGE,
             POEM,
+            TEXT_AUTHOR,
             SUBTITLE
 };
 using style_t = pair<Styles, int>; // Элемент списка стилей
@@ -55,5 +56,6 @@ struct Fragment{
     int depth = 0;
 
     operator string() const;
+    bool has_a_style(Styles style);
 };
 #endif

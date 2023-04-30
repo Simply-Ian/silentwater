@@ -1,7 +1,6 @@
 #include "Controller.h"
 #include <map>
 #include <utility>
-#include <algorithm> // Для std::find()
 #include "decode_base64.h"
 #include "content_types.h"
 
@@ -52,6 +51,9 @@ SWText* Controller::create_text_from_instance(Fragment* frag){
             word->onHover = &SWText::changeCursor;
             word->is_clickable = true;
         }
+        if (style == Styles::TEXT_AUTHOR){
+            word->setStyle(word->getStyle() | sf::Text::Bold | sf::Text::Italic);
+        }
     }
     word->setPosition({static_cast<float>(frag->x), static_cast<float>(frag->y)});
     return word;
@@ -84,7 +86,7 @@ void Controller::build_up_pages_from_frags(){
         Fragment* frag_ptr = *(model.fragments.begin());
 
         // Добавляем элемент оглавления
-        if (std::find(frag_ptr->styles.begin(), frag_ptr->styles.end(), Styles::HEADER) != frag_ptr->styles.end() 
+        if (frag_ptr->has_a_style(Styles::HEADER)
                         && frag_ptr->text !="&&&" && frag_ptr->text !="\n"){
             // Walker::for_each() гарантирует, что в атрибутах каждого фрагмента со стилем HEADLINE есть ключ "title"
             tocElem to_be_added(model.pages.size() + 1, frag_ptr->attrs["title"], frag_ptr->depth); // +1 из-за обложки
@@ -109,6 +111,7 @@ void Controller::build_up_pages_from_frags(){
 }
 
 void Controller::add_text(Fragment* frag, vector<Fragment*> &page, sf::Vector2f &carriage_pos){
+    
     SWText* obj = create_text_from_instance(frag);
     float w_width = obj->getBounds().width;
     float w_height = obj->getBounds().height;
@@ -130,7 +133,7 @@ void Controller::add_text(Fragment* frag, vector<Fragment*> &page, sf::Vector2f 
         }
     }
     else if (frag->text == "\n"){
-        float new_y = carriage_pos.y + 1.5f*(bookFontSize + lineInt);
+        float new_y = carriage_pos.y + (bookFontSize + lineInt);
         if (new_y >= view.PAGE_HEIGHT - view.F_HEIGHT)
             new_page(page, carriage_pos);
         else{
@@ -141,15 +144,16 @@ void Controller::add_text(Fragment* frag, vector<Fragment*> &page, sf::Vector2f 
         // Встречая специальный код, контроллер создает группу выравнивания
         align_groups.push_back(AlignmentGroup(alignType::CENTER_BLOCKWISE, line_len_px - 2*view.RF_WIDTH));
     }
-    else if (frag->text == "SW_POEM_NEW_LINE"){
-        // Встречая специальный код, контроллер обновляет данные группы выравнивания
+    else if (frag->text == "SW_ALIGN_RIGHT_START"){
+        // Встречая специальный код, контроллер создает группу выравнивания
+        align_groups.push_back(AlignmentGroup(alignType::RIGHT_LINEWISE, line_len_px));
     }
     else {
-        // Если текущее слово -- часть стихотворной строфы, то фрагменту назначается группа выравнивания
+        // Если текущее слово -- часть стихотворной строфы / эпиграфа / указания автора, 
+        // то фрагменту назначается группа выравнивания
         if (!align_groups.empty()){
-            if(std::find(frag->styles.begin(), frag->styles.end(), Styles::POEM) != frag->styles.end()){
+            if(frag->has_a_style(Styles::POEM) || frag->has_a_style(Styles::TEXT_AUTHOR))
                 align_groups.back().addFragment(frag);
-            }
         }
         frag->x = carriage_pos.x;
         frag->y = carriage_pos.y;

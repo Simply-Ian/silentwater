@@ -51,14 +51,14 @@ bool Walker::for_each(pugi::xml_node& node){
             frags->push_back(to_be_added);
         }
         else if (node_name == "p" || node_name == "stanza"){
-            Fragment* to_be_added = new Fragment("\n", format_styles(), {}, ct::ContentType::TEXT);
+            Fragment* to_be_added = new Fragment("&&&", format_styles(), {}, ct::ContentType::TEXT);
             frags->push_back(to_be_added);
         }
         else if (node_name == "v"){
-            Fragment* break_to_be_added = new Fragment("&&&", format_styles(), {}, ct::ContentType::TEXT);
+            Fragment* break_to_be_added = new Fragment("\n", format_styles(), {}, ct::ContentType::TEXT);
             frags->push_back(break_to_be_added);
-            Fragment* line_to_be_added = new Fragment("SW_POEM_NEW_LINE", format_styles(), {}, ct::ContentType::TEXT);
-            frags->push_back(line_to_be_added);
+            // Fragment* line_to_be_added = new Fragment("SW_POEM_NEW_LINE", format_styles(), {}, ct::ContentType::TEXT);
+            // frags->push_back(line_to_be_added);
         }
         else if (node_name == "poem"){
             Fragment* to_be_added = new Fragment("SW_POEM_START", format_styles(), {}, ct::ContentType::TEXT);
@@ -66,6 +66,12 @@ bool Walker::for_each(pugi::xml_node& node){
         }
         else if (node_name == "image"){
             Fragment* to_be_added = new Fragment("", {}, format_attrs(), ct::ContentType::IMAGE);
+            frags->push_back(to_be_added);
+        }
+        else if (node_name == "text-author"){
+            Fragment* break_to_be_added = new Fragment("\n", {}, format_attrs(), ct::ContentType::TEXT);
+            frags->push_back(break_to_be_added);
+            Fragment* to_be_added = new Fragment("SW_ALIGN_RIGHT_START", {}, {}, ct::ContentType::TEXT);
             frags->push_back(to_be_added);
         }
     }
@@ -124,7 +130,7 @@ void Model::load_fb2(char* FILE_NAME){
 
 void Model::split_into_words(){
     int frags_len = fragments.size();
-    vector<string> spec_codes = {"&&&", "SW_POEM_START", "SW_POEM_NEW_LINE", "\n"};
+    vector<string> spec_codes = {"&&&", "SW_POEM_START", "SW_ALIGN_RIGHT_START", "\n"};
     for (int index = 0; index < frags_len; index++){
         auto i = *(fragments.begin());
         if (i->type == ct::TEXT){
