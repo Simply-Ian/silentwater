@@ -13,7 +13,8 @@ enum Styles {BOLD, /*!< Полужирное начертание*/
             IMAGE,
             POEM,
             TEXT_AUTHOR,
-            SUBTITLE
+            SUBTITLE,
+            EPIGRAPH
 };
 using style_t = pair<Styles, int>; // Элемент списка стилей
 

@@ -38,7 +38,8 @@ struct Walker: pugi::xml_tree_walker{
             {"image", Styles::IMAGE},
             {"poem", Styles::POEM},
             {"text-author", Styles::TEXT_AUTHOR},
-            {"subtitle", Styles::SUBTITLE}
+            {"subtitle", Styles::SUBTITLE},
+            {"epigraph", Styles::EPIGRAPH}
         };
 
         // Создает список стилей для передачи конструктору Fragment

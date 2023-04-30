@@ -54,6 +54,10 @@ SWText* Controller::create_text_from_instance(Fragment* frag){
         if (style == Styles::TEXT_AUTHOR){
             word->setStyle(word->getStyle() | sf::Text::Bold | sf::Text::Italic);
         }
+        if (style == Styles::EPIGRAPH){
+            word->setStyle(word->getStyle() | sf::Text::Italic);
+            word->setCharacterSize(bookFontSize - 2);
+        }
     }
     word->setPosition({static_cast<float>(frag->x), static_cast<float>(frag->y)});
     return word;
@@ -111,11 +115,11 @@ void Controller::build_up_pages_from_frags(){
 }
 
 void Controller::add_text(Fragment* frag, vector<Fragment*> &page, sf::Vector2f &carriage_pos){
-    
     SWText* obj = create_text_from_instance(frag);
     float w_width = obj->getBounds().width;
     float w_height = obj->getBounds().height;
     int line_len_px = view.PAGE_WIDTH - view.LF_WIDTH - view.RF_WIDTH;
+    if (frag->has_a_style(Styles::EPIGRAPH)) line_len_px /= 2;
     
     if (carriage_pos.x + w_width - 1 > line_len_px){
         if (carriage_pos.y + w_height >= view.PAGE_HEIGHT - view.F_HEIGHT) // Страница заполнена
@@ -141,10 +145,13 @@ void Controller::add_text(Fragment* frag, vector<Fragment*> &page, sf::Vector2f 
         }
     }
     else if (frag->text == "SW_POEM_START"){
-        // Встречая специальный код, контроллер создает группу выравнивания
-        align_groups.push_back(AlignmentGroup(alignType::CENTER_BLOCKWISE, line_len_px - 2*view.RF_WIDTH));
+        // if(){} разнесен на две части, т. .к если объединить 2 условия через "И", на странице будет 
+        // отрисовываться спецкод SW_POEM_START
+        if (!frag->has_a_style(Styles::EPIGRAPH))
+            // Встречая специальный код, контроллер создает группу выравнивания
+            align_groups.push_back(AlignmentGroup(alignType::CENTER_BLOCKWISE, line_len_px - 2*view.RF_WIDTH));
     }
-    else if (frag->text == "SW_ALIGN_RIGHT_START"){
+    else if (frag->text == "SW_ALIGN_RIGHT_LINEWISE_START"){
         // Встречая специальный код, контроллер создает группу выравнивания
         align_groups.push_back(AlignmentGroup(alignType::RIGHT_LINEWISE, line_len_px));
     }
@@ -152,7 +159,7 @@ void Controller::add_text(Fragment* frag, vector<Fragment*> &page, sf::Vector2f 
         // Если текущее слово -- часть стихотворной строфы / эпиграфа / указания автора, 
         // то фрагменту назначается группа выравнивания
         if (!align_groups.empty()){
-            if(frag->has_a_style(Styles::POEM) || frag->has_a_style(Styles::TEXT_AUTHOR))
+            if(frag->has_a_style(Styles::POEM) || frag->has_a_style(Styles::TEXT_AUTHOR) || frag->has_a_style(Styles::EPIGRAPH))
                 align_groups.back().addFragment(frag);
         }
         frag->x = carriage_pos.x;

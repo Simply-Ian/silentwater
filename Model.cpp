@@ -68,10 +68,10 @@ bool Walker::for_each(pugi::xml_node& node){
             Fragment* to_be_added = new Fragment("", {}, format_attrs(), ct::ContentType::IMAGE);
             frags->push_back(to_be_added);
         }
-        else if (node_name == "text-author"){
+        else if (node_name == "text-author" || node_name == "epigraph"){
             Fragment* break_to_be_added = new Fragment("\n", {}, format_attrs(), ct::ContentType::TEXT);
             frags->push_back(break_to_be_added);
-            Fragment* to_be_added = new Fragment("SW_ALIGN_RIGHT_START", {}, {}, ct::ContentType::TEXT);
+            Fragment* to_be_added = new Fragment("SW_ALIGN_RIGHT_LINEWISE_START", {}, {}, ct::ContentType::TEXT);
             frags->push_back(to_be_added);
         }
     }
@@ -130,7 +130,7 @@ void Model::load_fb2(char* FILE_NAME){
 
 void Model::split_into_words(){
     int frags_len = fragments.size();
-    vector<string> spec_codes = {"&&&", "SW_POEM_START", "SW_ALIGN_RIGHT_START", "\n"};
+    vector<string> spec_codes = {"&&&", "SW_POEM_START", "SW_ALIGN_RIGHT_LINEWISE_START", "\n"};
     for (int index = 0; index < frags_len; index++){
         auto i = *(fragments.begin());
         if (i->type == ct::TEXT){
