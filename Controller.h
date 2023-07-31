@@ -19,7 +19,7 @@ class Controller{
     sf::Text pageNumberText;
     sf::Color textColor{67, 67, 67};
     int cur_page_num = 0;
-    int bookFontSize = 20 * view.SCALE;
+    int bookFontSize = 22 * view.SCALE;
     int lineInt = 3;
     vector<AlignmentGroup> align_groups;
 
@@ -31,6 +31,7 @@ class Controller{
     void turn_page_fw();
     void draw_page();
     void toc_navigate(tgui::String name);
+    void show_wordnote(SWText* t);
 
     void build_up_pages_from_frags();
     float pic_resize_logic(sf::FloatRect obj_bounds, bool fullpage_mode=false);

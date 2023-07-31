@@ -3,6 +3,9 @@
 #include <utility>
 #include "decode_base64.h"
 #include "content_types.h"
+#include <functional>
+
+using namespace std::placeholders;
 
 Controller::Controller(){
     pageNumberText.setFont(bookFont);
@@ -48,7 +51,11 @@ SWText* Controller::create_text_from_instance(Fragment* frag){
             word->setStyle(word->getStyle() | sf::Text::Style::Underlined);
             word->setFillColor(sf::Color::Blue);
             word->onClick = &SWText::open_URL;
-            word->onHover = &SWText::changeCursor;
+            if (word->is_a_note_link())
+                word->onHover = std::bind(&Controller::show_wordnote, this, _1);
+                // word->onHover = &SWText::show_word_note;
+            else
+                word->onHover = &SWText::changeCursor;
             word->is_clickable = true;
         }
         if (style == Styles::TEXT_AUTHOR){
@@ -96,7 +103,7 @@ void Controller::build_up_pages_from_frags(){
             tocElem to_be_added(model.pages.size() + 1, frag_ptr->attrs["title"], frag_ptr->depth); // +1 из-за обложки
 
             // Добавляем только уникальные элементы (из-за разбития на слова заголовки дублируются)
-            if(table_of_contents.size() == 0 || *(--table_of_contents.end()) != to_be_added)
+            if(table_of_contents.size() == 0 || table_of_contents.back() != to_be_added)
                 table_of_contents.push_back(to_be_added);
         }
         if (frag_ptr->type == ct::ContentType::TEXT){
@@ -262,6 +269,7 @@ void Controller::draw_page(){
     view.page.draw(pageNumberText);
     view.page.display();
     view.pageSprite.setTexture(view.page.getTexture());
+    // view.word_note.render(view.win);
 }
 
 void Controller::loop(){
@@ -301,8 +309,11 @@ void Controller::loop(){
                             wordHoveredFlag = true;
                         }
                     }
-                    if (!wordHoveredFlag) 
+                    if (!wordHoveredFlag){
+                        if (view.word_note.isVisible() && !view.word_note.isMouseOn({event.mouseMove.x, event.mouseMove.y - 5}))
+                            view.word_note.setVisible(false);
                         view.gui.restoreOverrideMouseCursor();
+                    }
                 }
             }
             updateFlag = true;
@@ -338,6 +349,15 @@ void Controller::set_page_num(int new_num){
             }
         }
     }
+}
+
+void Controller::show_wordnote(SWText* t){
+    t->changeCursor();
+    string text = model.notes[t->attrs[model.doc_links_name + ":href"].substr(1)];
+    sf::Vector2f pos{(t->getPosition().x  + t->getLocalBounds().width / 2) / view.SCALE + view.pageSprite.getGlobalBounds().left, 
+        t->getPosition().y / view.SCALE + view.pageSprite.getGlobalBounds().top};
+    view.showFloatingNote(text, 
+                        pos);
 }
 
 void Controller::turn_page_back(){

@@ -60,6 +60,7 @@ class Model{
         // Загружает fb2-файл, определяет кодировку, перезагружает файл в Юникод и запускает разбор xml
         void load_fb2(char* FILE_NAME);
         void split_into_words();
+        void extract_notes();
     private:
         Walker w{&fragments, &binaries};
         pugi::xml_document doc;

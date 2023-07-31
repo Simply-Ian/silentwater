@@ -30,7 +30,7 @@ bool Walker::for_each(pugi::xml_node& node){
         
         for (pugi::xml_attribute attr: node.attributes()){
             // Сохраняются только атрибуты *:href
-            if (strcmp(attr.name(), (doc_links_name + ":href").c_str()) == 0)
+            if (strcmp(attr.name(), (doc_links_name + ":href").c_str()) == 0 || strcmp(attr.name(), "type") == 0)
                 cur_attrs[attr.name()] = attr_t(attr.value(), depth());
         }
         if (node_name == "title"){ 
@@ -126,6 +126,7 @@ void Model::load_fb2(char* FILE_NAME){
     }
     w.doc_links_name = this->doc_links_name;
     doc.traverse(w);
+    extract_notes();
 }
 
 void Model::split_into_words(){
@@ -152,4 +153,19 @@ void Model::split_into_words(){
         fragments.pop_front();
     }
     this->fragments.erase(this->fragments.begin()); // Обрезаем пустую строку перед первым абзацем
+}
+
+void Model::extract_notes(){
+    pugi::xml_node notes_body = doc.find_node([](pugi::xml_node n){return strcmp(n.attribute("name").as_string(),
+                                                                     "notes") == 0;});
+    string id;
+    string content;
+    if (notes_body){
+        pugi::xml_node first_note = notes_body.find_child([](pugi::xml_node n){return strcmp(n.name(), "section") == 0;});
+        for(pugi::xml_node i = first_note; i.type() != pugi::node_null ; i = i.next_sibling()){
+            id = i.attribute("id").as_string();
+            content = i.find_child([](pugi::xml_node n){return strcmp(n.name(), "p") == 0;}).child_value();
+            this->notes.insert({id, content});
+        }
+    }
 }

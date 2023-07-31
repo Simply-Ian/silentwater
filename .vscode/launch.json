@@ -30,7 +30,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/run",
-            "args": ["Books/Plague.fb2"],
+            "args": ["Books/Alisa.fb2"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

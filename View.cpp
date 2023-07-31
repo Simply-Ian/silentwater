@@ -79,8 +79,8 @@ void View::onWinResize(sf::Event::SizeEvent new_size){
 
 void View::update(){
     win.clear({155, 155, 155, 255});
-    gui.draw();
     win.draw(pageSprite);
+    gui.draw();
     win.display();
 }
 
@@ -104,6 +104,11 @@ int View::getPageScreenHeight(){
     return PAGE_HEIGHT / SCALE;
 }
 
+void View::showFloatingNote(string text, sf::Vector2f pos){
+    this->word_note.updateLabel(text, pos);
+    word_note.setVisible(true);
+}
+
 bool SWText::checkMouseOn(sf::Vector2i pos){
     sf::FloatRect self_pos = getGlobalBounds();
     int click_x = parent->SCALE * (pos.x - parent->pageSprite.getPosition().x);
@@ -118,15 +123,23 @@ SWText::SWText(View* parent): sf::Text::Text(){
 
 void SWText::open_URL(){
     string href_name = parent->doc_links_name + ":href";
-    string command = "xdg-open " + this->attrs[href_name];
     if (this->attrs.count(href_name) != 0){
-        if (this->attrs[href_name].substr(0, 4) == "http")
+        if (this->attrs[href_name].substr(0, 4) == "http"){
+            string command = "xdg-open " + this->attrs[href_name];
             system(command.c_str());
+        }
     }
 }
 
 void SWText::changeCursor(){
     parent->gui.setOverrideMouseCursor(tgui::Cursor::Type::Hand);
+}
+
+bool SWText::is_a_note_link(){
+    // Проверяем, что текст -- ссылка на примечание
+    if (this->attrs.count("type") != 0)
+        return this->attrs["type"] == "note";
+    return false;
 }
 
 sf::FloatRect SWText::getBounds(){
@@ -223,4 +236,50 @@ sf::FloatRect SWText::getBounds(){
         x += glyph.advance + letterSpacing;
     }
     return sf::FloatRect{minX, minY, maxX - minX, maxY - minY};
+}
+
+FloatingNote::FloatingNote(tgui::GuiSFML& g, int fs){
+    label = tgui::Label::create();
+    label->setTextSize(fs);
+    label->getRenderer()->setBackgroundColor(tgui::Color::Black);
+    label->getRenderer()->setTextColor(tgui::Color::White);
+    label->setMaximumTextWidth(MAX_LABEL_WIDTH);
+    label->setVisible(false);
+    label->setScrollbarPolicy(tgui::Scrollbar::Policy::Automatic);
+    g.add(label);
+}
+
+tgui::Vector2f FloatingNote::getPosition() const{
+    return this->label->getAbsolutePosition();
+}
+
+void FloatingNote::setVisible(bool v){
+    this->label->setVisible(v);
+}
+
+bool FloatingNote::isVisible(){
+    return this->label->isVisible();
+}
+
+void FloatingNote::updateLabel(string text, sf::Vector2f pos){
+    if (label->getText() != text)
+        label->setHeight(0); // Обнуляем высоту, чтобы установка размера сработала корректно
+    label->setText(text);
+    int debug_size = label->getSize().y;
+    if (debug_size >= MAX_LABEL_HEIGHT){
+        label->setAutoSize(false);
+        label->setHeight(MAX_LABEL_HEIGHT);
+    }
+    else label->setAutoSize(true);
+
+    int y_pos = pos.y - label->getSize().y;
+    label->setPosition(pos.x - (label->getSize().x / 2), y_pos >= 0? y_pos : pos.y + 15);
+    label->moveToFront();
+}
+
+FloatingNote::~FloatingNote(){
+    this->label->getParentGui()->remove(this->label);
+}
+bool FloatingNote::isMouseOn(tgui::Vector2f pos){
+    return this->label->isMouseOnWidget(pos);
 }
