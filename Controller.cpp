@@ -14,6 +14,7 @@ Controller::Controller(){
     view.leftButton->onPress(&Controller::turn_page_back, this);
     view.leftButton->setMouseCursor(tgui::Cursor::Type::Hand);
     view.rightButton->onPress(&Controller::turn_page_fw, this);
+    view.add_bm_button->onClick(&Controller::add_bookmark, this);
     view.rightButton->setMouseCursor(tgui::Cursor::Type::Hand);
     bookFont.loadFromFile("Fonts/Georgia.ttf");
 }
@@ -26,7 +27,9 @@ void Controller::load_book(char* path){
     view.doc_links_name = model.doc_links_name;
     view.build_up_toc(this->table_of_contents);
     view.tocList->onItemSelect(&Controller::toc_navigate, this);
-    set_page_num(0);
+    set_page_num_and_update_toc(model.load_bm_file(model.doc_uid));
+    populate_bm_list(model.bookmarks);
+    view.win.setTitle(sf::String::fromUtf8(model.doc_title.begin(), model.doc_title.end())); //!< \todo Заголовок включает в себя имя (-ена) и фамилию (-и) автора (-ов)
 }
 
 SWText* Controller::create_text_from_instance(Fragment* frag){
@@ -283,6 +286,8 @@ void Controller::loop(){
         updateFlag = false;
         while (view.win.pollEvent(event)){
             if (event.type == sf::Event::Closed){
+                // Сохраняем в файл номер страницы, на которой остановился пользователь, и данные о закладках
+                model.save_bm_file(model.doc_uid);
                 view.win.close();
             }
             else if (event.type == sf::Event::Resized){
@@ -310,7 +315,8 @@ void Controller::loop(){
                         }
                     }
                     if (!wordHoveredFlag){
-                        if (view.word_note.isVisible() && !view.word_note.isMouseOn({event.mouseMove.x, event.mouseMove.y - 5}))
+                        if (view.word_note.isVisible() && 
+                            !view.word_note.isMouseOn({static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y - 5)}))
                             view.word_note.setVisible(false);
                         view.gui.restoreOverrideMouseCursor();
                     }
@@ -348,6 +354,7 @@ void Controller::set_page_num(int new_num){
                 cur_page.pics.push_back(cur_pic);
             }
         }
+        model.update_checkpoint_data(new_num);
     }
 }
 
@@ -373,6 +380,18 @@ void Controller::toc_navigate(tgui::String name){
     if (selectedId != ""){
         int page_num = selectedId.toInt();
         set_page_num(page_num);
+    }
+}
+
+void Controller::populate_bm_list(vector<sw::Bookmark> bms){
+    int counter = 0;
+    for (sw::Bookmark bm: bms){
+        BookmarkWidget::Ptr item = BookmarkWidget::create(bm, view.GUI_TEXT_SIZE);
+        item->setWidgetName(tgui::String::fromNumber(bm.page));
+        item->onClick(&Controller::set_page_num_and_update_toc, this, bm.page);
+        item->onClose(&Controller::delete_bookmark, this, item->getWidgetName());
+        view.bmPan->add(item);
+        counter++;
     }
 }
 
@@ -402,6 +421,44 @@ void Controller::set_page_num_and_update_toc(int new_num){
         }
     }
     set_page_num(new_num);
+}
+
+void Controller::add_bookmark(){
+    const int header_len = 40;
+    string preview;
+
+    // Получаем название главы и обрезаем ведущие пробелы
+    string chapter = table_of_contents[view.tocList->getSelectedItemIndex()].headline;
+    if (chapter.size()){
+        int first_letter_pos = 0;
+        while (chapter.at(first_letter_pos) == ' ') first_letter_pos++;
+        chapter = chapter.substr(first_letter_pos, header_len + first_letter_pos);
+    }
+    chapter += "...";
+
+    int lines_count = model.pages.size();
+    for (auto frag_ptr = model.pages[cur_page_num].begin(); 
+            preview.size() < header_len && frag_ptr != model.pages[cur_page_num].end(); frag_ptr++)
+        if ((*frag_ptr)->type == ct::ContentType::TEXT)
+            preview += (*frag_ptr)->text;
+    preview = preview.substr(0, header_len - 5) + "...";
+    model.add_bm_data(cur_page_num, chapter, preview);
+    populate_bm_list({sw::Bookmark(preview, chapter, cur_page_num)});
+}
+
+void Controller::delete_bookmark(tgui::String name){
+    logger.log(name.toStdString(), Logger::levels::INFO);
+    model.delete_bm_data(name.toStdString());
+    logger.log("Model data deleted", Logger::levels::INFO);
+    tgui::Widget::Ptr to_be_removed;
+    for (auto i : view.bmPan->getWidgets()){
+        if (i->getWidgetName() == name){
+            to_be_removed = i;
+            break;
+        }
+    }
+    view.bmPan->remove(to_be_removed);
+    logger.log("GUI data deleted", Logger::levels::INFO);
 }
 
 int main(int argc, char** argv){

@@ -1,6 +1,7 @@
 #include "View.h"
 #include <string>
 #include <cmath> // Для расчета границ символа
+#include <iostream>
 
 
 View::View(){
@@ -55,6 +56,32 @@ View::View(){
     tocList->setPosition({5, "toc_header.top + toc_header.height + 3"});
     leftPan->add(tocList);
     gui.add(leftPan);
+
+    rightPan = tgui::Panel::create({300, "parent.height - 50"});
+    rightPan->setPosition({"parent.width - 300", 50});
+    bm_header = tgui::Label::create("Закладки");
+    bm_header->setAutoSize(true);
+    bm_header->setTextSize(GUI_TEXT_SIZE + 3);
+    bm_header->setPosition({5, (50 - GUI_TEXT_SIZE) / 2});
+    bm_header->setWidgetName("bm_header");
+    rightPan->add(bm_header);
+
+    add_bm_button = tgui::Button::create("+");
+    add_bm_button->setSize({50, 50});
+    add_bm_button->setPosition({"parent.width - width - 5", 2});
+    add_bm_button->setWidgetName("add_bm_button");
+    rightPan->add(add_bm_button);
+
+    bmPan = MyScrollablePanel::create({"parent.width - 10", "parent.height / 2 - 2 - add_bm_button.height"});
+    bmPan->getRenderer()->setBorderColor(tgui::Color::Black);
+    bmPan->getRenderer()->setBorders(1);
+    bmPan->setHorizontalScrollbarPolicy(tgui::Scrollbar::Policy::Never);
+    bmPan->setVerticalScrollbarPolicy(tgui::Scrollbar::Policy::Always);
+    bmPan->setPosition({5, "add_bm_button.height + 5"});
+
+    rightPan->add(bmPan);
+    gui.add(rightPan);
+
 
     this->min_width = getPageScreenWidth() + leftPan->getSize().x*2 + leftButton->getSize().x*2;
     this->min_height = getPageScreenHeight() + 50;
@@ -280,6 +307,7 @@ void FloatingNote::updateLabel(string text, sf::Vector2f pos){
 FloatingNote::~FloatingNote(){
     this->label->getParentGui()->remove(this->label);
 }
+
 bool FloatingNote::isMouseOn(tgui::Vector2f pos){
     return this->label->isMouseOnWidget(pos);
 }

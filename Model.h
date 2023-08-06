@@ -9,6 +9,7 @@
 #include <map>
 #include "AlignmentGroup.h"
 #include "Fragment.h"
+#include "bookmark.h"
 using namespace std;
 
 
@@ -56,14 +57,24 @@ class Model{
         string doc_links_name;
         map<string, string> binaries;
         map<string, string> notes;
+        string doc_uid;
+        string doc_title;
+        vector<sw::Bookmark> bookmarks;
 
         // Загружает fb2-файл, определяет кодировку, перезагружает файл в Юникод и запускает разбор xml
         void load_fb2(char* FILE_NAME);
         void split_into_words();
         void extract_notes();
+        int load_bm_file(string doc_uid); //!< Метод для загрузки файла закладок
+        void save_bm_file(string doc_uid);
+        void update_checkpoint_data(int page_num); //!< Обновляет значение чекпойнта в XML-документе
+        void add_bm_data(int page, string chapter, string preview);
+        void delete_bm_data(string page);
     private:
         Walker w{&fragments, &binaries};
         pugi::xml_document doc;
+        pugi::xml_document bookmarks_doc;
+        char* compose_bookmark_filepath(string doc_uid);
 };
 
 #endif

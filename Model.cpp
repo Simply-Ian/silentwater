@@ -6,12 +6,14 @@
 #include "Model.h"
 #include <sstream> // Для разбиения строки по разделителю
 #include <algorithm> // Для std::find
+#include <filesystem> // Проверка существования файла
+#include <unistd.h> // Для readlink() -- получения пути к исполняемому пути
 using namespace std;
 
 bool Walker::for_each(pugi::xml_node& node){
     const string node_name = node.name(); // Конверсия C-строки в string
     if (node_name == "body"){
-        body_name = node.find_attribute([](pugi::xml_attribute x){return strcmp(x.name(), "name") == 0;}).value();
+        body_name = node.attribute("name").value();
     }
     else if (depth() <= 1)
         body_name = OUT_OF_BODY;
@@ -125,6 +127,8 @@ void Model::load_fb2(char* FILE_NAME){
         }
     }
     w.doc_links_name = this->doc_links_name;
+    this->doc_uid = doc.first_element_by_path("/FictionBook/description/document-info/id").first_child().value();
+    this->doc_title = doc.first_element_by_path("/FictionBook/description/title-info/book-title").first_child().value();
     doc.traverse(w);
     extract_notes();
 }
@@ -168,4 +172,78 @@ void Model::extract_notes(){
             this->notes.insert({id, content});
         }
     }
+}
+
+/*!
+    Функция открывает и парсит файл с закладками. Информация о собственно закладках помещается в Model::bookmarks,
+    страница, на которой пользователь остановился последний раз, возвращается.
+    \returns Номер страницы, на которой пользователь остановился последний раз.
+*/
+int Model::load_bm_file(string doc_uid){
+    char* bookmark_filepath = compose_bookmark_filepath(doc_uid);
+    if (filesystem::exists({bookmark_filepath})){
+        pugi::xml_parse_result result = this->bookmarks_doc.load_file(bookmark_filepath);
+        if (!result) throw runtime_error(result.description());
+
+        int checkpoint_page = atoi(bookmarks_doc.first_element_by_path("/SilentWater_bm/checkpoint")
+                                    .first_attribute().value());
+        for (auto bm_tag = bookmarks_doc.first_child().child("bm"); bm_tag.type() != pugi::node_null; bm_tag = bm_tag.next_sibling())
+            this->bookmarks.push_back(sw::Bookmark(bm_tag.first_child().value(), 
+                                            bm_tag.attribute("chapter").value(), 
+                                            atoi(bm_tag.attribute("page").value())));
+        return checkpoint_page;
+    }
+    else{
+        // Создаем файл закладок, если таковой не существует
+        pugi::xml_node root = bookmarks_doc.append_child("SilentWater_bm");
+        pugi::xml_node doc_node = root.append_child("document");
+        doc_node.append_child(pugi::node_pcdata).set_value(doc_title.c_str());
+        pugi::xml_node checkpoint_node = root.append_child("checkpoint");
+        checkpoint_node.append_attribute("page") = 0;
+        return 0;
+    }
+}
+
+char* Model::compose_bookmark_filepath(string doc_uid){
+    // Ищем путь к исполняемому файлу с помощью системной функции readlink()
+    char fp_buf[255];
+    size_t fp_len = readlink("/proc/self/exe", fp_buf, 255);
+    fp_buf[fp_len] = 0; // Символ окончания строки для функции strrchr()
+    // Обрезаем путь, оставляя только путь до папки, где лежит бинарник
+    size_t folder_len = strrchr(fp_buf, '/') - fp_buf;
+    char folder_path[folder_len + 1];
+    strncpy(folder_path, fp_buf, folder_len);
+    folder_path[folder_len] = 0;
+
+    char* bookmark_filepath = new char[folder_len + doc_uid.size() + strlen("/bookmarks/.swbm")];
+    strcpy(bookmark_filepath, folder_path);
+    strcat(bookmark_filepath, "/bookmarks/");
+    strcat(bookmark_filepath, doc_uid.c_str());
+    strcat(bookmark_filepath, ".swbm");
+    return bookmark_filepath;
+}
+
+void Model::save_bm_file(string doc_uid){
+    // Все параметры, кроме кодировки, по умолчанию
+    bookmarks_doc.save_file(compose_bookmark_filepath(doc_uid), "\t", 1U, pugi::encoding_utf8);
+}
+
+void Model::update_checkpoint_data(int page_num){
+    bookmarks_doc.first_element_by_path("/SilentWater_bm/checkpoint").first_attribute().set_value(page_num);
+}
+
+void Model::add_bm_data(int page, string chapter, string preview){
+    pugi::xml_node tag = bookmarks_doc.first_child().append_child("bm");
+    tag.append_attribute("page").set_value(page);
+    tag.append_attribute("chapter").set_value(chapter.c_str());
+    tag.append_child(pugi::xml_node_type::node_pcdata).set_value(preview.c_str());
+}
+
+void Model::delete_bm_data(string page){
+    pugi::xml_node bm = bookmarks_doc.first_element_by_path("/SilentWater_bm/bm");
+    while ((bm.attribute("page").value() != page) &&
+         (bm.type() != pugi::xml_node_type::node_null)) bm = bm.next_sibling();
+    if (bm.type() != pugi::xml_node_type::node_null)
+        bookmarks_doc.child("SilentWater_bm").remove_child(bm);
+    else throw;
 }

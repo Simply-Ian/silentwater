@@ -32,7 +32,7 @@
             "program": "${workspaceFolder}/run",
             "args": ["Books/Alisa.fb2"],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "/home/ivan/CppProjects/Fictionizer",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

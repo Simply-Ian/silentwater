@@ -6,6 +6,8 @@
 #include <map>
 #include <functional>
 #include "tocElem.h"
+#include "BookmarkWidget.h"
+#include "MyScrollablePanel.h"
 using namespace std;
 
 class FloatingNote{
@@ -46,8 +48,12 @@ struct View{
     tgui::BitmapButton::Ptr leftButton;
     tgui::BitmapButton::Ptr rightButton;
     tgui::Panel::Ptr leftPan;
+    tgui::Panel::Ptr rightPan;
+    MyScrollablePanel::Ptr bmPan;
     tgui::ListBox::Ptr tocList;
     tgui::Label::Ptr toc_header;
+    tgui::Label::Ptr bm_header;
+    tgui::Button::Ptr add_bm_button;
     sf::RenderTexture page;
     sf::Sprite pageSprite;
     FloatingNote word_note{gui, GUI_TEXT_SIZE-2};

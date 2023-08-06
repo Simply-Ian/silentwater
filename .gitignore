@@ -6,3 +6,4 @@ decode_test
 valgrind.supp
 Docs
 README
+bookmarks/*

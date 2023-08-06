@@ -62,5 +62,6 @@
         "regex": "cpp",
         "shared_mutex": "cpp",
         "*.dox": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "enabled"
 }

@@ -3,6 +3,7 @@
 #include "tocElem.h"
 #include "Logger.h"
 #include "AlignmentGroup.h"
+#include <TGUI/String.hpp>
 
 using imagepair_t = pair<sf::Sprite*, sf::Texture*>;
 
@@ -26,7 +27,6 @@ class Controller{
     SWText* create_text_from_instance(Fragment* frag);
     pair<sf::Sprite*, sf::Texture*> create_image_from_instance(Fragment* frag);
     void set_page_num(int new_num);
-    void set_page_num_and_update_toc(int new_num);
     void turn_page_back();
     void turn_page_fw();
     void draw_page();
@@ -43,6 +43,8 @@ class Controller{
     это значит, что стихотворение закончилось и его можно выровнять по центру. Этим и занимается apply_alignments()
     */
     void apply_alignments();
+    //! Создает виджеты закладок и назнаачает callback-и
+    void populate_bm_list(vector<sw::Bookmark> bms);
 
     public:
         vector<tocElem> table_of_contents;
@@ -50,4 +52,7 @@ class Controller{
         Controller();
         void load_book(char* path);
         void loop();
+        void set_page_num_and_update_toc(int new_num);
+        void add_bookmark();
+        void delete_bookmark(tgui::String name);
 };
