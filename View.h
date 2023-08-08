@@ -54,6 +54,10 @@ struct View{
     tgui::Label::Ptr toc_header;
     tgui::Label::Ptr bm_header;
     tgui::Button::Ptr add_bm_button;
+    tgui::EditBox::Ptr go_to_box;
+    tgui::Button::Ptr go_to_page;
+    tgui::Button::Ptr go_to_percent;
+    tgui::Label::Ptr go_to_header;
     sf::RenderTexture page;
     sf::Sprite pageSprite;
     FloatingNote word_note{gui, GUI_TEXT_SIZE-2};

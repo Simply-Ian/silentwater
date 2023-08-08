@@ -59,10 +59,11 @@ View::View(){
 
     rightPan = tgui::Panel::create({300, "parent.height - 50"});
     rightPan->setPosition({"parent.width - 300", 50});
+
     bm_header = tgui::Label::create("Закладки");
     bm_header->setAutoSize(true);
-    bm_header->setTextSize(GUI_TEXT_SIZE + 3);
-    bm_header->setPosition({5, (50 - GUI_TEXT_SIZE) / 2});
+    bm_header->setTextSize(GUI_TEXT_SIZE + 2);
+    bm_header->setPosition({5, (48 - GUI_TEXT_SIZE) / 2});
     bm_header->setWidgetName("bm_header");
     rightPan->add(bm_header);
 
@@ -80,6 +81,39 @@ View::View(){
     bmPan->setPosition({5, "add_bm_button.height + 5"});
 
     rightPan->add(bmPan);
+
+    go_to_header = tgui::Label::create("Быстрый переход");
+    go_to_header->setAutoSize(true);
+    go_to_header->setTextSize(GUI_TEXT_SIZE + 2);
+    go_to_header->setPosition({5, "parent.height / 2 + 18"});
+    go_to_header->setWidgetName("go_to_header");
+    rightPan->add(go_to_header);
+
+    go_to_box = tgui::EditBox::create();
+    go_to_box->setSize({"parent.width - 10", GUI_TEXT_SIZE + 8});
+    go_to_box->setTextSize(GUI_TEXT_SIZE);
+    go_to_box->setPosition({5, "go_to_header.bottom + 20"});
+    go_to_box->setWidgetName("go_to_box");
+    go_to_box->setInputValidator(tgui::EditBox::Validator::Float);
+    go_to_box->setMaximumCharacters(5);
+    go_to_box->setDefaultText("Номер стр. или % от объема");
+    go_to_box->setMouseCursor(tgui::Cursor::Type::Text);
+    rightPan->add(go_to_box);
+
+    go_to_page = tgui::Button::create("Перейти на страницу");
+    go_to_page->setSize({"parent.width - 10", GUI_TEXT_SIZE + 8});
+    go_to_page->setPosition({5, "go_to_box.bottom + 3"});
+    go_to_page->setTextSize(GUI_TEXT_SIZE);
+    go_to_page->setWidgetName("go_to_page");
+    rightPan->add(go_to_page);
+
+    go_to_percent = tgui::Button::create("Перейти на % от объема");
+    go_to_percent->setSize({"parent.width - 10", GUI_TEXT_SIZE + 8});
+    go_to_percent->setPosition({5, "go_to_page.bottom + 3"});
+    go_to_percent->setWidgetName("go_to_percent");
+    go_to_percent->setTextSize(GUI_TEXT_SIZE);
+    rightPan->add(go_to_percent);
+
     gui.add(rightPan);
 
 
