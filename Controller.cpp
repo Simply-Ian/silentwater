@@ -298,6 +298,7 @@ void Controller::loop(){
     bool eventHandledByTGUI = false;
     draw_page();
     view.update();
+    sf::Vector2i old_mouse_pos; // Нужно для запоминания исходной позиции курсора при выделении текста
     while (view.win.isOpen()){
         updateFlag = false;
         while (view.win.pollEvent(event)){
@@ -315,28 +316,39 @@ void Controller::loop(){
             }
             else if (event.type == sf::Event::MouseButtonPressed){
                 for (SWText word: cur_page.words){
-                    if (word.checkMouseOn({event.mouseButton.x, 
-                                        event.mouseButton.y}))
-                        word.onClick(&word);
+                    word.checkMouseOn({event.mouseButton.x, event.mouseButton.y}, true);
                 }
+                if (old_mouse_pos == sf::Vector2i())
+                    old_mouse_pos = sf::Vector2i{event.mouseButton.x, event.mouseButton.y};
             }
             else if (event.type == sf::Event::MouseMoved){
                 if(!eventHandledByTGUI){
+                    // Просто движение мышью
                     bool wordHoveredFlag = false;
                     for (SWText word: cur_page.words){
                         if (word.checkMouseOn({event.mouseMove.x, 
-                                            event.mouseMove.y})){
-                            word.onHover(&word);
+                                            event.mouseMove.y}, false)){
                             wordHoveredFlag = true;
                         }
                     }
                     if (!wordHoveredFlag){
-                        if (view.word_note.isVisible() && 
-                            !view.word_note.isMouseOn({static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y - 5)}))
-                            view.word_note.setVisible(false);
-                        view.gui.restoreOverrideMouseCursor();
+                    if (view.word_note.isVisible() && 
+                        !view.word_note.isMouseOn({static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y - 5)}))
+                        view.word_note.setVisible(false);
+                    view.gui.restoreOverrideMouseCursor();
                     }
                 }
+            }
+            else if (event.type == sf::Event::MouseButtonReleased){
+                // Пользователь пытался выделить текст?
+                int offset_x = view.pageSprite.getPosition().x; //+ view.RF_WIDTH / view.SCALE;
+                int offset_y = view.pageSprite.getPosition().y; //+ view.H_HEIGHT / view.SCALE;
+                for (int i = 0; i < cur_page.words.size(); i++){
+                    cur_page.words.at(i).checkIsSelected({event.mouseButton.x - offset_x,
+                         event.mouseButton.y - offset_y}, old_mouse_pos - sf::Vector2i{offset_x, offset_y});
+                        // std::cout << word.getString().toAnsiString() << std::endl;
+                }
+                old_mouse_pos = sf::Vector2i();
             }
             updateFlag = true;
             eventHandledByTGUI = view.gui.handleEvent(event);

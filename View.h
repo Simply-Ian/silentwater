@@ -78,15 +78,24 @@ struct View{
 
 class SWText : public sf::Text{
     View* parent;
+    bool is_selected;
+    void showSelection();
+    void hideSelection();
+    sf::Color selectionColor{0, 149, 255, 128};
+
     public:
-        
+        void setSelected(bool v){is_selected = v; hideSelection();};
+        string source_text;
         std::function<void(SWText*)> onClick = [](SWText* t){};
         std::function<void (SWText*)> onHover = [](SWText* t){};
+        std::function<void (SWText*)> onSelected = [](SWText* t){};
         map<string, string> attrs;
         bool is_clickable;
+        bool getSelected(){return is_selected;};
 
         SWText(View* parent);
-        bool checkMouseOn(sf::Vector2i pos);
+        bool checkMouseOn(sf::Vector2i pos, bool mouse_pressed); //!< Проверяет, наведена ли мышь на слово и вызывает соответствующий коллбэк
+        bool checkIsSelected(sf::Vector2i pos1, sf::Vector2i pos2);
         void open_URL();
         void changeCursor();
         bool is_a_note_link();
@@ -94,4 +103,5 @@ class SWText : public sf::Text{
         однако, в отличие от нее, не обновляет вектор с вершинами sf::Vertex => расходует ощутимо меньше оперативной памяти
         */
         sf::FloatRect getBounds();
+        void setString(const sf::String& string);
 };

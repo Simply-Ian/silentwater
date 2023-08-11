@@ -2,6 +2,9 @@
 #include <string>
 #include <cmath> // Для расчета границ символа
 #include <iostream>
+#include <algorithm>
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 
 View::View(){
@@ -170,16 +173,29 @@ void View::showFloatingNote(string text, sf::Vector2f pos){
     word_note.setVisible(true);
 }
 
-bool SWText::checkMouseOn(sf::Vector2i pos){
+bool SWText::checkMouseOn(sf::Vector2i pos, bool mouse_pressed){
     sf::FloatRect self_pos = getGlobalBounds();
     int click_x = parent->SCALE * (pos.x - parent->pageSprite.getPosition().x);
     int click_y = parent->SCALE * (pos.y - parent->pageSprite.getPosition().y);
-    return (click_x >= self_pos.left && click_x <= self_pos.left + self_pos.width)
-            && (click_y >= self_pos.top && click_y <= self_pos.top + self_pos.height);
+    if ((click_x >= self_pos.left && click_x <= self_pos.left + self_pos.width)
+            && (click_y >= self_pos.top && click_y <= self_pos.top + self_pos.height)){
+        if (mouse_pressed) onClick(this);
+        else onHover(this);
+        return true;
+    }
+    return false;
 }
 
 SWText::SWText(View* parent): sf::Text::Text(){
+    // this->onClick = std::bind(&SWText::, this);
     this->parent = parent;
+    this->onSelected = &SWText::showSelection;
+}
+
+void SWText::showSelection(){
+    this->setOutlineColor(selectionColor);
+    this->setOutlineThickness(10.f);
+    this->setSelected(true);
 }
 
 void SWText::open_URL(){
@@ -201,6 +217,47 @@ bool SWText::is_a_note_link(){
     if (this->attrs.count("type") != 0)
         return this->attrs["type"] == "note";
     return false;
+}
+
+bool SWText::checkIsSelected(sf::Vector2i pos1, sf::Vector2i pos2){
+    sf::Vector2i leftTop(parent->SCALE*std::min(pos1.x, pos2.x), 
+                        parent->SCALE*std::min(pos1.y, pos2.y));
+    sf::Vector2i rightBottom(parent->SCALE*std::max(pos1.x, pos2.x),
+                                parent->SCALE*std::max(pos1.y, pos2.y));
+    sf::Vector2f pos = getPosition(); // Учесть поля!
+    sf::FloatRect bounds = getBounds();
+    if (pos.y >= leftTop.y && rightBottom.y - (pos.y + bounds.height) >= getCharacterSize() * 1.15){
+        onSelected(this);
+        return true;
+    }
+    else if (sf::FloatRect(pos.x, pos.y, bounds.width, bounds.height)
+                        .intersects(sf::FloatRect(leftTop.x, leftTop.y, rightBottom.x - leftTop.x, rightBottom.y - leftTop.y))){
+        onSelected(this);
+        return true;
+    }
+    else if (pos.y <= leftTop.y && pos.y + bounds.height >= leftTop.y){
+        if (rightBottom.y > pos.y + bounds.height && leftTop.x <= pos.x){
+            onSelected(this);
+            return true;
+        }
+    }
+    else if (pos.y <= rightBottom.y && pos.y + bounds.height >= rightBottom.y){
+        if(rightBottom.x >= pos.x && leftTop.y < pos.y){
+            onSelected(this);
+            return true;
+        }
+    }
+    return false;
+}
+
+void SWText::hideSelection(){
+    // setOutlineColor(getFillColor());
+    // setOutlineThickness(0);
+}
+
+void SWText::setString(const sf::String& string){
+    sf::Text::setString(string);
+    source_text = string.toAnsiString();
 }
 
 sf::FloatRect SWText::getBounds(){

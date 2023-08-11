@@ -30,7 +30,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/run",
-            "args": ["Books/Alisa.fb2"],
+            "args": ["Books/Дары волхвов.fb2"],
             "stopAtEntry": false,
             "cwd": "/home/ivan/CppProjects/Fictionizer",
             "environment": [],
