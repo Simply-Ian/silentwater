@@ -4,6 +4,7 @@
 #include "decode_base64.h"
 #include "content_types.h"
 #include <functional>
+#include <algorithm>
 
 using namespace std::placeholders;
 
@@ -50,7 +51,7 @@ void Controller::load_book(char* path){
 
 SWText* Controller::create_text_from_instance(Fragment* frag){
     SWText* word = new SWText(&view);
-    word->setString(sf::String::fromUtf8(frag->text.begin(), frag->text.end()));
+    word->setString(frag->text);
     word->setFont(bookFont);
     word->setFillColor(textColor);
     word->setCharacterSize(bookFontSize);
@@ -298,6 +299,9 @@ void Controller::loop(){
     bool eventHandledByTGUI = false;
     draw_page();
     view.update();
+    SWText first_clicked_word(&view);
+    SWText hovered_word(&view);
+    sf::Vector2i latest_click_pos;
     while (view.win.isOpen()){
         updateFlag = false;
         while (view.win.pollEvent(event)){
@@ -312,22 +316,31 @@ void Controller::loop(){
             else if (event.type == sf::Event::KeyPressed){
                 if(event.key.code == sf::Keyboard::Left) turn_page_back();
                 else if(event.key.code == sf::Keyboard::Right) turn_page_fw();
+                else if (event.key.control && event.key.code == sf::Keyboard::C){
+                    string text = get_selected_text();
+                    sf::Clipboard::setString(sf::String::fromUtf8(text.begin(), text.end()));
+                    view.showTemporalNotification("Текст скопирован", 1500);
+                }
             }
             else if (event.type == sf::Event::MouseButtonPressed){
-                for (SWText word: cur_page.words){
+                for (SWText& word: cur_page.words){
                     if (word.checkMouseOn({event.mouseButton.x, 
-                                        event.mouseButton.y}))
+                                        event.mouseButton.y})){
                         word.onClick(&word);
+                        first_clicked_word = word;
+                    }
                 }
+                latest_click_pos = {event.mouseButton.x, event.mouseButton.y};
             }
             else if (event.type == sf::Event::MouseMoved){
                 if(!eventHandledByTGUI){
                     bool wordHoveredFlag = false;
-                    for (SWText word: cur_page.words){
+                    for (SWText& word: cur_page.words){
                         if (word.checkMouseOn({event.mouseMove.x, 
                                             event.mouseMove.y})){
                             word.onHover(&word);
                             wordHoveredFlag = true;
+                            hovered_word = word;
                         }
                     }
                     if (!wordHoveredFlag){
@@ -336,6 +349,43 @@ void Controller::loop(){
                             view.word_note.setVisible(false);
                         view.gui.restoreOverrideMouseCursor();
                     }
+                    else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
+                        if (view.cur_cursor_type != tgui::Cursor::Type::Text){
+                            view.gui.setOverrideMouseCursor(tgui::Cursor::Type::Text);
+                            view.cur_cursor_type = tgui::Cursor::Type::Text;
+                        }
+                        // wordHoveredFlag = true гарантирует, что hovered_word -- не пустышка
+                        auto fw = find(cur_page.words.begin(), cur_page.words.end(), first_clicked_word);
+                        auto sw = find(cur_page.words.begin(), cur_page.words.end(), hovered_word);
+                        if (max(fw, sw) != cur_page.words.end()){
+                            for (auto w_i = min(fw, sw); w_i <= max(fw, sw); w_i++){
+                                w_i->setSelected(true);
+                            }
+                            // Снимаем выделение, если пользователь сдвинул границу к началу выд-я
+                            vector<SWText>::iterator border;
+                            bool reverse_flag = false;
+                            if (sw > fw)
+                                border = ++sw;
+                            else{
+                                border = --sw;
+                                reverse_flag = true;
+                            }
+                            while (border->getSelected()){
+                                border->setSelected(false);
+                                if (reverse_flag) border--; else border++;
+                            }
+                        }
+                        else first_clicked_word = hovered_word;
+                    }
+                }
+            }
+            else if (event.type == sf::Event::MouseButtonReleased){
+                view.gui.restoreOverrideMouseCursor();
+                hovered_word = SWText(&view);
+                first_clicked_word = SWText(&view);
+                if (latest_click_pos == sf::Vector2i{event.mouseButton.x, event.mouseButton.y}){
+                    for (SWText& word: cur_page.words)
+                        word.setSelected(false);
                 }
             }
             updateFlag = true;
@@ -476,6 +526,13 @@ void Controller::delete_bookmark(tgui::String name){
     }
     view.bmPan->remove(to_be_removed);
     logger.log("GUI data deleted", Logger::levels::INFO);
+}
+
+string Controller::get_selected_text(){
+    string text;
+    for (SWText& word: cur_page.words)
+        if (word.getSelected()) text += word.source_text;
+    return text;
 }
 
 int main(int argc, char** argv){

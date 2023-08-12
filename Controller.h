@@ -45,6 +45,7 @@ class Controller{
     void apply_alignments();
     //! Создает виджеты закладок и назнаачает callback-и
     void populate_bm_list(vector<sw::Bookmark> bms);
+    string get_selected_text();
 
     public:
         vector<tocElem> table_of_contents;

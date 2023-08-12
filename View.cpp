@@ -116,6 +116,17 @@ View::View(){
 
     gui.add(rightPan);
 
+    msgBox = tgui::MessageBox::create();
+    msgBox->getRenderer()->setOpacity(0.7);
+    msgBox->setSize({"parent.width / 15", GUI_TEXT_SIZE});
+    msgBox->getRenderer()->setBackgroundColor(tgui::Color::Black);
+    msgBox->setTextSize(GUI_TEXT_SIZE);
+    msgBox->getRenderer()->setTextColor(tgui::Color::White);
+    msgBox->getRenderer()->setTitleBarHeight(0);
+    msgBox->setPosition({"(parent.width - width) / 2", "parent.height * 0.8"});
+    msgBox->setWidgetName("msgBox");
+    msgBox->setVisible(false);
+    gui.add(msgBox);
 
     this->min_width = getPageScreenWidth() + leftPan->getSize().x*2 + leftButton->getSize().x*2;
     this->min_height = getPageScreenHeight() + 50;
@@ -170,6 +181,17 @@ void View::showFloatingNote(string text, sf::Vector2f pos){
     word_note.setVisible(true);
 }
 
+void View::showTemporalNotification(string text, int msDur){
+    msgBox->setText(text);
+    msgBox->setVisible(true);
+    tgui::Timer::Ptr timer;
+    const auto cb = std::bind([](tgui::Timer::Ptr t, View* v){
+                                t->setEnabled(false);
+                                v->msgBox->setVisible(false);
+                                }, placeholders::_1, this);
+    timer = tgui::Timer::create(cb, tgui::Duration(msDur));
+}
+
 bool SWText::checkMouseOn(sf::Vector2i pos){
     sf::FloatRect self_pos = getGlobalBounds();
     int click_x = parent->SCALE * (pos.x - parent->pageSprite.getPosition().x);
@@ -201,6 +223,17 @@ bool SWText::is_a_note_link(){
     if (this->attrs.count("type") != 0)
         return this->attrs["type"] == "note";
     return false;
+}
+
+void SWText::setSelected(bool v){
+    setOutlineColor(v? selectionColor : sf::Color::Black);
+    setOutlineThickness(v? 10.f : 0.f);
+    is_selected = v;
+}
+
+void SWText::setString(const string& str){
+    sf::Text::setString(sf::String::fromUtf8(str.begin(), str.end()));
+    source_text = str;
 }
 
 sf::FloatRect SWText::getBounds(){

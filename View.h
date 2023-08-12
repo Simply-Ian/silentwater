@@ -58,9 +58,11 @@ struct View{
     tgui::Button::Ptr go_to_page;
     tgui::Button::Ptr go_to_percent;
     tgui::Label::Ptr go_to_header;
+    tgui::MessageBox::Ptr msgBox;
     sf::RenderTexture page;
     sf::Sprite pageSprite;
     FloatingNote word_note{gui, GUI_TEXT_SIZE-2};
+    tgui::Cursor::Type cur_cursor_type = tgui::Cursor::Type::Arrow;
 
     View();
     void onWinResize(sf::Event::SizeEvent new_size);
@@ -68,6 +70,7 @@ struct View{
     void build_up_toc(vector<tocElem> items);
     int getPageScreenWidth(); //!< Рассчитывает ширину области на экране, которую займет страница.
     void showFloatingNote(string text, sf::Vector2f pos);
+    void showTemporalNotification(string text, int msDur);
 
     private:
         
@@ -78,12 +81,15 @@ struct View{
 
 class SWText : public sf::Text{
     View* parent;
+    bool is_selected = false;
+    sf::Color selectionColor{0, 149, 255, 128};
     public:
-        
+        string source_text;
         std::function<void(SWText*)> onClick = [](SWText* t){};
         std::function<void (SWText*)> onHover = [](SWText* t){};
         map<string, string> attrs;
         bool is_clickable;
+        bool getSelected(){return is_selected;}
 
         SWText(View* parent);
         bool checkMouseOn(sf::Vector2i pos);
@@ -94,4 +100,9 @@ class SWText : public sf::Text{
         однако, в отличие от нее, не обновляет вектор с вершинами sf::Vertex => расходует ощутимо меньше оперативной памяти
         */
         sf::FloatRect getBounds();
+        void setSelected(bool v);
+        void setString(const string& str);
+        bool operator ==(const SWText& obj) const{
+            return (obj.source_text == source_text) && (obj.getPosition() == getPosition());
+        }
 };
