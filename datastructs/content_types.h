@@ -1,6 +1,6 @@
 #ifndef SW_CONTENT_TYPES
 #define SW_CONTENT_TYPES
-namespace ct{
+namespace sw{
     enum ContentType {
         TEXT,
         IMAGE,

@@ -1,8 +1,8 @@
 #include "Controller.h"
 #include <map>
 #include <utility>
-#include "decode_base64.h"
-#include "content_types.h"
+#include "decode_funs/decode_base64.h"
+#include "datastructs/content_types.h"
 #include <functional>
 #include <algorithm>
 
@@ -126,10 +126,10 @@ void Controller::build_up_pages_from_frags(){
             if(table_of_contents.size() == 0 || table_of_contents.back() != to_be_added)
                 table_of_contents.push_back(to_be_added);
         }
-        if (frag_ptr->type == ct::ContentType::TEXT){
+        if (frag_ptr->type == sw::ContentType::TEXT){
             add_text(frag_ptr, page, carriage_pos);
         }
-        else if (frag_ptr->type == ct::ContentType::IMAGE){
+        else if (frag_ptr->type == sw::ContentType::IMAGE){
             add_image(frag_ptr, page, carriage_pos);
         }
         model.fragments.pop_front();
@@ -208,7 +208,7 @@ void Controller::apply_alignments(){
 void Controller::add_coverpage(){
     if (model.binaries.count("cover.jpg") != 0){
         Fragment* cover = new Fragment("", {}, {{model.doc_links_name + ":href", "#cover.jpg"}}, 
-            ct::ContentType::IMAGE);
+            sw::ContentType::IMAGE);
         imagepair_t IP = create_image_from_instance(cover);
         sf::Sprite* obj = IP.first;
         sf::FloatRect obj_bounds = obj->getLocalBounds();
@@ -409,12 +409,12 @@ void Controller::set_page_num(int new_num){
         cur_page.pics.clear();
         cur_page_num = new_num;
         for (Fragment* frag: model.pages[cur_page_num]){
-            if (frag->type == ct::ContentType::TEXT){
+            if (frag->type == sw::ContentType::TEXT){
                 SWText* cur_word = create_text_from_instance(frag);
                 cur_page.words.push_back(*cur_word);
                 delete cur_word;
             }
-            else if (frag->type == ct::ContentType::IMAGE){
+            else if (frag->type == sw::ContentType::IMAGE){
                 pair<sf::Sprite*, sf::Texture*> cur_pic = create_image_from_instance(frag);
                 cur_pic.first->setScale(view.SCALE, view.SCALE);
                 cur_page.pics.push_back(cur_pic);
@@ -506,7 +506,7 @@ void Controller::add_bookmark(){
     int lines_count = model.pages.size();
     for (auto frag_ptr = model.pages[cur_page_num].begin(); 
             preview.size() < header_len && frag_ptr != model.pages[cur_page_num].end(); frag_ptr++)
-        if ((*frag_ptr)->type == ct::ContentType::TEXT)
+        if ((*frag_ptr)->type == sw::ContentType::TEXT)
             preview += (*frag_ptr)->text;
     preview = preview.substr(0, header_len - 5) + "...";
     model.add_bm_data(cur_page_num, chapter, preview);

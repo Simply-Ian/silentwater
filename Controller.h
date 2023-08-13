@@ -1,6 +1,7 @@
 #include "Model.h"
 #include "View.h"
-#include "tocElem.h"
+#include "gui/SWText.h"
+#include "datastructs/tocElem.h"
 #include "Logger.h"
 #include "AlignmentGroup.h"
 #include <TGUI/String.hpp>

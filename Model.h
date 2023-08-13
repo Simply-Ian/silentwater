@@ -8,8 +8,8 @@
 #include "pugixml.hpp"
 #include <map>
 #include "AlignmentGroup.h"
-#include "Fragment.h"
-#include "bookmark.h"
+#include "datastructs/Fragment.h"
+#include "datastructs/bookmark.h"
 using namespace std;
 
 

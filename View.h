@@ -1,3 +1,5 @@
+#ifndef SW_VIEW
+#define SW_VIEW
 #include <TGUI/Core.hpp>
 #include <TGUI/Backends/SFML.hpp>
 #include <TGUI/AllWidgets.hpp> //<! \todo Оставить только нужные заголовки
@@ -5,28 +7,11 @@
 #include <string>
 #include <map>
 #include <functional>
-#include "tocElem.h"
-#include "BookmarkWidget.h"
-#include "MyScrollablePanel.h"
+#include "datastructs/tocElem.h"
+#include "gui/BookmarkWidget.h"
+#include "gui/MyScrollablePanel.h"
+#include "gui/FloatingNote.h"
 using namespace std;
-
-class FloatingNote{
-    string text;
-    tgui::Label::Ptr label;
-    const int MAX_LABEL_HEIGHT = 250;
-    const int MAX_LABEL_WIDTH = 210;
-
-    public:
-        void updateLabel(string text, sf::Vector2f pos);
-        void setVisible(bool v);
-        bool isVisible();
-        bool isMouseOn(tgui::Vector2f pos);
-        // FloatingNote(string t, int f, sf::Vector2f pos, tgui::GuiSFML& g);
-        FloatingNote(tgui::GuiSFML& g, int fs);
-        ~FloatingNote();
-        // void render(sf::RenderWindow& win);
-        tgui::Vector2f getPosition() const;
-};
 
 struct View{
     const int SIDEBAR_WIDTH = 350;
@@ -78,31 +63,4 @@ struct View{
         unsigned int min_width; //!< Минимальные ширина и высота окна
         unsigned int min_height;
 };
-
-class SWText : public sf::Text{
-    View* parent;
-    bool is_selected = false;
-    sf::Color selectionColor{0, 149, 255, 128};
-    public:
-        string source_text;
-        std::function<void(SWText*)> onClick = [](SWText* t){};
-        std::function<void (SWText*)> onHover = [](SWText* t){};
-        map<string, string> attrs;
-        bool is_clickable;
-        bool getSelected(){return is_selected;}
-
-        SWText(View* parent);
-        bool checkMouseOn(sf::Vector2i pos);
-        void open_URL();
-        void changeCursor();
-        bool is_a_note_link();
-        /* Функция для расчетов габаритов слова. Сделана из фрагментов кода sf::Text::ensureGeometryUpdate(),
-        однако, в отличие от нее, не обновляет вектор с вершинами sf::Vertex => расходует ощутимо меньше оперативной памяти
-        */
-        sf::FloatRect getBounds();
-        void setSelected(bool v);
-        void setString(const string& str);
-        bool operator ==(const SWText& obj) const{
-            return (obj.source_text == source_text) && (obj.getPosition() == getPosition());
-        }
-};
+#endif

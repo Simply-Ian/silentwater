@@ -19,7 +19,7 @@ enum Styles {BOLD, /*!< Полужирное начертание*/
 using style_t = pair<Styles, int>; // Элемент списка стилей
 
 struct Fragment{
-    Fragment(string t, vector<Styles> s, map<string, string> a, ct::ContentType ct, int d=-1):
+    Fragment(string t, vector<Styles> s, map<string, string> a, sw::ContentType ct, int d=-1):
         text(t), 
         styles(s), 
         attrs(a),
@@ -29,7 +29,7 @@ struct Fragment{
 
         }
 
-    Fragment(string t, vector<Styles> s, map<string, string> a, ct::ContentType ct, int _x, int _y, int d=-1):
+    Fragment(string t, vector<Styles> s, map<string, string> a, sw::ContentType ct, int _x, int _y, int d=-1):
     text(t), 
     styles(s), 
     attrs(a),
@@ -41,13 +41,13 @@ struct Fragment{
 
     }
     
-    Fragment(): text(""), styles{}, attrs{}, depth(-1), type(ct::ContentType::TEXT)
+    Fragment(): text(""), styles{}, attrs{}, depth(-1), type(sw::ContentType::TEXT)
     {
 
     }
 
     string text;
-    ct::ContentType type;
+    sw::ContentType type;
     vector<Styles> styles;
     map<string, string> attrs;
     // int align_group_num = -1; // Индекс группы выравнивания в Controller::align_groups

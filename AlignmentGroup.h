@@ -2,7 +2,7 @@
 #define ALIGNMENT_GROUP
 #include <string>
 #include <list>
-#include "Fragment.h"
+#include "datastructs/Fragment.h"
 
 enum alignType{CENTER_BLOCKWISE, CENTER_LINEWISE, RIGHT_LINEWISE, RIGHT_BLOCKWISE, JUSTIFY};
 

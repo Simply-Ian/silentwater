@@ -1,5 +1,5 @@
 #include <cstring> // pugixml returns all the string data as C-strings
-#include "load_text.h"
+#include "decode_funs/load_text.h"
 #include <vector>
 #include <utility> // Для std::pair
 #include <map>
@@ -42,38 +42,38 @@ bool Walker::for_each(pugi::xml_node& node){
         }
 
         if (node.type() == pugi::xml_node_type::node_pcdata){
-            Fragment* to_be_added = new Fragment(node.value(), format_styles(), format_attrs(), ct::ContentType::TEXT, depth());
+            Fragment* to_be_added = new Fragment(node.value(), format_styles(), format_attrs(), sw::ContentType::TEXT, depth());
             // Перед разбиением на отдельные слова сохраняем в атрибутах каждого фрагмента-заголовка исходное название.
             if (cur_attrs.count("title") != 0)
                 to_be_added->attrs["title"] = to_be_added->text;
             frags->push_back(to_be_added);
         }
         else if (node_name == "empty-line" || node_name == "subtitle"){
-            Fragment* to_be_added = new Fragment("\n", format_styles(), {}, ct::ContentType::TEXT);
+            Fragment* to_be_added = new Fragment("\n", format_styles(), {}, sw::ContentType::TEXT);
             frags->push_back(to_be_added);
         }
         else if (node_name == "p" || node_name == "stanza"){
-            Fragment* to_be_added = new Fragment("&&&", format_styles(), {}, ct::ContentType::TEXT);
+            Fragment* to_be_added = new Fragment("&&&", format_styles(), {}, sw::ContentType::TEXT);
             frags->push_back(to_be_added);
         }
         else if (node_name == "v"){
-            Fragment* break_to_be_added = new Fragment("\n", format_styles(), {}, ct::ContentType::TEXT);
+            Fragment* break_to_be_added = new Fragment("\n", format_styles(), {}, sw::ContentType::TEXT);
             frags->push_back(break_to_be_added);
             // Fragment* line_to_be_added = new Fragment("SW_POEM_NEW_LINE", format_styles(), {}, ct::ContentType::TEXT);
             // frags->push_back(line_to_be_added);
         }
         else if (node_name == "poem"){
-            Fragment* to_be_added = new Fragment("SW_POEM_START", format_styles(), {}, ct::ContentType::TEXT);
+            Fragment* to_be_added = new Fragment("SW_POEM_START", format_styles(), {}, sw::ContentType::TEXT);
             frags->push_back(to_be_added);
         }
         else if (node_name == "image"){
-            Fragment* to_be_added = new Fragment("", {}, format_attrs(), ct::ContentType::IMAGE);
+            Fragment* to_be_added = new Fragment("", {}, format_attrs(), sw::ContentType::IMAGE);
             frags->push_back(to_be_added);
         }
         else if (node_name == "text-author" || node_name == "epigraph"){
-            Fragment* break_to_be_added = new Fragment("\n", {}, format_attrs(), ct::ContentType::TEXT);
+            Fragment* break_to_be_added = new Fragment("\n", {}, format_attrs(), sw::ContentType::TEXT);
             frags->push_back(break_to_be_added);
-            Fragment* to_be_added = new Fragment("SW_ALIGN_RIGHT_LINEWISE_START", {}, {}, ct::ContentType::TEXT);
+            Fragment* to_be_added = new Fragment("SW_ALIGN_RIGHT_LINEWISE_START", {}, {}, sw::ContentType::TEXT);
             frags->push_back(to_be_added);
         }
     }
@@ -138,7 +138,7 @@ void Model::split_into_words(){
     vector<string> spec_codes = {"&&&", "SW_POEM_START", "SW_ALIGN_RIGHT_LINEWISE_START", "\n"};
     for (int index = 0; index < frags_len; index++){
         auto i = *(fragments.begin());
-        if (i->type == ct::TEXT){
+        if (i->type == sw::TEXT){
             if (find(spec_codes.begin(), spec_codes.end(), i->text) == spec_codes.end()){
                 stringstream s(i->text);
                 string word;

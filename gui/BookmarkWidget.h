@@ -4,7 +4,7 @@
 #include <TGUI/Widgets/Label.hpp>
 #include <TGUI/Widgets/Button.hpp>
 #include <TGUI/BackendRenderTarget.hpp>
-#include "bookmark.h"
+#include "../datastructs/bookmark.h"
 #include <TGUI/String.hpp>
 #include <TGUI/Signal.hpp>
 
