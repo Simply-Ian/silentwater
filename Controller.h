@@ -1,3 +1,5 @@
+#ifndef SW_CONTROLLER
+#define SW_CONTROLLER
 #include "Model.h"
 #include "View.h"
 #include "gui/SWText.h"
@@ -57,4 +59,12 @@ class Controller{
         void set_page_num_and_update_toc(int new_num);
         void add_bookmark();
         void delete_bookmark(tgui::String name);
+        string getFontName(){return bookFont.getInfo().family;}
+        int getFontSize(){return bookFontSize / view.SCALE;}
+        void setFontSize(int new_size){
+            if (0 < new_size && new_size <= 72)
+                bookFontSize = new_size * view.SCALE;
+        }
 };
+
+#endif

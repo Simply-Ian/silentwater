@@ -43,6 +43,7 @@
 				"gui/MyScrollablePanel.cpp",
 				"gui/FloatingNote.cpp",
 				"gui/SWText.cpp",
+				"gui/FontDialog.cpp",
 				"-ltgui",
 				"-lsfml-graphics",
 				"-lsfml-system",

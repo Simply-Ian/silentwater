@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="640mm"
+   height="360mm"
+   viewBox="0 0 640 360"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09, custom)"
+   sodipodi:docname="Макет диалога.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.5"
+     inkscape:cx="1159"
+     inkscape:cy="710"
+     inkscape:window-width="1848"
+     inkscape:window-height="1016"
+     inkscape:window-x="72"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <rect
+       x="827.19633"
+       y="281.69047"
+       width="1592.8875"
+       height="940.65573"
+       id="rect2099" />
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Слой 2">
+    <rect
+       style="fill:#ffffff;stroke-width:0.497001;fill-opacity:1"
+       id="rect854"
+       width="640"
+       height="360"
+       x="0"
+       y="3.5527137e-15" />
+  </g>
+  <g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:0.694368;fill:#000000;stroke-width:0.301612"
+       id="rect1572"
+       width="640"
+       height="30"
+       x="0"
+       y="0" />
+    <rect
+       style="opacity:1;fill:none;stroke:#000000;stroke-width:0.476264;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1682"
+       width="219.52373"
+       height="303.69626"
+       x="0.23813646"
+       y="30.238146" />
+    <g
+       id="g1901"
+       transform="translate(0,-0.45788394)">
+      <rect
+         style="opacity:0.728079;fill:#3047cf;fill-opacity:1;stroke:#000000;stroke-width:0.491123;stroke-dasharray:none;stroke-opacity:1"
+         id="rect1738"
+         width="204.50888"
+         height="21.508877"
+         x="0.2455605"
+         y="30.703445" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22px;font-family:FreeSans;-inkscape-font-specification:FreeSans;opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+         x="3.9450536"
+         y="49.055519"
+         id="text1794"><tspan
+           sodipodi:role="line"
+           id="tspan1792"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.497"
+           x="3.9450536"
+           y="49.055519">Font 1</tspan></text>
+    </g>
+    <g
+       id="g1901-3"
+       transform="translate(9.983778e-7,21.542116)">
+      <rect
+         style="opacity:0.728079;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.491123;stroke-dasharray:none;stroke-opacity:1"
+         id="rect1738-6"
+         width="204.50888"
+         height="21.508877"
+         x="0.2455605"
+         y="30.703445" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22px;font-family:FreeSans;-inkscape-font-specification:FreeSans;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+         x="3.9450536"
+         y="49.055519"
+         id="text1794-7"><tspan
+           sodipodi:role="line"
+           id="tspan1792-5"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.497"
+           x="3.9450536"
+           y="49.055519">Font 2</tspan></text>
+    </g>
+    <g
+       id="g1901-3-3"
+       transform="translate(9.9955665e-7,43.542116)">
+      <rect
+         style="opacity:0.728079;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.491123;stroke-dasharray:none;stroke-opacity:1"
+         id="rect1738-6-5"
+         width="204.50888"
+         height="21.508877"
+         x="0.2455605"
+         y="30.703445" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22px;font-family:FreeSans;-inkscape-font-specification:FreeSans;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+         x="3.9450536"
+         y="49.055519"
+         id="text1794-7-6"><tspan
+           sodipodi:role="line"
+           id="tspan1792-5-2"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.497"
+           x="3.9450536"
+           y="49.055519">Font 2</tspan></text>
+    </g>
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.458827;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2095"
+       width="419.56638"
+       height="243.36856"
+       x="220.22942"
+       y="90.434189" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.25944854,0,0,0.26458333,9.5442771,11.641668)"
+       id="text2097"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:83.1496px;font-family:FreeSerif;-inkscape-font-specification:FreeSerif;white-space:pre;shape-inside:url(#rect2099);opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.87843;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="827.19727"
+         y="358.60478"
+         id="tspan444"><tspan
+           style="fill:#030303;stroke:none"
+           id="tspan442">восемьюдесятью семью центами в кармане. </tspan></tspan><tspan
+         x="827.19727"
+         y="462.5418"
+         id="tspan448"><tspan
+           style="fill:#030303;stroke:none"
+           id="tspan446">При такой цепочке Джиму в любом обществе </tspan></tspan><tspan
+         x="827.19727"
+         y="566.47881"
+         id="tspan452"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00011253357"
+           style="fill:#030303;stroke:none"
+           id="tspan450">не зазорно будет поинтересоваться, который </tspan></tspan><tspan
+         x="827.19727"
+         y="670.41582"
+         id="tspan456"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.00010299683 0 0.00011253357 -0.00010681152"
+           style="fill:#030303;stroke:none"
+           id="tspan454">час. Как ни великолепны были его часы, а </tspan></tspan><tspan
+         x="827.19727"
+         y="774.35283"
+         id="tspan460"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010299683"
+           style="fill:#030303;stroke:none"
+           id="tspan458">смотрел он на них часто украдкой, потому </tspan></tspan><tspan
+         x="827.19727"
+         y="878.28984"
+         id="tspan464"><tspan
+           style="fill:#030303;stroke:none"
+           id="tspan462">что они висели на дрянном кожаном </tspan></tspan><tspan
+         x="827.19727"
+         y="982.22685"
+         id="tspan468"><tspan
+           style="fill:#030303;stroke:none"
+           id="tspan466">ремешке. Дома оживление Деллы поулеглось </tspan></tspan><tspan
+         x="827.19727"
+         y="1086.1639"
+         id="tspan472"><tspan
+           style="fill:#030303;stroke:none"
+           id="tspan470">и уступило место предусмотрительности и </tspan></tspan><tspan
+         x="827.19727"
+         y="1190.1009"
+         id="tspan476"><tspan
+           style="fill:#030303;stroke:none"
+           id="tspan474">расчету. Она достала щипцы для завивки, </tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:FreeSerif;-inkscape-font-specification:FreeSerif;opacity:1;fill:#030303;fill-opacity:1;stroke:none;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+       x="228.98111"
+       y="51.543983"
+       id="text4385"><tspan
+         sodipodi:role="line"
+         id="tspan4383"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.497"
+         x="228.98111"
+         y="51.543983">Размер шрифта:</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:FreeSerif;-inkscape-font-specification:FreeSerif;fill:#030303;fill-opacity:1;stroke:none;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+       x="229.00119"
+       y="73.45919"
+       id="text4385-8"><tspan
+         sodipodi:role="line"
+         id="tspan4383-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.497"
+         x="229.00119"
+         y="73.45919">Межстрочный интервал:</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:FreeSans;-inkscape-font-specification:FreeSans;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+       x="603.59485"
+       y="52.342743"
+       id="text6001"><tspan
+         sodipodi:role="line"
+         id="tspan5999"
+         style="fill:#000000;fill-opacity:1;stroke-width:0.497"
+         x="603.59485"
+         y="52.342743">22</tspan></text>
+    <g
+       id="g7450"
+       transform="translate(6.3500003,5.8208336)">
+      <rect
+         style="opacity:1;fill:#5c5c5c;fill-opacity:1;stroke:none;stroke-width:0.517443;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5165"
+         width="233.33539"
+         height="2.1907125"
+         x="348.79004"
+         y="40.004383"
+         ry="0.98036623"
+         rx="1.591554" />
+      <circle
+         style="opacity:1;fill:#a5a5a5;fill-opacity:1;stroke:none;stroke-width:0.165614;stroke-dasharray:none;stroke-opacity:1"
+         id="path6319"
+         cx="442.68594"
+         cy="41.884666"
+         r="6.5906172" />
+    </g>
+    <g
+       id="g7570">
+      <rect
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+         id="rect7234"
+         width="36.265465"
+         height="19.175789"
+         x="413.85864"
+         y="59.694656" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:FreeSans;-inkscape-font-specification:FreeSans;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+         x="437.81244"
+         y="75.204948"
+         id="text7444"><tspan
+           sodipodi:role="line"
+           id="tspan7442"
+           style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.497"
+           x="437.81244"
+           y="75.204948">3</tspan></text>
+    </g>
+    <g
+       id="g7565"
+       transform="translate(44.450022)">
+      <rect
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+         id="rect7452"
+         width="82.4356"
+         height="23.379354"
+         x="508.28299"
+         y="335.62637"
+         ry="3.4544051"
+         rx="3.2291837" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:FreeSans;-inkscape-font-specification:FreeSans;opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+         x="537.63239"
+         y="353.23813"
+         id="text7560"><tspan
+           sodipodi:role="line"
+           id="tspan7558"
+           style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.497"
+           x="537.63239"
+           y="353.23813">ОК</tspan></text>
+    </g>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+       id="rect7452-3"
+       width="82.4356"
+       height="23.379354"
+       x="469.09668"
+       y="335.52444"
+       ry="3.4544051"
+       rx="3.2291837" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+       x="483.86575"
+       y="352.60037"
+       id="text7560-6"><tspan
+         sodipodi:role="line"
+         id="tspan7558-1"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.497"
+         x="483.86575"
+         y="352.60037">Отмена</tspan></text>
+    <g
+       id="g372">
+      <rect
+         style="opacity:1;fill:#b0b0b0;fill-opacity:1;stroke:#000000;stroke-width:0.548031;stroke-dasharray:none;stroke-opacity:1"
+         id="rect1684"
+         width="14.430486"
+         height="303.62738"
+         x="205.29399"
+         y="30.272593" />
+      <rect
+         style="fill:#e5e5e5;fill-opacity:1;stroke:none;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+         id="rect7617"
+         width="14.280346"
+         height="14.280346"
+         x="205.36017"
+         y="30.427649" />
+      <path
+         sodipodi:type="star"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+         id="path8971"
+         inkscape:flatsided="true"
+         sodipodi:sides="3"
+         sodipodi:cx="797.70862"
+         sodipodi:cy="120.66037"
+         sodipodi:r1="22.627029"
+         sodipodi:r2="11.307713"
+         sodipodi:arg1="0.52774784"
+         sodipodi:arg2="1.5749454"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="M 817.25709,132.05509 778.06626,131.89248 797.8025,98.033535 Z"
+         transform="matrix(0.26458333,0,0,0.26458333,1.549033,6.1883618)"
+         inkscape:transform-center-x="0.072308356"
+         inkscape:transform-center-y="-1.4328611" />
+      <rect
+         style="fill:#e5e5e5;fill-opacity:1;stroke:none;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+         id="rect7617-2"
+         width="14.280346"
+         height="14.280346"
+         x="-222.16214"
+         y="-331.90836"
+         transform="rotate(-179.57248)" />
+      <path
+         sodipodi:type="star"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.497001;stroke-dasharray:none;stroke-opacity:1"
+         id="path8971-9"
+         inkscape:flatsided="true"
+         sodipodi:sides="3"
+         sodipodi:cx="797.70862"
+         sodipodi:cy="120.66037"
+         sodipodi:r1="22.627029"
+         sodipodi:r2="11.307713"
+         sodipodi:arg1="0.52774784"
+         sodipodi:arg2="1.5749454"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="M 817.25709,132.05509 778.06626,131.89248 797.8025,98.033535 Z"
+         transform="matrix(-0.26457596,-0.00197422,0.00197422,-0.26457596,423.30399,359.31605)"
+         inkscape:transform-center-x="-0.095038225"
+         inkscape:transform-center-y="1.413884" />
+      <rect
+         style="fill:#726e6e;fill-opacity:1;stroke:none;stroke-width:0.502793;stroke-dasharray:none;stroke-opacity:1"
+         id="rect9261"
+         width="13.971574"
+         height="94.254967"
+         x="205.53178"
+         y="44.797298" />
+    </g>
+  </g>
+</svg>
