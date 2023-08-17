@@ -17,7 +17,7 @@ class MyScrollablePanel: public tgui::ScrollablePanel{
             else return nullptr;
         }
         //! Рассчитывает смещение по Y для нового виджета закладки
-        int getNewSlot(int bm_height);
+        int getNewSlot();
         bool remove(const tgui::Widget::Ptr &widget) override;
         void add(const tgui::Widget::Ptr &widgetPtr, const tgui::String &widgetName = "") override;
 

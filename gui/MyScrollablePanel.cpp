@@ -2,8 +2,10 @@
 #include <TGUI/Vector2.hpp>
 #include <TGUI/Layout.hpp>
 
-int MyScrollablePanel::getNewSlot(int bm_height){
-    return getWidgets().size() * (bm_height + spacer_height);
+int MyScrollablePanel::getNewSlot(){
+    const std::vector<tgui::Widget::Ptr>& widgets = getWidgets();
+    int last_pos = widgets.empty() ? -spacer_height : widgets.back()->getPosition().y + widgets.back()->getSize().y;
+    return last_pos + spacer_height;
 }
 
 MyScrollablePanel::Ptr MyScrollablePanel::create(tgui::Layout2d size, tgui::Vector2f contentSize){
@@ -24,6 +26,6 @@ bool MyScrollablePanel::remove(const tgui::Widget::Ptr &widget){
 }
 
 void MyScrollablePanel::add(const tgui::Widget::Ptr &widgetPtr, const tgui::String &widgetName){
-    widgetPtr->setPosition({0, getNewSlot(widgetPtr->getSize().y)});
+    widgetPtr->setPosition({0, getNewSlot()});
     tgui::ScrollablePanel::add(widgetPtr, widgetName);
 }

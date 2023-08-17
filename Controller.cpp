@@ -12,6 +12,7 @@ Controller::Controller(){
     pageNumberText.setFont(bookFont);
     pageNumberText.setFillColor(textColor);
     pageNumberText.setCharacterSize(bookFontSize + 2);
+
     view.leftButton->onPress(&Controller::turn_page_back, this);
     view.leftButton->setMouseCursor(tgui::Cursor::Type::Hand);
     view.rightButton->onPress(&Controller::turn_page_fw, this);
@@ -34,6 +35,9 @@ Controller::Controller(){
     }, this);
     view.rightButton->setMouseCursor(tgui::Cursor::Type::Hand);
     bookFont.loadFromFile("Fonts/Georgia.ttf");
+    comd->c_to_v.defaultFontName = bookFont.getInfo().family;
+    view.chooseFontButton->setText(comd->c_to_v.defaultFontName + " " + to_string(bookFontSize / view.SCALE));
+
 }
 
 void Controller::load_book(char* path){
@@ -420,6 +424,15 @@ void Controller::set_page_num(int new_num){
                 cur_page.pics.push_back(cur_pic);
             }
         }
+        int preview_len = 15;
+        string preview;
+        for (int i = 0; i < preview_len; i++){
+            Fragment* frag = model.pages[cur_page_num].at(i);
+            if (frag->type == sw::ContentType::TEXT)
+                preview += frag->text;
+            else i--;
+        }
+        comd->c_to_v.preview = preview;
         model.update_checkpoint_data(new_num);
     }
 }

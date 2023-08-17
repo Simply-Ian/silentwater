@@ -13,6 +13,7 @@
 #include <vector>
 
 using namespace std;
+using font_pair = pair<string, tgui::Font>; // Путь к шрифту и сам объект шрифта
 
 struct FontDialogResult{
     string fontPath;
@@ -20,6 +21,17 @@ struct FontDialogResult{
     int lineInt;
     FontDialogResult(string fp, int fs, int li) : fontPath(fp), fontSize(fs), lineInt(li){}
     FontDialogResult(){}
+};
+
+class FontLoader{
+    vector<string> base_paths{
+        "/usr/share/fonts/truetype",
+        "/usr/share/fonts/opentype"
+    };
+    public: 
+        vector<font_pair> fonts;
+        FontLoader(){};
+        void load_fonts();
 };
 
 class FontDialog : public tgui::ChildWindow{
@@ -34,7 +46,7 @@ class FontDialog : public tgui::ChildWindow{
 
         /// @brief Дает доступ к результату пользовательского выбора
         /// @return Экземпляр структуры FontDialogResult
-        FontDialogResult& getResult();
+        FontDialogResult& getResult(){return result;};
 
     protected:
         Widget::Ptr clone() const override {
@@ -42,9 +54,13 @@ class FontDialog : public tgui::ChildWindow{
         }
     
     private:
-        vector<string> fontPaths;
         FontDialogResult result;
+        FontLoader fontLoader;
         const int GUI_TEXT_SIZE = 20;
+
+        void retrieveResultFromWidgets();
+        void setUpFontBox();
+        void selectItem(tgui::Label::Ptr item);
 
         MyScrollablePanel::Ptr fontBox;
         tgui::Label::Ptr fontSizeTitle;
@@ -55,5 +71,8 @@ class FontDialog : public tgui::ChildWindow{
         tgui::Label::Ptr previewLabel;
         tgui::Button::Ptr cancelButton;
         tgui::Button::Ptr okButton;
+
+        tgui::Label::Ptr cur_selected_item = nullptr;
+        font_pair getFontPairBySelectedItem(tgui::Label::Ptr item);
 };
 #endif

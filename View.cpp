@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-View::View(){
+View::View(commonData* c) : comd(c){
     sf::ContextSettings settings;
     settings.antialiasingLevel = 5;
     win.create(sf::VideoMode::getDesktopMode(), "Silent Water Reader", sf::Style::Default, settings);
@@ -128,8 +128,23 @@ View::View(){
     msgBox->setVisible(false);
     gui.add(msgBox);
 
+    topPan = tgui::Panel::create({"parent.width / 3", 50});
+    topPan->setPosition("(parent.width - width) / 2", 0);
+    gui.add(topPan);
+    chooseFontButton = tgui::Button::create();
+    chooseFontButton->setPosition({10, "(parent.height - height) / 2"});
+    chooseFontButton->onClick(&View::createFontDialog, this);
+    topPan->add(chooseFontButton);
+
     this->min_width = getPageScreenWidth() + leftPan->getSize().x*2 + leftButton->getSize().x*2;
     this->min_height = getPageScreenHeight() + 50;
+}
+
+void View::createFontDialog(){
+    FontDialog::Ptr fontDial = FontDialog::create("", comd->c_to_v.bookFontSize, comd->c_to_v.lineInterval, comd->c_to_v.preview);
+    fontDial->setPosition("(parent.width - width) / 2", "(parent.height - height) / 2");
+    fontDial->setWidgetName("fontDial");
+    gui.add(fontDial);
 }
 
 void View::onWinResize(sf::Event::SizeEvent new_size){

@@ -7,6 +7,7 @@
 #include "Logger.h"
 #include "AlignmentGroup.h"
 #include <TGUI/String.hpp>
+#include "datastructs/commonData.h"
 
 using imagepair_t = pair<sf::Sprite*, sf::Texture*>;
 
@@ -17,7 +18,6 @@ struct Page{
 
 class Controller{
     Model model;
-    View view;
     Page cur_page;
     sf::Font bookFont;
     sf::Text pageNumberText;
@@ -26,6 +26,9 @@ class Controller{
     int bookFontSize = 22 * view.SCALE;
     int lineInt = 3;
     vector<AlignmentGroup> align_groups;
+
+    commonData* comd{new commonData{"", bookFontSize / view.SCALE, lineInt, ""}};
+    View view{comd};
 
     SWText* create_text_from_instance(Fragment* frag);
     pair<sf::Sprite*, sf::Texture*> create_image_from_instance(Fragment* frag);

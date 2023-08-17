@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "README": "plaintext",
         "iostream": "cpp",
         "stdexcept": "cpp",
         "any": "cpp",
@@ -61,7 +62,8 @@
         "condition_variable": "cpp",
         "regex": "cpp",
         "shared_mutex": "cpp",
-        "*.dox": "cpp"
+        "*.dox": "cpp",
+        "filesystem": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }
