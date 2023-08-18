@@ -38,6 +38,9 @@ class Controller{
     void draw_page();
     void toc_navigate(tgui::String name);
     void show_wordnote(SWText* t);
+    void apply_font_change();
+    /// @brief Стирает информацию о страницах, фрагментах, закладках и оглавлении
+    void clean_up();
 
     void build_up_pages_from_frags();
     float pic_resize_logic(sf::FloatRect obj_bounds, bool fullpage_mode=false);

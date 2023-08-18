@@ -5,6 +5,7 @@
 #include "datastructs/content_types.h"
 #include <functional>
 #include <algorithm>
+#include "decode_funs/get_default_font_filename.h"
 
 using namespace std::placeholders;
 
@@ -34,10 +35,38 @@ Controller::Controller(){
         }
     }, this);
     view.rightButton->setMouseCursor(tgui::Cursor::Type::Hand);
-    bookFont.loadFromFile("Fonts/Georgia.ttf");
-    comd->c_to_v.defaultFontName = bookFont.getInfo().family;
-    view.chooseFontButton->setText(comd->c_to_v.defaultFontName + " " + to_string(bookFontSize / view.SCALE));
 
+    filesystem::path defaultFontPath = get_default_font_filename();
+    bookFont.loadFromFile(defaultFontPath);
+    comd->c_to_v.defaultFontName = defaultFontPath;
+    view.chooseFontButton->setText(bookFont.getInfo().family + " " + to_string(bookFontSize / view.SCALE));
+    view.onFontChange = bind(&Controller::apply_font_change, this);
+}
+
+void Controller::clean_up(){
+    for (vector<Fragment*>& page: model.pages){
+        for (Fragment* frag: page) delete frag;
+    }
+    model.pages.clear();
+    model.bookmarks.clear();
+    table_of_contents.clear();
+    view.bmPan->removeAllWidgets();
+    view.tocList->removeAllItems();
+}
+
+void Controller::apply_font_change(){
+    string path = view.fontDial->getResult().fontPath;
+    bookFont.loadFromFile(path);
+    bookFontSize = view.fontDial->getResult().fontSize * view.SCALE;
+    lineInt = view.fontDial->getResult().lineInt;
+
+    clean_up();
+    load_book(model.book_path);
+
+    comd->c_to_v.defaultFontName = path;
+    comd->c_to_v.lineInterval = lineInt;
+    comd->c_to_v.bookFontSize = bookFontSize / view.SCALE;
+    view.chooseFontButton->setText(bookFont.getInfo().family + " " + to_string(bookFontSize / view.SCALE));
 }
 
 void Controller::load_book(char* path){
@@ -424,13 +453,12 @@ void Controller::set_page_num(int new_num){
                 cur_page.pics.push_back(cur_pic);
             }
         }
-        int preview_len = 15;
+        int preview_len = 30;
         string preview;
-        for (int i = 0; i < preview_len; i++){
+        for (int i = 0; i < preview_len && i < model.pages[cur_page_num].size(); i++){
             Fragment* frag = model.pages[cur_page_num].at(i);
             if (frag->type == sw::ContentType::TEXT)
                 preview += frag->text;
-            else i--;
         }
         comd->c_to_v.preview = preview;
         model.update_checkpoint_data(new_num);
@@ -478,26 +506,27 @@ void Controller::set_page_num_and_update_toc(int new_num){
     if (table_of_contents.size() > 0){
     // Обновляем оглавление
     if(new_num > cur_page_num){
-            int toc_size = table_of_contents.size();
-            for (int index = view.tocList->getSelectedItemIndex() + 1; index < toc_size - 1; index++){
-                if (table_of_contents[index].page <= new_num && table_of_contents[index + 1].page > new_num){
-                    view.tocList->setSelectedItemByIndex(index);
-                }
-            }
-            // Проверка последнего элемента. Если переход осуществляется с последнего элемента, есть риск выхода за границы вектора
-            if (table_of_contents[table_of_contents.size() - 1].page <= new_num){
-                view.tocList->setSelectedItemByIndex(table_of_contents.size() - 1);
+        int toc_size = table_of_contents.size();
+        for (int index = view.tocList->getSelectedItemIndex() + 1; index < toc_size - 1; index++){
+            if (table_of_contents[index].page <= new_num && table_of_contents[index + 1].page > new_num){
+                view.tocList->setSelectedItemByIndex(index);
             }
         }
-        else if(new_num < cur_page_num){
-            int cur_index = view.tocList->getSelectedItemIndex();
-            for (int index = 0; index < cur_index; index++){
-                if (table_of_contents[index].page <= new_num && table_of_contents[index + 1].page >= new_num){
-                    view.tocList->setSelectedItemByIndex(index);
-                    break;
-                }
+        // Проверка последнего элемента. Если переход осуществляется с последнего элемента, есть риск выхода за границы вектора
+        if (table_of_contents[table_of_contents.size() - 1].page <= new_num){
+            view.tocList->setSelectedItemByIndex(table_of_contents.size() - 1);
+        }
+    }
+    
+    else if(new_num < cur_page_num){
+        int cur_index = view.tocList->getSelectedItemIndex();
+        for (int index = 0; index < cur_index; index++){
+            if (table_of_contents[index].page <= new_num && table_of_contents[index + 1].page >= new_num){
+                view.tocList->setSelectedItemByIndex(index);
+                break;
             }
         }
+    }
     }
     set_page_num(new_num);
 }

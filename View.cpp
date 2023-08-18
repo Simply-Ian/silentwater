@@ -141,9 +141,11 @@ View::View(commonData* c) : comd(c){
 }
 
 void View::createFontDialog(){
-    FontDialog::Ptr fontDial = FontDialog::create("", comd->c_to_v.bookFontSize, comd->c_to_v.lineInterval, comd->c_to_v.preview);
+    gui.remove(gui.get("fontDial"));
+    fontDial = FontDialog::create(comd->c_to_v.defaultFontName, comd->c_to_v.bookFontSize, comd->c_to_v.lineInterval, comd->c_to_v.preview);
     fontDial->setPosition("(parent.width - width) / 2", "(parent.height - height) / 2");
     fontDial->setWidgetName("fontDial");
+    fontDial->okButton->onClick(onFontChange);
     gui.add(fontDial);
 }
 

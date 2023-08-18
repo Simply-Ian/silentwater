@@ -7,7 +7,7 @@
 #include <sstream> // Для разбиения строки по разделителю
 #include <algorithm> // Для std::find
 #include <filesystem> // Проверка существования файла
-#include <unistd.h> // Для readlink() -- получения пути к исполняемому пути
+#include <unistd.h> // Для readlink() -- получения пути к исполняемому файлу
 using namespace std;
 
 bool Walker::for_each(pugi::xml_node& node){
@@ -110,6 +110,8 @@ map<string, string> Walker::format_attrs(){
 }
 
 void Model::load_fb2(char* FILE_NAME){
+    book_path = FILE_NAME;
+
     pugi::xml_parse_result result = doc.load_file(FILE_NAME, pugi::parse_declaration);
     if (!result) throw runtime_error(result.description());
     char* encoding_name = (char*)(doc.first_child().last_attribute().value());

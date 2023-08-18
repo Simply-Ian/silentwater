@@ -48,6 +48,8 @@ class FontDialog : public tgui::ChildWindow{
         /// @return Экземпляр структуры FontDialogResult
         FontDialogResult& getResult(){return result;};
 
+        tgui::Button::Ptr okButton;
+
     protected:
         Widget::Ptr clone() const override {
             return std::make_shared<FontDialog>(*this);
@@ -59,7 +61,7 @@ class FontDialog : public tgui::ChildWindow{
         const int GUI_TEXT_SIZE = 20;
 
         void retrieveResultFromWidgets();
-        void setUpFontBox();
+        void setUpFontBox(string curPath);
         void selectItem(tgui::Label::Ptr item);
 
         MyScrollablePanel::Ptr fontBox;
@@ -70,7 +72,6 @@ class FontDialog : public tgui::ChildWindow{
         tgui::EditBox::Ptr lineIntBox;
         tgui::Label::Ptr previewLabel;
         tgui::Button::Ptr cancelButton;
-        tgui::Button::Ptr okButton;
 
         tgui::Label::Ptr cur_selected_item = nullptr;
         font_pair getFontPairBySelectedItem(tgui::Label::Ptr item);

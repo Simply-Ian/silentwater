@@ -1,6 +1,8 @@
 #include "FontDialog.h"
 #include <filesystem>
 #include <iostream>
+#include "../decode_funs/exec.h"
+#include <sstream>
 
 FontDialog::Ptr FontDialog::copy(FontDialog::ConstPtr widget){
     if (widget)
@@ -21,10 +23,11 @@ FontDialog::Ptr FontDialog::create(string curPath, int curFontSize, int curLineI
     ptr->getRenderer()->setTitleBarHeight(30);
     ptr->setPositionLocked(true);
 
-    ptr->fontBox = MyScrollablePanel::create({"parent.width / 3", "parent.height - 30"});
+    ptr->fontBox = MyScrollablePanel::create({"parent.width / 2.7", "parent.height - 30"});
     ptr->fontBox->setPosition(0, 0);
     ptr->fontBox->setWidgetName("fontBox");
     ptr->fontBox->getRenderer()->setBackgroundColor(tgui::Color::White);
+    ptr->fontBox->setHorizontalScrollbarPolicy(tgui::Scrollbar::Policy::Never);
     ptr->add(ptr->fontBox);
 
     ptr->fontSizeTitle = tgui::Label::create("Размер шрифта: ");
@@ -90,7 +93,7 @@ FontDialog::Ptr FontDialog::create(string curPath, int curFontSize, int curLineI
     ptr->cancelButton->onClick([](FontDialog::Ptr it){it->close();}, ptr);
     ptr->add(ptr->cancelButton);
 
-    ptr->setUpFontBox();
+    ptr->setUpFontBox(curPath);
 
     return ptr;
 }
@@ -99,10 +102,11 @@ void FontDialog::retrieveResultFromWidgets(){
     result.fontSize = static_cast<int>(fontSizeSlider->getValue());
     result.lineInt = lineIntBox->getText().toInt();
     result.fontPath = getFontPairBySelectedItem(cur_selected_item).first;
-    close();
+    setEnabled(false);
+    setVisible(false);
 }
 
-void FontDialog::setUpFontBox(){
+void FontDialog::setUpFontBox(string curPath){
     fontLoader.load_fonts();
     int counter = 0;
     for (font_pair fp: fontLoader.fonts){
@@ -115,6 +119,7 @@ void FontDialog::setUpFontBox(){
         item->getRenderer()->setBackgroundColor(tgui::Color::White);
         item->setWidgetName(to_string(counter));
         item->onClick(&FontDialog::selectItem, this, item);
+        if (curPath == fp.first) selectItem(item);
         fontBox->add(item);
         counter ++;
     }
@@ -127,26 +132,21 @@ void FontLoader::load_fonts(){
     auto in_vect = [](vector<string> base, string piece) -> bool {
         return find(base.begin(), base.end(), piece) != base.end();
     };
-    vector<string> valid_exts{".otf", ".ttf"};
-    for (string base_path: base_paths){
-        for (const filesystem::directory_entry& ent: filesystem::recursive_directory_iterator(base_path)){
-            string path = ent.path().c_str();
-            string lower_path = path;
-            // Переводим все символы в нижний регистр
-            for_each(lower_path.begin(), lower_path.end(), [](char& in){
-                if (in <= 'Z' && in >= 'A')
-                    in -= ('Z' - 'z');
-            });
-
-            if (ent.path().has_extension() && 
-                in_vect(valid_exts, ent.path().extension().c_str()) && 
-                !in_str(lower_path, "bold") && !in_str(lower_path, "italic")){
-                    try{
-                        fonts.push_back({path, tgui::Font(path)});
-                    }
-                    catch (tgui::Exception exc){
-                        cout << exc.what() << endl;
-                    }
+    vector<string> valid_exts{".otf", ".ttf", ".t1"};
+    /// \todo Локаль?
+    stringstream font_paths { exec("fc-list :style=Regular:lang=ru") + exec("fc-list :style=Book:lang=ru") };
+    string raw_info;
+    filesystem::path path;
+    while (getline(font_paths, raw_info, '\n')){
+        path = raw_info.substr(0, raw_info.find(":"));
+        if (in_vect(valid_exts, path.extension().c_str())){
+            // Обработка ошибок нужна, т.к. некоторые шрифты (напр., MS Webdings) не поддерживают Юникод.
+            // tgui::Font при попытке загрузить такой шрифт выбрасывает ошибку.
+            try{
+                fonts.push_back({path, tgui::Font(path.c_str())});
+            }
+            catch (tgui::Exception exc){
+                cout << exc.what() << endl;
             }
         }
     }
@@ -165,5 +165,6 @@ void FontDialog::selectItem(tgui::Label::Ptr item){
 }
 
 font_pair FontDialog::getFontPairBySelectedItem(tgui::Label::Ptr item){
-    return fontLoader.fonts.at(item->getWidgetName().toInt());
+    int font_id = item->getWidgetName().toInt();
+    return fontLoader.fonts.at(font_id);
 }

@@ -37,6 +37,8 @@
 				"pugixml.cpp",
 				"Logger.cpp",
 				"decode_funs/decode_base64.cpp",
+				"decode_funs/get_default_font_filename.cpp",
+				"decode_funs/exec.cpp",
 				"AlignmentGroup.cpp",
 				"datastructs/Fragment.cpp",
 				"gui/BookmarkWidget.cpp",

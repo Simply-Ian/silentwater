@@ -65,6 +65,8 @@ struct View{
     void showTemporalNotification(string text, int msDur);
     void createFontDialog();
 
+    std::function<void()> onFontChange = [](){};
+
     private:
         
         int getPageScreenHeight();
