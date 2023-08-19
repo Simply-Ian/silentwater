@@ -8,6 +8,7 @@
 #include <algorithm> // Для std::find
 #include <filesystem> // Проверка существования файла
 #include <unistd.h> // Для readlink() -- получения пути к исполняемому файлу
+#include <cmath>
 using namespace std;
 
 bool Walker::for_each(pugi::xml_node& node){
@@ -187,12 +188,12 @@ int Model::load_bm_file(string doc_uid){
         pugi::xml_parse_result result = this->bookmarks_doc.load_file(bookmark_filepath);
         if (!result) throw runtime_error(result.description());
 
-        int checkpoint_page = atoi(bookmarks_doc.first_element_by_path("/SilentWater_bm/checkpoint")
-                                    .first_attribute().value());
+        int checkpoint_page = atof(bookmarks_doc.first_element_by_path("/SilentWater_bm/checkpoint")
+                                    .first_attribute().value()) * pages.size();
         for (auto bm_tag = bookmarks_doc.first_child().child("bm"); bm_tag.type() != pugi::node_null; bm_tag = bm_tag.next_sibling())
             this->bookmarks.push_back(sw::Bookmark(bm_tag.first_child().value(), 
                                             bm_tag.attribute("chapter").value(), 
-                                            atoi(bm_tag.attribute("page").value())));
+                                            floor(atof(bm_tag.attribute("part").value()) * pages.size())));
         return checkpoint_page;
     }
     else{
@@ -231,19 +232,21 @@ void Model::save_bm_file(string doc_uid){
 }
 
 void Model::update_checkpoint_data(int page_num){
-    bookmarks_doc.first_element_by_path("/SilentWater_bm/checkpoint").first_attribute().set_value(page_num);
+    bookmarks_doc.first_element_by_path("/SilentWater_bm/checkpoint")
+            .first_attribute().set_value(static_cast<float>(page_num) / pages.size());
 }
 
-void Model::add_bm_data(int page, string chapter, string preview){
+void Model::add_bm_data(int page_num, string chapter, string preview){
     pugi::xml_node tag = bookmarks_doc.first_child().append_child("bm");
-    tag.append_attribute("page").set_value(page);
+    tag.append_attribute("part").set_value(static_cast<float>(page_num) / pages.size());
     tag.append_attribute("chapter").set_value(chapter.c_str());
     tag.append_child(pugi::xml_node_type::node_pcdata).set_value(preview.c_str());
 }
 
 void Model::delete_bm_data(string page){
+    /// \todo
     pugi::xml_node bm = bookmarks_doc.first_element_by_path("/SilentWater_bm/bm");
-    while ((bm.attribute("page").value() != page) &&
+    while ((round(atof(bm.attribute("part").value())) != round(static_cast<float>(atoi(page.c_str())) / pages.size())) &&
          (bm.type() != pugi::xml_node_type::node_null)) bm = bm.next_sibling();
     if (bm.type() != pugi::xml_node_type::node_null)
         bookmarks_doc.child("SilentWater_bm").remove_child(bm);
