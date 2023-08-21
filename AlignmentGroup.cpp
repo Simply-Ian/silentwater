@@ -38,8 +38,8 @@ void AlignmentGroup::align_center_blockwise(){
     int offset = (available_space - max_line_len) / 2;
 
     // Сдвигаем все фрагменты на величину offset
-    for(auto iter = frags.begin(); iter != frags.end(); iter++)
-        (*iter)->x += offset;
+    // for(auto iter = frags.begin(); iter != frags.end(); iter++)
+    //     (*iter)->x += offset;
 }
 
 void AlignmentGroup::align_center_linewise(){
@@ -48,11 +48,11 @@ void AlignmentGroup::align_center_linewise(){
     int cur_line_len = 0;
     list<Fragment*> cur_line;
     auto shift_line = [&](){
-        cur_offset = (available_space - cur_line_len) / 2;
-        for (auto shifter = cur_line.begin(); shifter != cur_line.end(); shifter++){
-            (*shifter)->x += cur_offset;
-        }
-        cur_line.clear();
+        // cur_offset = (available_space - cur_line_len) / 2;
+        // for (auto shifter = cur_line.begin(); shifter != cur_line.end(); shifter++){
+            // (*shifter)->x += cur_offset;
+        // }
+        // cur_line.clear();
     };
     for(auto iter = frags.begin(); iter != frags.end(); iter++){
         Fragment* frag_ptr = *iter;
@@ -74,13 +74,13 @@ void AlignmentGroup::align_right_linewise(){
     int cur_line_len = 0;
     list<Fragment*> cur_line;
     auto shift_line = [&](){
-        if (!cur_line.empty()){
-            cur_offset = available_space - cur_line_len - (*cur_line.begin())->x; // Группа выравнивания м. б. назначена уже отцентрированному тексту
-            for (auto shifter = cur_line.begin(); shifter != cur_line.end(); shifter++){
-                (*shifter)->x += cur_offset;
-            }
-            cur_line.clear();
-        }
+        // if (!cur_line.empty()){
+            // cur_offset = available_space - cur_line_len - (*cur_line.begin())->x; // Группа выравнивания м. б. назначена уже отцентрированному тексту
+            // for (auto shifter = cur_line.begin(); shifter != cur_line.end(); shifter++){
+                // (*shifter)->x += cur_offset;
+            // }
+            // cur_line.clear();
+        // }
     };
     for(auto iter = frags.begin(); iter != frags.end(); iter++){
         Fragment* frag_ptr = *iter;

@@ -40,15 +40,33 @@ Controller::Controller(){
     bookFont.loadFromFile(defaultFontPath);
     comd->c_to_v.defaultFontName = defaultFontPath;
     view.chooseFontButton->setText(bookFont.getInfo().family + " " + to_string(bookFontSize / view.SCALE));
-    view.onFontChange = bind(&Controller::apply_font_change, this);
+    view.onFontChanged = bind(&Controller::apply_font_change, this);
+    view.onFileChosen = bind(&Controller::openNewFile, this);
+}
+
+void Controller::openNewFile(){
+    string path = view.fileDial->getSelectedPaths()[0].asNativeString();
+    view.gui.remove(view.gui.get("fileDial"));
+
+    model.save_bm_file(model.doc_uid);
+
+    clean_up();
+    load_book(const_cast<char*>(path.c_str()));
 }
 
 void Controller::clean_up(){
-    for (vector<Fragment*>& page: model.pages){
+    for (vector<Fragment*> page: model.pages){
         for (Fragment* frag: page) delete frag;
+    }
+    cur_page.words.clear();
+    for (imagepair_t ip: cur_page.pics){
+        delete ip.first;
+        delete ip.second;
     }
     model.pages.clear();
     model.bookmarks.clear();
+    model.binaries.clear();
+    model.notes.clear();
     table_of_contents.clear();
     view.bmPan->removeAllWidgets();
     view.tocList->removeAllItems();
@@ -60,8 +78,10 @@ void Controller::apply_font_change(){
     bookFontSize = view.fontDial->getResult().fontSize * view.SCALE;
     lineInt = view.fontDial->getResult().lineInt;
 
+    view.gui.remove(view.gui.get("fontDial"));
+
     clean_up();
-    load_book(model.book_path);
+    load_book(const_cast<char*>(model.book_path.c_str()));
 
     comd->c_to_v.defaultFontName = path;
     comd->c_to_v.lineInterval = lineInt;
@@ -77,9 +97,9 @@ void Controller::load_book(char* path){
     view.doc_links_name = model.doc_links_name;
     view.build_up_toc(this->table_of_contents);
     view.tocList->onItemSelect(&Controller::toc_navigate, this);
-    set_page_num_and_update_toc(model.load_bm_file(model.doc_uid));
+    set_page_num_and_update_toc(model.load_bm_file(model.doc_uid)); // Закомментировано, т. к. при использовании vg load_bm_file() выдает ошибку
     populate_bm_list(model.bookmarks);
-    view.win.setTitle("Silent Water -- " + sf::String::fromUtf8(model.doc_title.begin(), model.doc_title.end())); //!< \todo Заголовок включает в себя имя (-ена) и фамилию (-и) автора (-ов)
+    view.win.setTitle("Silent Water — " + sf::String::fromUtf8(model.doc_title.begin(), model.doc_title.end())); /// \todo Заголовок включает в себя имя (-ена) и фамилию (-и) автора (-ов)
 }
 
 SWText* Controller::create_text_from_instance(Fragment* frag){
@@ -579,7 +599,7 @@ string Controller::get_selected_text(){
 
 int main(int argc, char** argv){
     Controller cont;
-    char FILE_NAME[] = "Books/Дары волхвов.fb2";
+    char FILE_NAME[] = "/home/ivan/CppProjects/Fictionizer/Books/Дары волхвов.fb2";
     cont.load_book(argc == 1? FILE_NAME : argv[1]);
     cont.loop();
     return 0;

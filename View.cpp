@@ -131,8 +131,17 @@ View::View(commonData* c) : comd(c){
     topPan = tgui::Panel::create({"parent.width / 3", 50});
     topPan->setPosition("(parent.width - width) / 2", 0);
     gui.add(topPan);
+
+    openFileButton = tgui::BitmapButton::create("Открыть...");
+    tgui::Texture folderIcon("Icons/openedFolder.png");
+    openFileButton->setImage(folderIcon);
+    openFileButton->setWidgetName("openFileButton");
+    openFileButton->setPosition(10, "(parent.height - height) / 2");
+    openFileButton->onClick(&View::createFileDialog, this);
+    topPan->add(openFileButton);
+
     chooseFontButton = tgui::Button::create();
-    chooseFontButton->setPosition({10, "(parent.height - height) / 2"});
+    chooseFontButton->setPosition({"openFileButton.right + 5", "(parent.height - height) / 2"});
     chooseFontButton->onClick(&View::createFontDialog, this);
     topPan->add(chooseFontButton);
 
@@ -141,11 +150,10 @@ View::View(commonData* c) : comd(c){
 }
 
 void View::createFontDialog(){
-    gui.remove(gui.get("fontDial"));
     fontDial = FontDialog::create(comd->c_to_v.defaultFontName, comd->c_to_v.bookFontSize, comd->c_to_v.lineInterval, comd->c_to_v.preview);
     fontDial->setPosition("(parent.width - width) / 2", "(parent.height - height) / 2");
     fontDial->setWidgetName("fontDial");
-    fontDial->okButton->onClick(onFontChange);
+    fontDial->okButton->onClick(onFontChanged);
     gui.add(fontDial);
 }
 
@@ -207,4 +215,22 @@ void View::showTemporalNotification(string text, int msDur){
                                 v->msgBox->setVisible(false);
                                 }, placeholders::_1, this);
     timer = tgui::Timer::create(cb, tgui::Duration(msDur));
+}
+
+void View::createFileDialog(){
+    fileDial = tgui::FileDialog::create("Открыть книгу", "Открыть");
+    fileDial->setCancelButtonText("Отмена");
+    fileDial->setFileMustExist(true);
+    fileDial->setMultiSelect(false);
+    fileDial->setSelectingDirectory(false);
+    fileDial->setPath("/home");
+    fileDial->setFileTypeFilters({{"Файлы FB2", {"*.fb2"}}});
+    fileDial->setPosition("(parent.width - width) / 2", "(parent.height - height) / 2");
+    fileDial->setPositionLocked(true);
+    fileDial->getRenderer()->setBackgroundColor(tgui::Color(170, 170, 170));
+    fileDial->getRenderer()->setTitleBarColor(tgui::Color(48, 48, 48));
+    fileDial->onFileSelect(onFileChosen);
+    fileDial->getRenderer()->setTitleBarHeight(30);
+    fileDial->setWidgetName("fileDial");
+    gui.add(fileDial);
 }

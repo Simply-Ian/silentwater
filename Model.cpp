@@ -19,7 +19,7 @@ bool Walker::for_each(pugi::xml_node& node){
     else if (depth() <= 1)
         body_name = OUT_OF_BODY;
     
-    if (body_name == "" || body_name == "notes"){
+    if (body_name != OUT_OF_BODY){
         // Очищаем стили и атрибуты, установленные более низкими элементами
         while ((!cur_style.empty()) && cur_style.at(cur_style.size()-1).second >= depth()){
             cur_style.pop_back();
@@ -78,7 +78,7 @@ bool Walker::for_each(pugi::xml_node& node){
             frags->push_back(to_be_added);
         }
     }
-    else if (body_name == OUT_OF_BODY){
+    else{
         if (node_name == "binary"){
             string href = node.attribute("id").value();
             string encoded = node.first_child().value();
@@ -228,7 +228,7 @@ char* Model::compose_bookmark_filepath(string doc_uid){
 
 void Model::save_bm_file(string doc_uid){
     // Все параметры, кроме кодировки, по умолчанию
-    bookmarks_doc.save_file(compose_bookmark_filepath(doc_uid), "\t", 1U, pugi::encoding_utf8);
+    bookmarks_doc.save_file(compose_bookmark_filepath(doc_uid), "\t", 1U, pugi::encoding_utf8); //Закомментировано, т. к. при использовании vg load_bm_file() выдает ошибку
 }
 
 void Model::update_checkpoint_data(int page_num){

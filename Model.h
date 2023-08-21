@@ -71,7 +71,7 @@ class Model{
         void add_bm_data(int page, string chapter, string preview);
         void delete_bm_data(string page);
 
-        char* book_path;
+        string book_path;
     private:
         Walker w{&fragments, &binaries};
         pugi::xml_document doc;

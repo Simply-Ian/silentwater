@@ -49,7 +49,9 @@ struct View{
     tgui::MessageBox::Ptr msgBox;
     tgui::Panel::Ptr topPan;
     tgui::Button::Ptr chooseFontButton;
+    tgui::BitmapButton::Ptr openFileButton;
     FontDialog::Ptr fontDial;
+    tgui::FileDialog::Ptr fileDial;
 
     sf::RenderTexture page;
     sf::Sprite pageSprite;
@@ -63,14 +65,16 @@ struct View{
     int getPageScreenWidth(); //!< Рассчитывает ширину области на экране, которую займет страница.
     void showFloatingNote(string text, sf::Vector2f pos);
     void showTemporalNotification(string text, int msDur);
-    void createFontDialog();
 
-    std::function<void()> onFontChange = [](){};
+    std::function<void()> onFontChanged = [](){};
+    std::function<void()> onFileChosen = [](){};
 
     private:
         
         int getPageScreenHeight();
         unsigned int min_width; //!< Минимальные ширина и высота окна
         unsigned int min_height;
+        void createFontDialog();
+        void createFileDialog();
 };
 #endif

@@ -71,6 +71,7 @@ class Controller{
             if (0 < new_size && new_size <= 72)
                 bookFontSize = new_size * view.SCALE;
         }
+        void openNewFile();
 };
 
 #endif
