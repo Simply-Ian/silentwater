@@ -4,6 +4,7 @@
 
 
 void Logger::log(std::string message, levels level){
+    FILE.open(filename, std::ios::app);
     std::string level_str;
     switch (level){
         case levels::INFO: 
@@ -26,4 +27,5 @@ void Logger::log(std::string message, levels level){
     header += level_str + ":\n";
     FILE << header.c_str();
     FILE << message.c_str() << "\n \n";
+    FILE.close();
 }

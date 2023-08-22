@@ -45,25 +45,32 @@ Controller::Controller(){
 }
 
 void Controller::openNewFile(){
-    string path = view.fileDial->getSelectedPaths()[0].asNativeString();
-    view.gui.remove(view.gui.get("fileDial"));
+    vector<tgui::Filesystem::Path> paths = view.fileDial->getSelectedPaths();
+    if (!paths.empty()){
+        string path = paths[0].asNativeString();
+        view.gui.remove(view.gui.get("fileDial"));
 
-    model.save_bm_file(model.doc_uid);
+        model.save_bm_file(model.doc_uid);
 
-    clean_up();
-    load_book(const_cast<char*>(path.c_str()));
+        clean_up();
+        load_book(const_cast<char*>(path.c_str()));
+    }
 }
 
 void Controller::clean_up(){
     for (vector<Fragment*> page: model.pages){
         for (Fragment* frag: page) delete frag;
     }
+    model.pages.clear();
+
     cur_page.words.clear();
     for (imagepair_t ip: cur_page.pics){
         delete ip.first;
         delete ip.second;
     }
-    model.pages.clear();
+    align_groups.clear();
+    cur_page.pics.clear();
+    
     model.bookmarks.clear();
     model.binaries.clear();
     model.notes.clear();
