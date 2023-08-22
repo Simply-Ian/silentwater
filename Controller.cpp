@@ -42,6 +42,7 @@ Controller::Controller(){
     view.chooseFontButton->setText(bookFont.getInfo().family + " " + to_string(bookFontSize / view.SCALE));
     view.onFontChanged = bind(&Controller::apply_font_change, this);
     view.onFileChosen = bind(&Controller::openNewFile, this);
+    view.onColorChanged = bind(&Controller::apply_color_change, this, placeholders::_1);
 }
 
 void Controller::openNewFile(){
@@ -94,6 +95,24 @@ void Controller::apply_font_change(){
     comd->c_to_v.lineInterval = lineInt;
     comd->c_to_v.bookFontSize = bookFontSize / view.SCALE;
     view.chooseFontButton->setText(bookFont.getInfo().family + " " + to_string(bookFontSize / view.SCALE));
+}
+
+void Controller::apply_color_change(bool is_bg){
+    if (is_bg){
+        bgColor = view.colorDial->getColor();
+        comd->c_to_v.bgColor = bgColor;
+        view.bgColorButton->getRenderer()->setBackgroundColor(bgColor);
+        view.bgColorButton->getRenderer()->setBackgroundColorHover(bgColor);
+    }
+    else{
+        textColor = view.colorDial->getColor();
+        comd->c_to_v.textColor = textColor;
+        view.fgColorButton->getRenderer()->setBackgroundColor(textColor);
+        view.fgColorButton->getRenderer()->setBackgroundColorHover(textColor);
+        pageNumberText.setFillColor(textColor);
+        set_page_num(cur_page_num);
+    }
+    view.gui.remove(view.colorDial);
 }
 
 void Controller::load_book(char* path){
@@ -333,7 +352,7 @@ float Controller::pic_resize_logic(sf::FloatRect obj_bounds, bool fullpage_mode)
 }
 
 void Controller::draw_page(){
-    view.page.clear(sf::Color::White);
+    view.page.clear(bgColor);
     for (SWText word: this->cur_page.words){
         view.page.draw(word);
     }

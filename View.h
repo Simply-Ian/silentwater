@@ -50,8 +50,11 @@ struct View{
     tgui::Panel::Ptr topPan;
     tgui::Button::Ptr chooseFontButton;
     tgui::BitmapButton::Ptr openFileButton;
+    tgui::Button::Ptr bgColorButton;
+    tgui::Button::Ptr fgColorButton;
     FontDialog::Ptr fontDial;
     tgui::FileDialog::Ptr fileDial;
+    tgui::ColorPicker::Ptr colorDial;
 
     sf::RenderTexture page;
     sf::Sprite pageSprite;
@@ -66,8 +69,10 @@ struct View{
     void showFloatingNote(string text, sf::Vector2f pos);
     void showTemporalNotification(string text, int msDur);
 
-    std::function<void()> onFontChanged = [](){};
-    std::function<void()> onFileChosen = [](){};
+    std::function<void()> onFontChanged;
+    std::function<void()> onFileChosen;
+    std::function<void(bool)> onColorChanged;
+
 
     private:
         
@@ -76,5 +81,6 @@ struct View{
         unsigned int min_height;
         void createFontDialog();
         void createFileDialog();
+        void createColorDialog(bool bg_color);
 };
 #endif

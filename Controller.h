@@ -22,12 +22,13 @@ class Controller{
     sf::Font bookFont;
     sf::Text pageNumberText;
     sf::Color textColor{67, 67, 67};
+    sf::Color bgColor{sf::Color::White};
     int cur_page_num = 0;
     int bookFontSize = 22 * view.SCALE;
     int lineInt = 3;
     vector<AlignmentGroup> align_groups;
 
-    commonData* comd{new commonData{"", bookFontSize / view.SCALE, lineInt, ""}};
+    commonData* comd{new commonData{"", bookFontSize / view.SCALE, lineInt, "", bgColor, textColor}};
     View view{comd};
 
     SWText* create_text_from_instance(Fragment* frag);
@@ -39,7 +40,8 @@ class Controller{
     void toc_navigate(tgui::String name);
     void show_wordnote(SWText* t);
     void apply_font_change();
-    /// @brief Стирает информацию о страницах, фрагментах, закладках и оглавлении
+    void apply_color_change(bool is_bg);
+    /// @brief Стирает информацию о страницах, фрагментах, закладках, оглавлении и группах выравнивания
     void clean_up();
 
     void build_up_pages_from_frags();

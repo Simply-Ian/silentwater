@@ -143,7 +143,24 @@ View::View(commonData* c) : comd(c){
     chooseFontButton = tgui::Button::create();
     chooseFontButton->setPosition({"openFileButton.right + 5", "(parent.height - height) / 2"});
     chooseFontButton->onClick(&View::createFontDialog, this);
+    chooseFontButton->setWidgetName("chFB");
     topPan->add(chooseFontButton);
+
+    bgColorButton = tgui::Button::create();
+    bgColorButton->setSize(30, 30);
+    bgColorButton->getRenderer()->setBackgroundColor(comd->c_to_v.bgColor);
+    bgColorButton->setPosition("chFB.right + 25", 5);
+    bgColorButton->getRenderer()->setBackgroundColorHover(comd->c_to_v.bgColor);
+    bgColorButton->onClick(&View::createColorDialog, this, true);
+    topPan->add(bgColorButton);
+
+    fgColorButton = tgui::Button::create();
+    fgColorButton->setSize(30, 30);
+    fgColorButton->getRenderer()->setBackgroundColor(comd->c_to_v.textColor);
+    fgColorButton->setPosition("chFB.right + 5", 15);
+    fgColorButton->getRenderer()->setBackgroundColorHover(comd->c_to_v.textColor);
+    fgColorButton->onClick(&View::createColorDialog, this, false);
+    topPan->add(fgColorButton);
 
     this->min_width = getPageScreenWidth() + leftPan->getSize().x*2 + leftButton->getSize().x*2;
     this->min_height = getPageScreenHeight() + 50;
@@ -233,4 +250,15 @@ void View::createFileDialog(){
     fileDial->getRenderer()->setTitleBarHeight(30);
     fileDial->setWidgetName("fileDial");
     gui.add(fileDial);
+}
+
+void View::createColorDialog(bool is_bg=false){
+    colorDial = tgui::ColorPicker::create("Выберите комфортный цвет", is_bg? comd->c_to_v.bgColor : comd->c_to_v.textColor);
+    colorDial->setPosition("(parent.width - width) / 2", "(parent.height - height) / 2");
+    colorDial->setPositionLocked(true);
+    colorDial->getRenderer()->setBackgroundColor(tgui::Color(170, 170, 170));
+    colorDial->getRenderer()->setTitleBarColor(tgui::Color(48, 48, 48));
+    colorDial->getRenderer()->setTitleBarHeight(30);
+    colorDial->onOkPress(onColorChanged, is_bg);
+    gui.add(colorDial);
 }
