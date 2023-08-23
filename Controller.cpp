@@ -75,6 +75,9 @@ void Controller::clean_up(){
     model.bookmarks.clear();
     model.binaries.clear();
     model.notes.clear();
+    model.save_bm_file(model.doc_uid);
+    model.bookmarks_doc.reset();
+
     table_of_contents.clear();
     view.bmPan->removeAllWidgets();
     view.tocList->removeAllItems();

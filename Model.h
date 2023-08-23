@@ -72,10 +72,10 @@ class Model{
         void delete_bm_data(string page);
 
         string book_path;
+        pugi::xml_document bookmarks_doc;
     private:
         Walker w{&fragments, &binaries};
         pugi::xml_document doc;
-        pugi::xml_document bookmarks_doc;
         char* compose_bookmark_filepath(string doc_uid);
 };
 
