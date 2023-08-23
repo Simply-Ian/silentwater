@@ -10,6 +10,7 @@
 #include "AlignmentGroup.h"
 #include "datastructs/Fragment.h"
 #include "datastructs/bookmark.h"
+#include "datastructs/settings.h"
 using namespace std;
 
 
@@ -71,11 +72,15 @@ class Model{
         void add_bm_data(int page, string chapter, string preview);
         void delete_bm_data(string page);
 
+        Settings load_settings_file();
+        void save_settings_file(Settings to_save);
+
         string book_path;
         pugi::xml_document bookmarks_doc;
     private:
         Walker w{&fragments, &binaries};
         pugi::xml_document doc;
+        pugi::xml_document settings;
         char* compose_bookmark_filepath(string doc_uid);
 };
 

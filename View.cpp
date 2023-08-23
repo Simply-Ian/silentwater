@@ -20,6 +20,8 @@ View::View(commonData* c) : comd(c){
     pageSprite.setScale(1.0f / SCALE, 1.0f / SCALE);
 
     gui.setTarget(win);
+    if (! comd->c_to_v.theme_path.empty())
+        tgui::Theme::setDefault(comd->c_to_v.theme_path);
 
     leftButton = tgui::BitmapButton::create();
     gui.add(leftButton, "leftButton");
@@ -37,8 +39,8 @@ View::View(commonData* c) : comd(c){
     rightButton->setPosition(pageSpriteX + getPageScreenWidth(), pageSpriteY);
     rightButton->getRenderer()->setOpacity(0.4f);
     
-    leftPan = tgui::Panel::create({300, "parent.height - 50"});
-    leftPan->setPosition({0, 50});
+    leftPan = tgui::Panel::create({300, "parent.height"});
+    leftPan->setPosition({0, 0});
     toc_header = tgui::Label::create("Оглавление");
     toc_header->setTextSize(GUI_TEXT_SIZE + 3);
     toc_header->setPosition({5, 0});
@@ -57,8 +59,8 @@ View::View(commonData* c) : comd(c){
     leftPan->add(tocList);
     gui.add(leftPan);
 
-    rightPan = tgui::Panel::create({300, "parent.height - 50"});
-    rightPan->setPosition({"parent.width - 300", 50});
+    rightPan = tgui::Panel::create({300, "parent.height"});
+    rightPan->setPosition({"parent.width - 300", 0});
 
     bm_header = tgui::Label::create("Закладки");
     bm_header->setAutoSize(true);
@@ -128,28 +130,32 @@ View::View(commonData* c) : comd(c){
     msgBox->setVisible(false);
     gui.add(msgBox);
 
-    topPan = tgui::Panel::create({"parent.width / 3", 50});
+    topPan = tgui::Panel::create();
     topPan->setPosition("(parent.width - width) / 2", 0);
     gui.add(topPan);
 
     openFileButton = tgui::BitmapButton::create("Открыть...");
     tgui::Texture folderIcon("Icons/openedFolder.png");
     openFileButton->setImage(folderIcon);
+    openFileButton->setHeight("parent.height - 10");
     openFileButton->setWidgetName("openFileButton");
     openFileButton->setPosition(10, "(parent.height - height) / 2");
     openFileButton->onClick(&View::createFileDialog, this);
     topPan->add(openFileButton);
 
     chooseFontButton = tgui::Button::create();
-    chooseFontButton->setPosition({"openFileButton.right + 5", "(parent.height - height) / 2"});
+    chooseFontButton->setPosition({"openFileButton.right + 10", "(parent.height - height) / 2"});
     chooseFontButton->onClick(&View::createFontDialog, this);
     chooseFontButton->setWidgetName("chFB");
+    chooseFontButton->setWidth(130);
+    chooseFontButton->setHeight("parent.height - 10");
     topPan->add(chooseFontButton);
 
     bgColorButton = tgui::Button::create();
     bgColorButton->setSize(30, 30);
     bgColorButton->getRenderer()->setBackgroundColor(comd->c_to_v.bgColor);
     bgColorButton->setPosition("chFB.right + 25", 5);
+    bgColorButton->setWidgetName("bgColorButton");
     bgColorButton->getRenderer()->setBackgroundColorHover(comd->c_to_v.bgColor);
     bgColorButton->onClick(&View::createColorDialog, this, true);
     topPan->add(bgColorButton);
@@ -160,7 +166,19 @@ View::View(commonData* c) : comd(c){
     fgColorButton->setPosition("chFB.right + 5", 15);
     fgColorButton->getRenderer()->setBackgroundColorHover(comd->c_to_v.textColor);
     fgColorButton->onClick(&View::createColorDialog, this, false);
+    fgColorButton->setWidgetName("fgColorButton");
     topPan->add(fgColorButton);
+
+    aboutButton = tgui::BitmapButton::create("О программе");
+    tgui::Texture aboutIcon("Icons/info.png");
+    aboutButton->setImage(aboutIcon);
+    aboutButton->setWidgetName("aboutButton");
+    aboutButton->onClick([]{system("xdg-open https://github.com/Simply-Ian/silentwater");});
+    aboutButton->setPosition("bgColorButton.right + 10", "(parent.height - height) / 2");
+    aboutButton->setHeight("parent.height - 10");
+    topPan->add(aboutButton);
+
+    topPan->setSize("10 + aboutButton.right + 10", 50);
 
     this->min_width = getPageScreenWidth() + leftPan->getSize().x*2 + leftButton->getSize().x*2;
     this->min_height = getPageScreenHeight() + 50;

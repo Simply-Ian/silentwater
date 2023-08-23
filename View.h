@@ -52,13 +52,14 @@ struct View{
     tgui::BitmapButton::Ptr openFileButton;
     tgui::Button::Ptr bgColorButton;
     tgui::Button::Ptr fgColorButton;
+    tgui::BitmapButton::Ptr aboutButton;
     FontDialog::Ptr fontDial;
     tgui::FileDialog::Ptr fileDial;
     tgui::ColorPicker::Ptr colorDial;
 
     sf::RenderTexture page;
     sf::Sprite pageSprite;
-    FloatingNote word_note{gui, GUI_TEXT_SIZE-2};
+    FloatingNote word_note{gui, GUI_TEXT_SIZE - 2};
     tgui::Cursor::Type cur_cursor_type = tgui::Cursor::Type::Arrow;
 
     View(commonData* c);

@@ -36,13 +36,22 @@ Controller::Controller(){
     }, this);
     view.rightButton->setMouseCursor(tgui::Cursor::Type::Hand);
 
-    filesystem::path defaultFontPath = get_default_font_filename();
+    filesystem::path defaultFontPath;
+    if (settings.font_path.empty())
+         defaultFontPath = get_default_font_filename();
+    else
+        defaultFontPath = settings.font_path;
     bookFont.loadFromFile(defaultFontPath);
     comd->c_to_v.defaultFontName = defaultFontPath;
     view.chooseFontButton->setText(bookFont.getInfo().family + " " + to_string(bookFontSize / view.SCALE));
     view.onFontChanged = bind(&Controller::apply_font_change, this);
     view.onFileChosen = bind(&Controller::openNewFile, this);
     view.onColorChanged = bind(&Controller::apply_color_change, this, placeholders::_1);
+
+    if (settings.last_seen.empty())
+        load_book("Books/Дары волхвов.fb2");
+    else load_book(const_cast<char*>(settings.last_seen.c_str()));
+    loop();
 }
 
 void Controller::openNewFile(){
@@ -98,6 +107,10 @@ void Controller::apply_font_change(){
     comd->c_to_v.lineInterval = lineInt;
     comd->c_to_v.bookFontSize = bookFontSize / view.SCALE;
     view.chooseFontButton->setText(bookFont.getInfo().family + " " + to_string(bookFontSize / view.SCALE));
+
+    settings.font_path = path;
+    settings.font_size = bookFontSize / view.SCALE;
+    settings.line_int = lineInt;
 }
 
 void Controller::apply_color_change(bool is_bg){
@@ -106,6 +119,7 @@ void Controller::apply_color_change(bool is_bg){
         comd->c_to_v.bgColor = bgColor;
         view.bgColorButton->getRenderer()->setBackgroundColor(bgColor);
         view.bgColorButton->getRenderer()->setBackgroundColorHover(bgColor);
+        settings.bgColor = bgColor;
     }
     else{
         textColor = view.colorDial->getColor();
@@ -113,7 +127,8 @@ void Controller::apply_color_change(bool is_bg){
         view.fgColorButton->getRenderer()->setBackgroundColor(textColor);
         view.fgColorButton->getRenderer()->setBackgroundColorHover(textColor);
         pageNumberText.setFillColor(textColor);
-        set_page_num(cur_page_num);
+        set_page_num(cur_page_num); // Без этого симвоы не меняют цвет немедленно. Причина не выяснена
+        settings.textColor  = textColor;
     }
     view.gui.remove(view.colorDial);
 }
@@ -128,7 +143,9 @@ void Controller::load_book(char* path){
     view.tocList->onItemSelect(&Controller::toc_navigate, this);
     set_page_num_and_update_toc(model.load_bm_file(model.doc_uid)); // Закомментировано, т. к. при использовании vg load_bm_file() выдает ошибку
     populate_bm_list(model.bookmarks);
-    view.win.setTitle("Silent Water — " + sf::String::fromUtf8(model.doc_title.begin(), model.doc_title.end())); /// \todo Заголовок включает в себя имя (-ена) и фамилию (-и) автора (-ов)
+    view.win.setTitle(L"Silent Water  —  " + sf::String::fromUtf8(model.doc_title.begin(), model.doc_title.end())); /// \todo Заголовок включает в себя имя (-ена) и фамилию (-и) автора (-ов)
+
+    settings.last_seen = path;
 }
 
 SWText* Controller::create_text_from_instance(Fragment* frag){
@@ -390,6 +407,8 @@ void Controller::loop(){
             if (event.type == sf::Event::Closed){
                 // Сохраняем в файл номер страницы, на которой остановился пользователь, и данные о закладках
                 model.save_bm_file(model.doc_uid);
+                // Сохраняем настройки
+                model.save_settings_file(settings);
                 view.win.close();
             }
             else if (event.type == sf::Event::Resized){
@@ -628,8 +647,5 @@ string Controller::get_selected_text(){
 
 int main(int argc, char** argv){
     Controller cont;
-    char FILE_NAME[] = "/home/ivan/CppProjects/Fictionizer/Books/Дары волхвов.fb2";
-    cont.load_book(argc == 1? FILE_NAME : argv[1]);
-    cont.loop();
     return 0;
 }

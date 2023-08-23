@@ -8,6 +8,7 @@
 #include "AlignmentGroup.h"
 #include <TGUI/String.hpp>
 #include "datastructs/commonData.h"
+#include "datastructs/settings.h"
 
 using imagepair_t = pair<sf::Sprite*, sf::Texture*>;
 
@@ -21,14 +22,15 @@ class Controller{
     Page cur_page;
     sf::Font bookFont;
     sf::Text pageNumberText;
-    sf::Color textColor{67, 67, 67};
-    sf::Color bgColor{sf::Color::White};
+    Settings settings{model.load_settings_file()};
+    sf::Color textColor{settings.textColor};
+    sf::Color bgColor{settings.bgColor};
     int cur_page_num = 0;
-    int bookFontSize = 22 * view.SCALE;
-    int lineInt = 3;
+    int bookFontSize = settings.font_size * view.SCALE;
+    int lineInt = settings.line_int;
     vector<AlignmentGroup> align_groups;
 
-    commonData* comd{new commonData{"", bookFontSize / view.SCALE, lineInt, "", bgColor, textColor}};
+    commonData* comd{new commonData{"", settings.theme_path, bookFontSize / view.SCALE, lineInt, "", bgColor, textColor}};
     View view{comd};
 
     SWText* create_text_from_instance(Fragment* frag);

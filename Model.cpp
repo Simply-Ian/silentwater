@@ -9,6 +9,7 @@
 #include <filesystem> // Проверка существования файла
 #include <unistd.h> // Для readlink() -- получения пути к исполняемому файлу
 #include <cmath>
+#include <fstream>
 using namespace std;
 
 bool Walker::for_each(pugi::xml_node& node){
@@ -244,11 +245,62 @@ void Model::add_bm_data(int page_num, string chapter, string preview){
 }
 
 void Model::delete_bm_data(string page){
-    /// \todo
     pugi::xml_node bm = bookmarks_doc.first_element_by_path("/SilentWater_bm/bm");
     while ((round(atof(bm.attribute("part").value())) != round(static_cast<float>(atoi(page.c_str())) / pages.size())) &&
          (bm.type() != pugi::xml_node_type::node_null)) bm = bm.next_sibling();
     if (bm.type() != pugi::xml_node_type::node_null)
         bookmarks_doc.child("SilentWater_bm").remove_child(bm);
     else throw;
+}
+
+Settings Model::load_settings_file(){
+    const char* path = "config.xml";
+    if (filesystem::exists({path})){
+        pugi::xml_parse_result result = settings.load_file(path);
+        if (!result) throw runtime_error(result.description());
+
+        const char* theme_path = settings.first_element_by_path("/SilentWater_settings/theme").first_child().value();
+        pugi::xml_node text_color = settings.first_element_by_path("/SilentWater_settings/text-color");
+        pugi::xml_node bg_color = settings.first_element_by_path("/SilentWater_settings/bg-color");
+
+        Settings for_return(theme_path, atoi(bg_color.attribute("r").value()), atoi(bg_color.attribute("g").value()), atoi(bg_color.attribute("b").value()),
+                        atoi(text_color.attribute("r").value()), atoi(text_color.attribute("g").value()), atoi(text_color.attribute("g").value()));
+        
+        pugi::xml_node font = settings.first_element_by_path("/SilentWater_settings/font");
+        for_return.font_path = font.attribute("path").value();
+        for_return.font_size = atoi(font.attribute("size").value());
+        for_return.line_int = atoi(font.attribute("line-spacing").value());
+        for_return.last_seen = settings.first_element_by_path("/SilentWater_settings/last-seen").attribute("path").value();
+
+        return for_return;
+    }
+    else{
+        ofstream out;
+        out.open("config.xml");
+        string contents = "<SilentWater_settings> \n <theme></theme> \n <text-color r='67' g='67' b='67'/> \n <bg-color r='255' g='255' b='255'/> \n <font path='' size='22' line-spacing='3'/> \n<last-seen></last-seen> </SilentWater_settings>";
+        out << contents.c_str();
+        out.close();
+        return load_settings_file();
+    }
+}
+
+void Model::save_settings_file(Settings to_save){
+    pugi::xml_node text_color = settings.first_element_by_path("/SilentWater_settings/text-color");
+    text_color.attribute("r").set_value(to_save.textColor.r);
+    text_color.attribute("g").set_value(to_save.textColor.g);
+    text_color.attribute("b").set_value(to_save.textColor.b);
+
+    pugi::xml_node bg_color = settings.first_element_by_path("/SilentWater_settings/bg-color");
+    bg_color.attribute("r").set_value(to_save.bgColor.r);
+    bg_color.attribute("g").set_value(to_save.bgColor.g);
+    bg_color.attribute("b").set_value(to_save.bgColor.b);
+
+    pugi::xml_node font = settings.first_element_by_path("/SilentWater_settings/font");
+    font.attribute("path").set_value(to_save.font_path.c_str());
+    font.attribute("size").set_value(to_save.font_size);
+    font.attribute("line-spacing").set_value(to_save.line_int);
+
+    settings.first_element_by_path("/SilentWater_settings/last-seen").attribute("path").set_value(to_save.last_seen.c_str());
+
+    settings.save_file("config.xml", "\t", 1U, pugi::encoding_utf8);
 }
