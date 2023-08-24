@@ -5,7 +5,7 @@
 #include <fstream>
 using namespace std;
 
-string* load_text(char* path, char* encoding){
+string* load_text(const char* path, char* encoding){
     // Reading the file
     char buffer;
     ifstream file(path);

@@ -2,6 +2,7 @@
 #include <string>
 #include <cmath> // Для расчета границ символа
 #include <iostream>
+#include "decode_funs/get_abs_path_to_folder.h"
 
 
 View::View(commonData* c) : comd(c){
@@ -9,6 +10,10 @@ View::View(commonData* c) : comd(c){
     settings.antialiasingLevel = 5;
     win.create(sf::VideoMode::getDesktopMode(), "Silent Water Reader", sf::Style::Default, settings);
     win.setFramerateLimit(50);
+
+    sf::Image win_icon;
+    win_icon.loadFromFile(get_abs_path_to_folder() + "/Icons/silentwater.jpg");
+    win.setIcon(win_icon.getSize().x, win_icon.getSize().y, win_icon.getPixelsPtr());
 
     PAGE_WIDTH = (win.getSize().x * 0.37) * SCALE;
     PAGE_HEIGHT = (win.getSize().y - 2*TOP_BAR_HEIGHT) * SCALE;
@@ -21,11 +26,11 @@ View::View(commonData* c) : comd(c){
 
     gui.setTarget(win);
     if (! comd->c_to_v.theme_path.empty())
-        tgui::Theme::setDefault(comd->c_to_v.theme_path);
+        tgui::Theme::setDefault(get_abs_path_to_folder() + "/" + comd->c_to_v.theme_path);
 
     leftButton = tgui::BitmapButton::create();
     gui.add(leftButton, "leftButton");
-    leftButton->setImage(tgui::Texture("Icons/chevronLeft.png"));
+    leftButton->setImage(tgui::Texture(get_abs_path_to_folder() + "/Icons/chevronLeft.png"));
     leftButton->setSize(64, PAGE_HEIGHT / SCALE);
     leftButton->setOrigin(0, 0);
     leftButton->setPosition(pageSpriteX - 64, pageSpriteY);
@@ -33,7 +38,7 @@ View::View(commonData* c) : comd(c){
 
     rightButton = tgui::BitmapButton::create();
     gui.add(rightButton, "rightButton");
-    rightButton->setImage(tgui::Texture("Icons/chevronRight.png"));
+    rightButton->setImage(tgui::Texture(get_abs_path_to_folder() + "/Icons/chevronRight.png"));
     rightButton->setSize(64, PAGE_HEIGHT / SCALE);
     rightButton->setOrigin(0, 0);
     rightButton->setPosition(pageSpriteX + getPageScreenWidth(), pageSpriteY);
@@ -135,7 +140,7 @@ View::View(commonData* c) : comd(c){
     gui.add(topPan);
 
     openFileButton = tgui::BitmapButton::create("Открыть...");
-    tgui::Texture folderIcon("Icons/openedFolder.png");
+    tgui::Texture folderIcon(get_abs_path_to_folder() + "/Icons/openedFolder.png");
     openFileButton->setImage(folderIcon);
     openFileButton->setHeight("parent.height - 10");
     openFileButton->setWidgetName("openFileButton");
@@ -170,7 +175,7 @@ View::View(commonData* c) : comd(c){
     topPan->add(fgColorButton);
 
     aboutButton = tgui::BitmapButton::create("О программе");
-    tgui::Texture aboutIcon("Icons/info.png");
+    tgui::Texture aboutIcon(get_abs_path_to_folder() + "/Icons/info.png");
     aboutButton->setImage(aboutIcon);
     aboutButton->setWidgetName("aboutButton");
     aboutButton->onClick([]{system("xdg-open https://github.com/Simply-Ian/silentwater");});

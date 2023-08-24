@@ -7,9 +7,9 @@
 #include <sstream> // Для разбиения строки по разделителю
 #include <algorithm> // Для std::find
 #include <filesystem> // Проверка существования файла
-#include <unistd.h> // Для readlink() -- получения пути к исполняемому файлу
 #include <cmath>
 #include <fstream>
+#include "decode_funs/get_abs_path_to_folder.h"
 using namespace std;
 
 bool Walker::for_each(pugi::xml_node& node){
@@ -111,7 +111,7 @@ map<string, string> Walker::format_attrs(){
     return formatted_attrs;
 }
 
-void Model::load_fb2(char* FILE_NAME){
+void Model::load_fb2(const char* FILE_NAME){
     book_path = FILE_NAME;
 
     pugi::xml_parse_result result = doc.load_file(FILE_NAME, pugi::parse_declaration);
@@ -184,17 +184,17 @@ void Model::extract_notes(){
     \returns Номер страницы, на которой пользователь остановился последний раз.
 */
 int Model::load_bm_file(string doc_uid){
-    char* bookmark_filepath = compose_bookmark_filepath(doc_uid);
-    if (filesystem::exists({bookmark_filepath})){
-        pugi::xml_parse_result result = this->bookmarks_doc.load_file(bookmark_filepath);
+    filesystem::path bookmark_filepath = compose_bookmark_filepath(doc_uid);
+    if (filesystem::exists(bookmark_filepath)){
+        pugi::xml_parse_result result = this->bookmarks_doc.load_file(bookmark_filepath.c_str());
         if (!result) throw runtime_error(result.description());
 
-        int checkpoint_page = atof(bookmarks_doc.first_element_by_path("/SilentWater_bm/checkpoint")
-                                    .first_attribute().value()) * pages.size();
+        int checkpoint_page = round(atof(bookmarks_doc.first_element_by_path("/SilentWater_bm/checkpoint")
+                                    .first_attribute().value()) * pages.size());
         for (auto bm_tag = bookmarks_doc.first_child().child("bm"); bm_tag.type() != pugi::node_null; bm_tag = bm_tag.next_sibling())
             this->bookmarks.push_back(sw::Bookmark(bm_tag.first_child().value(), 
                                             bm_tag.attribute("chapter").value(), 
-                                            floor(atof(bm_tag.attribute("part").value()) * pages.size())));
+                                            round(atof(bm_tag.attribute("part").value()) * pages.size())));
         return checkpoint_page;
     }
     else{
@@ -208,28 +208,15 @@ int Model::load_bm_file(string doc_uid){
     }
 }
 
-char* Model::compose_bookmark_filepath(string doc_uid){
-    // Ищем путь к исполняемому файлу с помощью системной функции readlink()
-    char fp_buf[255];
-    size_t fp_len = readlink("/proc/self/exe", fp_buf, 255);
-    fp_buf[fp_len] = 0; // Символ окончания строки для функции strrchr()
-    // Обрезаем путь, оставляя только путь до папки, где лежит бинарник
-    size_t folder_len = strrchr(fp_buf, '/') - fp_buf;
-    char folder_path[folder_len + 1];
-    strncpy(folder_path, fp_buf, folder_len);
-    folder_path[folder_len] = 0;
-
-    char* bookmark_filepath = new char[folder_len + doc_uid.size() + strlen("/bookmarks/.swbm")];
-    strcpy(bookmark_filepath, folder_path);
-    strcat(bookmark_filepath, "/bookmarks/");
-    strcat(bookmark_filepath, doc_uid.c_str());
-    strcat(bookmark_filepath, ".swbm");
-    return bookmark_filepath;
+filesystem::path Model::compose_bookmark_filepath(string doc_uid){
+    filesystem::path base_folder_path = get_abs_path_to_folder();
+    return (base_folder_path / "bookmarks" / (filesystem::path(doc_uid + ".swbm"))).c_str();
 }
 
 void Model::save_bm_file(string doc_uid){
     // Все параметры, кроме кодировки, по умолчанию
-    bookmarks_doc.save_file(compose_bookmark_filepath(doc_uid), "\t", 1U, pugi::encoding_utf8); //Закомментировано, т. к. при использовании vg load_bm_file() выдает ошибку
+    filesystem::path path = compose_bookmark_filepath(doc_uid);
+    bookmarks_doc.save_file(path.c_str(), "\t", 1U, pugi::encoding_utf8); //Закомментировано, т. к. при использовании vg load_bm_file() выдает ошибку
 }
 
 void Model::update_checkpoint_data(int page_num){
@@ -254,9 +241,9 @@ void Model::delete_bm_data(string page){
 }
 
 Settings Model::load_settings_file(){
-    const char* path = "config.xml";
+    string path = (get_abs_path_to_folder() + "/config.xml").c_str();
     if (filesystem::exists({path})){
-        pugi::xml_parse_result result = settings.load_file(path);
+        pugi::xml_parse_result result = settings.load_file(path.c_str());
         if (!result) throw runtime_error(result.description());
 
         const char* theme_path = settings.first_element_by_path("/SilentWater_settings/theme").first_child().value();
@@ -276,8 +263,14 @@ Settings Model::load_settings_file(){
     }
     else{
         ofstream out;
-        out.open("config.xml");
-        string contents = "<SilentWater_settings> \n <theme></theme> \n <text-color r='67' g='67' b='67'/> \n <bg-color r='255' g='255' b='255'/> \n <font path='' size='22' line-spacing='3'/> \n<last-seen></last-seen> </SilentWater_settings>";
+        out.open(get_abs_path_to_folder() + "/config.xml");
+        string contents = "<SilentWater_settings> \n"
+            "<theme></theme> \n"
+            "<text-color r='67' g='67' b='67'/>\n"
+            "<bg-color r='255' g='255' b='255'/> \n"
+            "<font path='' size='22' line-spacing='3'/> \n"
+            "<last-seen path=''/> \n "
+        "</SilentWater_settings>";
         out << contents.c_str();
         out.close();
         return load_settings_file();
@@ -302,5 +295,5 @@ void Model::save_settings_file(Settings to_save){
 
     settings.first_element_by_path("/SilentWater_settings/last-seen").attribute("path").set_value(to_save.last_seen.c_str());
 
-    settings.save_file("config.xml", "\t", 1U, pugi::encoding_utf8);
+    settings.save_file((get_abs_path_to_folder() + "/config.xml").c_str(), "\t", 1U, pugi::encoding_utf8);
 }

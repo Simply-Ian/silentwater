@@ -9,7 +9,7 @@
 
 using namespace std::placeholders;
 
-Controller::Controller(){
+Controller::Controller(char* path){
     pageNumberText.setFont(bookFont);
     pageNumberText.setFillColor(textColor);
     pageNumberText.setCharacterSize(bookFontSize + 2);
@@ -48,9 +48,12 @@ Controller::Controller(){
     view.onFileChosen = bind(&Controller::openNewFile, this);
     view.onColorChanged = bind(&Controller::apply_color_change, this, placeholders::_1);
 
-    if (settings.last_seen.empty())
-        load_book("Books/Дары волхвов.fb2");
-    else load_book(const_cast<char*>(settings.last_seen.c_str()));
+    if (strcmp(path, "") == 0){
+        if (settings.last_seen.empty())
+            load_book((get_abs_path_to_folder() + "/Books/Дары волхвов.fb2").c_str());
+        else load_book(settings.last_seen.c_str());
+    }
+    else load_book(path);
     loop();
 }
 
@@ -133,7 +136,7 @@ void Controller::apply_color_change(bool is_bg){
     view.gui.remove(view.colorDial);
 }
 
-void Controller::load_book(char* path){
+void Controller::load_book(const char* path){
     model.load_fb2(path);
     model.split_into_words();
     build_up_pages_from_frags();
@@ -646,6 +649,9 @@ string Controller::get_selected_text(){
 }
 
 int main(int argc, char** argv){
-    Controller cont;
+    if (argc > 1)
+        Controller cont(argv[1]);
+    else 
+        Controller cont("");
     return 0;
 }

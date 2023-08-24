@@ -11,6 +11,7 @@
 #include "datastructs/Fragment.h"
 #include "datastructs/bookmark.h"
 #include "datastructs/settings.h"
+#include <filesystem>
 using namespace std;
 
 
@@ -63,7 +64,7 @@ class Model{
         vector<sw::Bookmark> bookmarks;
 
         // Загружает fb2-файл, определяет кодировку, перезагружает файл в Юникод и запускает разбор xml
-        void load_fb2(char* FILE_NAME);
+        void load_fb2(const char* FILE_NAME);
         void split_into_words();
         void extract_notes();
         int load_bm_file(string doc_uid); //!< Метод для загрузки файла закладок
@@ -81,7 +82,7 @@ class Model{
         Walker w{&fragments, &binaries};
         pugi::xml_document doc;
         pugi::xml_document settings;
-        char* compose_bookmark_filepath(string doc_uid);
+        filesystem::path compose_bookmark_filepath(string doc_uid);
 };
 
 #endif

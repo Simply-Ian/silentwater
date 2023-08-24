@@ -9,6 +9,7 @@
 #include <TGUI/String.hpp>
 #include "datastructs/commonData.h"
 #include "datastructs/settings.h"
+#include "decode_funs/get_abs_path_to_folder.h"
 
 using imagepair_t = pair<sf::Sprite*, sf::Texture*>;
 
@@ -60,12 +61,13 @@ class Controller{
     void populate_bm_list(vector<sw::Bookmark> bms);
     string get_selected_text();
 
+    void load_book(const char* path);
+    void loop();
+
     public:
         vector<tocElem> table_of_contents;
-        Logger logger{"log.txt"};
-        Controller();
-        void load_book(char* path);
-        void loop();
+        Logger logger{get_abs_path_to_folder() + "/log.txt"};
+        Controller(char* path);
         void set_page_num_and_update_toc(int new_num);
         void add_bookmark();
         void delete_bookmark(tgui::String name);
