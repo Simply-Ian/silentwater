@@ -355,7 +355,8 @@ void Controller::add_image(Fragment* frag, vector<Fragment*> &page, sf::Vector2f
     frag->y = carriage_pos.y;
     page.push_back(frag);
     carriage_pos.y += obj_bounds.height;
-    delete IP.first, IP.second;
+    delete IP.first;
+    delete IP.second;
 }
 
 float Controller::pic_resize_logic(sf::FloatRect obj_bounds, bool fullpage_mode){
@@ -622,7 +623,6 @@ void Controller::add_bookmark(){
     chapter += "...";
     chapter = chapter.substr(0, header_len - 10);
 
-    int lines_count = model.pages.size();
     for (auto frag_ptr = model.pages[cur_page_num].begin(); 
             preview.size() < header_len && frag_ptr != model.pages[cur_page_num].end(); frag_ptr++)
         if ((*frag_ptr)->type == sw::ContentType::TEXT)
