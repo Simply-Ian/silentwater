@@ -68,6 +68,7 @@ struct View{
     int getPageScreenWidth(); //!< Рассчитывает ширину области на экране, которую займет страница.
     void showFloatingNote(string text, sf::Vector2f pos);
     void showTemporalNotification(string text, int msDur);
+    void showWarning(string text);
 
     std::function<void()> onFontChanged;
     std::function<void()> onFileChosen;

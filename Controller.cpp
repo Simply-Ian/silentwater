@@ -54,6 +54,7 @@ Controller::Controller(char* path){
         else load_book(settings.last_seen.c_str());
     }
     else load_book(path);
+    
     loop();
 }
 
@@ -62,8 +63,6 @@ void Controller::openNewFile(){
     if (!paths.empty()){
         string path = paths[0].asNativeString();
         view.gui.remove(view.gui.get("fileDial"));
-
-        model.save_bm_file(model.doc_uid);
 
         clean_up();
         load_book(const_cast<char*>(path.c_str()));
@@ -84,10 +83,11 @@ void Controller::clean_up(){
     align_groups.clear();
     cur_page.pics.clear();
     
+    model.save_bm_file(model.doc_uid);
+    model.doc_uid = "0";
     model.bookmarks.clear();
     model.binaries.clear();
     model.notes.clear();
-    model.save_bm_file(model.doc_uid);
     model.bookmarks_doc.reset();
 
     table_of_contents.clear();
@@ -137,18 +137,24 @@ void Controller::apply_color_change(bool is_bg){
 }
 
 void Controller::load_book(const char* path){
-    model.load_fb2(path);
-    model.split_into_words();
-    build_up_pages_from_frags();
+    try{
+        model.load_fb2(path);
+        model.split_into_words();
+        build_up_pages_from_frags();
 
-    view.doc_links_name = model.doc_links_name;
-    view.build_up_toc(this->table_of_contents);
-    view.tocList->onItemSelect(&Controller::toc_navigate, this);
-    set_page_num_and_update_toc(model.load_bm_file(model.doc_uid)); // Закомментировано, т. к. при использовании vg load_bm_file() выдает ошибку
-    populate_bm_list(model.bookmarks);
-    view.win.setTitle(L"Silent Water  —  " + sf::String::fromUtf8(model.doc_title.begin(), model.doc_title.end())); /// \todo Заголовок включает в себя имя (-ена) и фамилию (-и) автора (-ов)
+        view.doc_links_name = model.doc_links_name;
+        view.build_up_toc(this->table_of_contents);
+        view.tocList->onItemSelect(&Controller::toc_navigate, this);
+        set_page_num_and_update_toc(model.load_bm_file(model.doc_uid)); // Закомментировано, т. к. при использовании vg load_bm_file() выдает ошибку
+        populate_bm_list(model.bookmarks);
+        view.win.setTitle(L"Silent Water  —  " + sf::String::fromUtf8(model.doc_title.begin(), model.doc_title.end())); /// \todo Заголовок включает в себя имя (-ена) и фамилию (-и) автора (-ов)
 
-    settings.last_seen = path;
+        settings.last_seen = path;
+    }
+    catch (runtime_error e){
+        view.showWarning(string("Ошибка: ") + e.what());
+        view.win.setTitle("Ошибка");
+    }
 }
 
 SWText* Controller::create_text_from_instance(Fragment* frag){

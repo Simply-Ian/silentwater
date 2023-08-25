@@ -30,7 +30,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/run",
-            "args": ["/home/ivan/Документы/Books/На_дне.fb2"],
+            "args": [""],
             "stopAtEntry": false,
             "cwd": "/home/ivan/CppProjects/Fictionizer",
             "environment": [],

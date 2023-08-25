@@ -285,3 +285,21 @@ void View::createColorDialog(bool is_bg=false){
     colorDial->onOkPress(onColorChanged, is_bg);
     gui.add(colorDial);
 }
+
+void View::showWarning(string text){
+    tgui::MessageBox::Ptr msgBox = tgui::MessageBox::create("Ошибка", text, {"Закрыть"});
+    msgBox->setPosition("(parent.width - width) / 2", "(parent.height - height) / 2 - 20");
+    msgBox->setPositionLocked(true);
+    msgBox->setResizable(false);
+    msgBox->onButtonPress([](tgui::MessageBox::Ptr it){it->close();}, msgBox);
+    msgBox->setTextSize(GUI_TEXT_SIZE - 2);
+    
+    tgui::Picture::Ptr icon = tgui::Picture::create(tgui::Texture(get_abs_path_to_folder() + "/Icons/warning.png"));
+    icon->setPosition(15, 0);
+
+    msgBox->get("#TGUI_INTERNAL$MessageBoxText#")->setPosition(25 + icon->getSize().x, 5);
+    msgBox->get("#TGUI_INTERNAL$MessageBoxText#")->setSize("parent.width - 121 - 10", "parent.height");
+
+    msgBox->add(icon);
+    gui.add(msgBox);
+}

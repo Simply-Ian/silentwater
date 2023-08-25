@@ -115,7 +115,7 @@ void Model::load_fb2(const char* FILE_NAME){
     book_path = FILE_NAME;
 
     pugi::xml_parse_result result = doc.load_file(FILE_NAME, pugi::parse_declaration);
-    if (!result) throw runtime_error(result.description());
+    if (!result) throw runtime_error(string("Проблема с файлом книги: ") + result.description());
     char* encoding_name = (char*)(doc.first_child().last_attribute().value());
     string* re_opened = load_text(FILE_NAME, encoding_name);
     doc.reset();
@@ -187,7 +187,7 @@ int Model::load_bm_file(string doc_uid){
     filesystem::path bookmark_filepath = compose_bookmark_filepath(doc_uid);
     if (filesystem::exists(bookmark_filepath)){
         pugi::xml_parse_result result = this->bookmarks_doc.load_file(bookmark_filepath.c_str());
-        if (!result) throw runtime_error(result.description());
+        if (!result) throw runtime_error(string("Проблема с файлом закладок: ") + result.description());
 
         int checkpoint_page = round(atof(bookmarks_doc.first_element_by_path("/SilentWater_bm/checkpoint")
                                     .first_attribute().value()) * pages.size());
@@ -204,6 +204,7 @@ int Model::load_bm_file(string doc_uid){
         doc_node.append_child(pugi::node_pcdata).set_value(doc_title.c_str());
         pugi::xml_node checkpoint_node = root.append_child("checkpoint");
         checkpoint_node.append_attribute("page") = 0;
+        save_bm_file(doc_uid);
         return 0;
     }
 }
@@ -244,7 +245,7 @@ Settings Model::load_settings_file(){
     string path = (get_abs_path_to_folder() + "/config.xml").c_str();
     if (filesystem::exists({path})){
         pugi::xml_parse_result result = settings.load_file(path.c_str());
-        if (!result) throw runtime_error(result.description());
+        if (!result) throw runtime_error(string("Проблема с файлом config.xml: ") + result.description());
 
         const char* theme_path = settings.first_element_by_path("/SilentWater_settings/theme").first_child().value();
         pugi::xml_node text_color = settings.first_element_by_path("/SilentWater_settings/text-color");
