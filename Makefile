@@ -21,15 +21,19 @@ docs: Doxyfile doxyfiles/AlignmentGroup.dox doxyfiles/Fragment.dox doxyfiles/Log
 
 # Запускать Makefile с sudo для выполнения этих целей
 install: run
+	chmod ugo+x run
 	install -D run -t /usr/local/bin/silentwater
+	chmod ugo+rw /usr/local/bin/silentwater
 	cp -R -t /usr/local/bin/silentwater ./Icons ./themes
-	mkdir ~/config/silentwater/bookmarks
+	cp -t /usr/local/bin/silentwater startpage.fb2
+	mkdir /usr/local/bin/silentwater/bookmarks
 
-uninstall: 
+uninstall:
 	rm -rf /usr/local/bin/silentwater
 	rm /usr/share/applications/silentwater.desktop
 
 app_link: silentwater.desktop
+	chmod +x silentwater.desktop
 	cp silentwater.desktop /usr/share/applications
 
 clean:

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Silent Water
+Comment=Читалка для электронных книг в формате FB2
+Exec=/usr/local/bin/silentwater/run %U
+Terminal=false
+Icon=/usr/local/bin/silentwater/Icons/silentwater.jpg
+MimeType=application/x-fictionbook

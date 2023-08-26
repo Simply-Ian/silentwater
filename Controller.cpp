@@ -50,7 +50,7 @@ Controller::Controller(char* path){
 
     if (strcmp(path, "") == 0){
         if (settings.last_seen.empty())
-            load_book((get_abs_path_to_folder() + "/Books/Дары волхвов.fb2").c_str());
+            load_book((get_abs_path_to_folder() + "/startpage.fb2").c_str());
         else load_book(settings.last_seen.c_str());
     }
     else load_book(path);

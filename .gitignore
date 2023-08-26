@@ -9,3 +9,4 @@ README
 bookmarks/*
 config.xml
 *.svg
+*.o
