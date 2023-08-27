@@ -33,7 +33,7 @@
 Установите необходимые зависимости:
 ```
 sudo apt install libsfml-dev  
-sudo apt add-apt-repository ppa:texus/tgui  
+sudo add-apt-repository ppa:texus/tgui  
 sudo apt update  
 sudo apt install libtgui-0.9-dev  
 ```
