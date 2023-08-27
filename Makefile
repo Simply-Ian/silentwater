@@ -24,9 +24,11 @@ install: run
 	chmod ugo+x run
 	install -D run -t /usr/local/bin/silentwater
 	chmod ugo+rw /usr/local/bin/silentwater
-	cp -R -t /usr/local/bin/silentwater ./Icons ./themes
+	cp -R -t /usr/local/bin/silentwater ./Icons
+	mkdir /usr/local/bin/silentwater/themes
 	cp -t /usr/local/bin/silentwater startpage.fb2
 	mkdir /usr/local/bin/silentwater/bookmarks
+	chmod ugo+rw /usr/local/bin/silentwater/bookmarks
 
 uninstall:
 	rm -rf /usr/local/bin/silentwater

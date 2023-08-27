@@ -1,5 +1,5 @@
 massif.out.*
-*.fb2
+Books/*.fb2
 run
 log.txt
 decode_test

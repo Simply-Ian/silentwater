@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+<description><title-info><book-title>Стартовая страница</book-title></title-info></description>
+        <body>
+            <section>
+              <title>
+                    <p><strong>Silent Water Reader v1.0</strong></p>
+              </title>
+              <empty-line/>
+              <p>Приветствую Вас, уважаемый читатель. Это приложение предназначено для удобного чтения файлов FB2.</p>
+              <p>Нажмите "Открыть", чтобы выбрать FB2-книгу и насладиться чтением.</p>
+              <p>Кнопка с названием шрифта позволяет менять параметры шрифта (очевидно, не правда ли?).</p>
+              <p>Кнопка "О программе" приведет Вас на веб-страницу проекта.</p>
+              <p> <strong>Автор:</strong> <a l:href="https://github.com/Simply-Ian">Simply Ian</a></p>
+              <p>В проекте использованы следующие библиотеки и ресурсы:</p>
+              <p>  > <a l:href="https://sfml-dev.org">SFML v2.5.1</a> </p>
+              <p>  > <a l:href="https://tgui.eu">TGUI v0.9</a> </p>
+              <p>  > <a l:href="https://pugixml.org">pugixml 1.13</a> </p>
+              <p>  > Иконки:</p>
+              <p><a l:href="https://icons8.com/icon/15821/шеврон-влево-в-круге">Шеврон влево в круге</a> icon by <a l:href="https://icons8.com">Icons8</a></p>
+              <p>      <a l:href="https://icons8.com/icon/14083/opened-folder">Opened Folder</a> icon by <a l:href="https://icons8.com">Icons8</a></p>
+              <p>       <a l:href="https://icons8.com/icon/14093/info">Info</a> icon by <a l:href="https://icons8.com">Icons8</a></p>
+              <p>       <a l:href="https://icons8.com/icon/31425/brake-warning">Warning</a> icon by <a l:href="https://icons8.com">Icons8</a></p>
+            </section>
+        </body>
+   </FictionBook>
