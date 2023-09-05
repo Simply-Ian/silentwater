@@ -67,7 +67,7 @@ class Controller{
     public:
         vector<tocElem> table_of_contents;
         Logger logger{get_abs_path_to_folder() + "/log.txt"};
-        Controller(char* path);
+        Controller(const char* path);
         void set_page_num_and_update_toc(int new_num);
         void add_bookmark();
         void delete_bookmark(tgui::String name);

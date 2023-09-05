@@ -9,7 +9,7 @@
 
 using namespace std::placeholders;
 
-Controller::Controller(char* path){
+Controller::Controller(const char* path){
     pageNumberText.setFont(bookFont);
     pageNumberText.setFillColor(textColor);
     pageNumberText.setCharacterSize(bookFontSize + 2);
@@ -65,7 +65,7 @@ void Controller::openNewFile(){
         view.gui.remove(view.gui.get("fileDial"));
 
         clean_up();
-        load_book(const_cast<char*>(path.c_str()));
+        load_book(path.c_str());
     }
 }
 
@@ -104,7 +104,7 @@ void Controller::apply_font_change(){
     view.gui.remove(view.gui.get("fontDial"));
 
     clean_up();
-    load_book(const_cast<char*>(model.book_path.c_str()));
+    load_book(model.book_path.c_str());
 
     comd->c_to_v.defaultFontName = path;
     comd->c_to_v.lineInterval = lineInt;
